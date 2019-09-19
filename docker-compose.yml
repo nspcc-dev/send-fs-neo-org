@@ -1,0 +1,7 @@
+version: '3.1'
+
+services:
+  app:
+    image: 'nspccdev/neofs-web:1.0'
+    ports:
+      - 3000:80
