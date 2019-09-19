@@ -9,6 +9,7 @@
   background: #04ff00;
   border-radius: 10px;
 }
+
 .plus {
   display: flex;
   font-size: 80px;
@@ -18,6 +19,7 @@
   grid-column: 2/3;
   grid-row: 2/3;
 }
+
 .uploadfilecontainer:hover {
   cursor: pointer;
   background-color: #9ecbec !important;

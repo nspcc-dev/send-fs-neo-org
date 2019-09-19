@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <mat-select class="lifetime-options">
+    <mat-option *ngFor="let lifetime of lifetimes" [value]="lifetime.value">
+      {{lifetime.viewValue}}
+    </mat-option>
+  </mat-select>
+  <button mat-raised-button class="push-button">Upload</button>
+</div>
+
