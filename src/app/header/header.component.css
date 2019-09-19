@@ -1,4 +1,4 @@
-footer {
+header {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -6,9 +6,4 @@ footer {
   padding: 1rem;
   text-align: center;
   font-family: Roboto,"Helvetica Neue",sans-serif;
-}
-
-/* visited link */
-a:visited, a:link {
-  color: #009d00;
 }
