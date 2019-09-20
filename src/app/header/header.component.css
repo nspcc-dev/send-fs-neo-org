@@ -1,9 +1,7 @@
-header {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  text-align: center;
-  font-family: Roboto,"Helvetica Neue",sans-serif;
+.neo-icon {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100px;
+  height: 100px;
+  margin: 2% 2%;
 }

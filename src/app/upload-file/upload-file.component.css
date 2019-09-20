@@ -1,18 +1,22 @@
 .uploadfilecontainer {
+  grid-column: 2/3;
+  grid-row: 2/3;
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 33% 33% 33%;
   opacity: 90%;
-  height: 200px;
-  width: 60%;
-  margin: 10px auto;
-  background: #04ff00;
-  border-radius: 10px;
+  height: 250px;
+  margin-bottom: 2%;
+  border: dashed 6px white;
+  border-radius: 20px;
 }
 
 .plus {
   display: flex;
-  font-size: 80px;
+  color: white;
+  height: 100%;
+  width: 100%;
+  font-size: 70px;
   font-weight: 400;
   align-self: center;
   justify-content: center;
@@ -22,20 +26,19 @@
 
 .uploadfilecontainer:hover {
   cursor: pointer;
-  background-color: #9ecbec !important;
-  opacity: 0.8;
+  background-color: #04ff00 !important;
+  opacity: 0.4;
 }
 
 .files-list {
   display: flex;
   justify-content: space-between;
-  width: 60%;
   margin: 10px auto;
-  background: #04ff00;
-  opacity: 0.3;
-  border-radius: 12px;
+  background: rgba(4, 255, 0, 0.44);
+  border-radius: 10px;
   padding: 5px;
-  color: #221e7b;
+  color: white;
+  font-family: 'Patua One', cursive;
 }
 
 .files-list .delete-file {

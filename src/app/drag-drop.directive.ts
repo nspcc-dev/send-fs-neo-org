@@ -6,29 +6,25 @@ import { Directive, Output, Input, EventEmitter, HostBinding, HostListener } fro
 export class DragDropDirective {
   @Output() onFileDropped = new EventEmitter<any>();
 
-  @HostBinding('style.background-color') private background = '#08ff0d';
-  @HostBinding('style.opacity') private opacity = '0.3';
+  @HostBinding('style.background-color') private background = 'transparent';
 
   // Dragover listener
   @HostListener('dragover', ['$event']) onDragOver(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.background = '#9ecbec';
-    this.opacity = '0.8';
+    this.background = '#08ff0d';
   }
   // Dragleave listener
   @HostListener('dragleave', ['$event']) public onDragLeave(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.background = '#f5fcff';
-    this.opacity = '1';
+    this.background = '#08ff0d';
   }
   // Drop listener
   @HostListener('drop', ['$event']) public ondrop(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.background = '#f5fcff';
-    this.opacity = '1';
+    this.background = '#08ff0d';
     const files = evt.dataTransfer.files;
     if (files.length > 0) {
       this.onFileDropped.emit(files);

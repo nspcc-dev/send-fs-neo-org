@@ -1,7 +1,5 @@
 <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
-  <i class="material-icons plus">
-    add
-  </i>
+  <mat-icon color="white" class="plus">add</mat-icon>
   <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
 </div>
 <div class="files-list" *ngFor="let file of files;let i=index">

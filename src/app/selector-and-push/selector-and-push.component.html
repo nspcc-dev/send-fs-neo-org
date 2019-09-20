@@ -1,9 +1,11 @@
 <div class="wrapper">
-  <mat-select class="lifetime-options">
-    <mat-option *ngFor="let lifetime of lifetimes" [value]="lifetime.value">
-      {{lifetime.viewValue}}
-    </mat-option>
-  </mat-select>
-  <button mat-raised-button class="push-button">Upload</button>
+  <mat-form-field class="lifetime-options" >
+    <mat-label>Select file lifetime</mat-label>
+    <mat-select panelClass="lifetime-panel">
+      <mat-option *ngFor="let lifetime of lifetimes" [value]="lifetime.value">
+        {{lifetime.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button class="push-button">UPLOAD</button>
 </div>
-

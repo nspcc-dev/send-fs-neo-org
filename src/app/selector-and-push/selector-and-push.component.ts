@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 
 export interface Lifetime {
   value: string;
@@ -8,12 +8,14 @@ export interface Lifetime {
 @Component({
   selector: 'select-and-push',
   templateUrl: './selector-and-push.component.html',
-  styleUrls: ['./selector-and-push.component.css']
+  styleUrls: ['./selector-and-push.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class SelectorAndPushComponent {
   lifetimes: Lifetime[] = [
-    {value: '12h', viewValue: '12 hours'},
-    {value: '24h', viewValue: '1 day'},
-    {value: '2d', viewValue: '2 days'}
+    {value: '15', viewValue: '15 minutes'},
+    {value: '60', viewValue: '1 hour'},
+    {value: '180', viewValue: '3 hours'},
+    {value: '360', viewValue: '6 hours'},
   ];
 }

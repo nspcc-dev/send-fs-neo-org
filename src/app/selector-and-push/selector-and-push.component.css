@@ -1,26 +1,39 @@
 .wrapper {
   display: grid;
   grid-template-columns: 60% 10% 30%;
-  margin: 10px 200px 200px;
+}
+
+mat-label {
+  color: white;
+  font-family: 'Patua One', cursive;
+}
+
+.lifetime-panel.mat-select-panel {
+  background: rgba(4, 255, 0, 0.44);
+  border-radius: 10px;
+  font-family: 'Patua One', cursive;
+}
+
+.mat-option-text {
+  font-family: 'Patua One', cursive;
+  color: white;
 }
 
 .lifetime-options {
   grid-column: 1/3;
-  opacity: 0.3;
-  height: 30px;
-  width: 30%;
-  background: #04ff00;
+  /*background: rgba(4, 255, 0, 0.44);*/
   border-radius: 10px;
+  width: 50%;
   align-self: center;
-  justify-content: center;
+  justify-content: left;
 }
 
 .push-button {
   grid-column: 3/3;
-  background: #04ff00;
-  opacity: 0.3;
+  background: rgba(4, 255, 0, 0.44);
   border-radius: 10px;
-  margin: 10px auto;
   align-self: center;
   justify-content: right;
+  color: white;
+  font-family: 'Patua One', cursive;
 }
