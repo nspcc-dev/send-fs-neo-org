@@ -1,6 +1,44 @@
+.wrapper {
+  display: grid;
+  grid-template-rows: 30% 70%;
+  grid-template-columns: 20% 60% 20%;
+}
+
 .text {
+  grid-row: 1;
+  grid-column: 1/4;
+  align-self: center;
   color: white;
   font-size: 36px;
   font-family: 'Patua One', cursive;
-  margin-bottom: 2%;
+  margin: auto;
+}
+
+.loading-screen-wrapper ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #90d00a !important;
+}
+
+.loading-screen-wrapper {
+  grid-row: 3;
+  grid-column: 2;
+  margin: auto;
+}
+.loading-screen-wrapper.mat-spinner {
+  justify-content: center;
+  align-items: center;
+}
+
+.download-button {
+  grid-row: 3;
+  grid-column: 2;
+  margin: auto;
+}
+
+.push-button {
+  background: rgba(4, 255, 0, 0.44);
+  border-radius: 10px;
+  align-self: center;
+  justify-content: right;
+  color: white;
+  font-family: 'Patua One', cursive;
 }

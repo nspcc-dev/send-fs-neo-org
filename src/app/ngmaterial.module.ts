@@ -23,11 +23,13 @@ import {MatSelectModule} from "@angular/material/select";
   imports: [MatButtonModule, MatToolbarModule, MatTableModule,
     MatCardModule, MatPaginatorModule, MatSortModule,
     MatProgressSpinnerModule, BrowserAnimationsModule, CommonModule,
-    MatFormFieldModule, MatInputModule, FormsModule, MatTabsModule, MatChipsModule, MatIconModule, MatListModule, MatSelectModule],
+    MatFormFieldModule, MatInputModule, FormsModule, MatTabsModule, MatChipsModule, MatIconModule, MatListModule,
+    MatSelectModule, MatProgressSpinnerModule],
   exports: [MatButtonModule, MatToolbarModule, MatTableModule,
     MatCardModule, MatPaginatorModule, MatSortModule,
     MatProgressSpinnerModule, BrowserAnimationsModule, CommonModule,
-    MatFormFieldModule, MatInputModule, FormsModule, MatTabsModule, MatChipsModule, MatIconModule, MatListModule, MatSelectModule]
+    MatFormFieldModule, MatInputModule, FormsModule, MatTabsModule, MatChipsModule, MatIconModule, MatListModule,
+    MatSelectModule, MatProgressSpinnerModule]
 })
 export class MaterialAppModule {
 }

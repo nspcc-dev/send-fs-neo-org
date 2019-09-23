@@ -17,6 +17,7 @@ import {ErrorPageComponent} from "./error-page/error-page.component";
 import {DownloadComponent} from "./download/download.component";
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,7 @@ import {DownloadComponent} from "./download/download.component";
     UploadComponent,
     ErrorPageComponent,
     SelectorAndPushComponent,
-    DownloadComponent
+    DownloadComponent,
   ],
   imports: [
     BrowserModule,

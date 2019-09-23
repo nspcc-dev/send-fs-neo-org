@@ -1,6 +1,14 @@
-  <div class="text">
+<div class="wrapper">
+  <div class="text" *ngIf="loading">
+  Loading...
+  </div>
+  <div class="text" *ngIf="!loading">
     Download your files
   </div>
   <div class="loading-screen-wrapper" *ngIf="loading">
-
+    <mat-spinner></mat-spinner>
   </div>
+  <div class="download-button" *ngIf="!loading">
+    <button mat-raised-button class="push-button">DOWNLOAD</button>
+  </div>
+</div>
