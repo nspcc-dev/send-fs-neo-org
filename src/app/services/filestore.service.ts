@@ -1,18 +1,31 @@
 import {Injectable} from "@angular/core";
+import {HttpClient} from '@angular/common/http';
+import {environment} from "../../environments/environment";
+import {Observable} from "rxjs";
 
-const host = "https://localhost:9091";
 
 @Injectable()
 export class FileStoreService {
 
-  constructor() {
+  baseUrl = environment.baseUrl;
+
+  constructor(private httpClient: HttpClient) {
   }
 
+  // Does POST with file and lifetime.
+  putFile(file: File, lifetime: string): Observable<Object> {
+    //todo: figure out where to put lifetime
+    let postUrl = this.baseUrl + "/api/putObject";
+    let data = new FormData();
+    data.append('file', file);
 
-  putFile() {
-    // grpc.client()
+    return this.httpClient.post(postUrl, data);
   }
 
-  getFile() {
+  // Does GET for a file by provided id.
+  getFile(id: string): Observable<Object>{
+    let getUrl = this.baseUrl + "/api/getObject";
+
+    return this.httpClient.get(getUrl + "/" + id);
   }
 }

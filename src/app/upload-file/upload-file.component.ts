@@ -12,8 +12,12 @@ export class UploadFileComponent  {
   uploadFile(event) {
     for (let index = 0; index < event.length; index++) {
       const element = event[index];
-      this.files.push(element.name)
-    }  
+      this.files.push(element.name);
+      if (element["size"] / 1000000 > 50) {
+        //todo: add validation and in this case don't allow to store
+        console.log("WARNING FILE OVER 50 MB!")
+      }
+    }
   }
   deleteAttachment(index) {
     this.files.splice(index, 1)

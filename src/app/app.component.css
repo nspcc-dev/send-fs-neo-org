@@ -28,10 +28,3 @@ html, body {
   grid-row: 3;
   grid-column: 3/8;
 }
-
-.text {
-  color: white;
-  font-size: 36px;
-  font-family: 'Patua One', cursive;
-  margin-bottom: 2%;
-}
