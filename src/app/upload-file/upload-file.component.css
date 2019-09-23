@@ -26,7 +26,7 @@
 
 .uploadfilecontainer:hover {
   cursor: pointer;
-  background-color: #04ff00 !important;
+  background: linear-gradient(to top, #04ff00 1%, #048200 15% ,#28343b) !important;
   opacity: 0.4;
 }
 
@@ -48,4 +48,34 @@
 }
 .files-list .delete-file img{
   width:30px;
+}
+
+::ng-deep .mat-select-value-text {
+  color: white;
+  font-family: 'Patua One', cursive;
+}
+
+/*** To change the arrow color ****/
+::ng-deep .mat-select-arrow {
+  color: #04ff00;
+  opacity: 0.4;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #04ff00 !important;
+  opacity: 0.4;
+}
+::ng-deep .mat-form-field-underline .ng-tns-c7-0 .ng-star-inserted {
+  background-color: #04ff00 !important;
+  opacity: 0.4;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: #04ff00 !important;
+  opacity: 0.4;
+}
+
+::ng-deep .mat-select-arrow {
+  color: #04ff00 !important;
+  opacity: 0.4;
 }
