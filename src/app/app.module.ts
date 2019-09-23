@@ -15,6 +15,8 @@ import {FileStoreService} from "./services/filestore.service";
 import {UploadComponent} from "./upload/upload.component";
 import {ErrorPageComponent} from "./error-page/error-page.component";
 import {DownloadComponent} from "./download/download.component";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -34,7 +36,9 @@ import {DownloadComponent} from "./download/download.component";
     BrowserModule,
     MaterialAppModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTooltipModule,
+    ReactiveFormsModule
   ],
   providers: [FileStoreService],
   bootstrap: [AppComponent]

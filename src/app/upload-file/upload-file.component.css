@@ -6,7 +6,7 @@
   grid-template-rows: 33% 33% 33%;
   opacity: 90%;
   height: 250px;
-  margin-bottom: 2%;
+  margin-bottom: 5%;
   border: dashed 6px white;
   border-radius: 20px;
 }
@@ -24,6 +24,24 @@
   grid-row: 2/3;
 }
 
+.delete-icon {
+  font-size: 40px;
+  height: 100%;
+  width: 100%;
+  align-self: center;
+  justify-content: center;
+  color: white;
+}
+
+.delete-icon:hover {
+  font-size: 40px;
+  height: 100%;
+  width: 100%;
+  align-self: center;
+  justify-content: center;
+  color: #ff0002;
+}
+
 .uploadfilecontainer:hover {
   cursor: pointer;
   background: linear-gradient(to top, #04ff00 1%, #048200 15% ,#28343b) !important;
@@ -33,7 +51,8 @@
 .files-list {
   display: flex;
   justify-content: space-between;
-  margin: 10px auto;
+  margin-top: 10px;
+  margin-bottom: 2%;
   background: rgba(4, 255, 0, 0.44);
   border-radius: 10px;
   padding: 5px;

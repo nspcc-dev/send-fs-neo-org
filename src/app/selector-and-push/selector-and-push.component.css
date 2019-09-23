@@ -21,7 +21,6 @@ mat-label {
 
 .lifetime-options {
   grid-column: 1/3;
-  /*background: rgba(4, 255, 0, 0.44);*/
   border-radius: 10px;
   width: 50%;
   align-self: center;
@@ -36,4 +35,12 @@ mat-label {
   justify-content: right;
   color: white;
   font-family: 'Patua One', cursive;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label {
+   color: red;
+ }
+
+.mat-focused .mat-form-field-required-marker {
+  color: red;
 }
