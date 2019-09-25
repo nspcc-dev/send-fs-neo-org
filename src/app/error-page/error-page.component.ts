@@ -15,7 +15,6 @@ export class ErrorPageComponent implements OnInit {
 
   ngOnInit() {
     if (history.state["data"] != null) {
-      console.log(history.state["data"]);
       this.errorDetails = `Details: [${history.state.data}]`;
     }
     this.route.data

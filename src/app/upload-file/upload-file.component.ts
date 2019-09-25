@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {UploaderService} from "../services/uploader.service";
 import {FileStoreService} from "../services/filestore.service";
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-upload-file',
@@ -15,20 +16,23 @@ export class UploadFileComponent {
   constructor(
     private uploaderService: UploaderService,
     private fileStoreService: FileStoreService,
-    private router: Router) {
+    private router: Router,
+    private notification: MatSnackBar) {
   }
 
   uploadFile(event) {
     for (let index = 0; index < event.length; index++) {
       const element = event[index];
-      this.files.push(element);
-      if (element["size"] / 1000000 > 50) {
-        //todo: add validation and in this case don't allow to store
-        console.log("WARNING FILE OVER 50 MB!")
+      if ((element["size"] / 1000000) > 50) {
+        console.log("WARNING FILE OVER 50 MB!");
+        this.notification.open("Selected file is over 50Mb. We don't support such big files.", "OK", {duration: 5000})
+      } else {
+        this.files.push(element);
       }
     }
     this.fileStoreService.updateStoredFiles(this.files);
   }
+
   deleteAttachment(index) {
     this.files.splice(index, 1);
     this.fileStoreService.updateStoredFiles(this.files);

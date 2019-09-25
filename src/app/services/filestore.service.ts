@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {UploaderService} from "./uploader.service";
-import get = Reflect.get;
-import {ResponseContentType} from "@angular/http";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class FileStoreService {
@@ -16,7 +16,11 @@ export class FileStoreService {
   //storing response result for uploaded files.
   uploadResult: any[] = [];
 
-  constructor(private httpClient: HttpClient, private uploaderService: UploaderService) {
+  constructor(
+    private httpClient: HttpClient,
+    private uploaderService: UploaderService,
+    private notification: MatSnackBar,
+    private router: Router) {
   }
 
   // updates all files which stored in cache to be uploaded to the server.
@@ -34,11 +38,11 @@ export class FileStoreService {
     this.files.forEach(file => {
       const data = new FormData();
       data.append('file', file);
-      this.doPost(postUrl, data);
+      this.doPost(postUrl, data, file.name);
     });
   }
 
-  private doPost(postUrl: string, data: any) {
+  private doPost(postUrl: string, data: any, filename: string) {
     this.httpClient.post(postUrl, data).subscribe(
       (res) => {
         console.log(res);
@@ -47,8 +51,13 @@ export class FileStoreService {
         this.uploaderService.setLoaded(true);
       },
       (err) => {
-        //todo: add correct error handling visible for user.
+        let snack = this.notification.open(`Something went wrong with uploading file: ${filename}`, "DETAILS", {duration: 5000});
+        snack.onAction().subscribe(() => {
+          this.router.navigateByUrl("/not-found", {state: {data: `Something went wrong with uploading file: ${filename}. Error = ${err.message}`}})
+        });
+
         console.log(err);
+        this.uploaderService.setLoaded(true);
       }
     );
   }

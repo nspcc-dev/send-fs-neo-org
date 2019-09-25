@@ -19,18 +19,19 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatSelectModule} from "@angular/material/select";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   imports: [MatButtonModule, MatToolbarModule, MatTableModule,
     MatCardModule, MatPaginatorModule, MatSortModule,
     MatProgressSpinnerModule, BrowserAnimationsModule, CommonModule,
     MatFormFieldModule, MatInputModule, FormsModule, MatTabsModule, MatChipsModule, MatIconModule, MatListModule,
-    MatSelectModule, MatProgressSpinnerModule, MatProgressBarModule],
+    MatSelectModule, MatProgressSpinnerModule, MatProgressBarModule, MatSnackBarModule],
   exports: [MatButtonModule, MatToolbarModule, MatTableModule,
     MatCardModule, MatPaginatorModule, MatSortModule,
     MatProgressSpinnerModule, BrowserAnimationsModule, CommonModule,
     MatFormFieldModule, MatInputModule, FormsModule, MatTabsModule, MatChipsModule, MatIconModule, MatListModule,
-    MatSelectModule, MatProgressSpinnerModule, MatProgressBarModule]
+    MatSelectModule, MatProgressSpinnerModule, MatProgressBarModule, MatSnackBarModule]
 })
 export class MaterialAppModule {
 }
