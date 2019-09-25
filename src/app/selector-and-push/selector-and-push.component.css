@@ -44,3 +44,19 @@ mat-label {
 .mat-focused .mat-form-field-required-marker {
   color: red;
 }
+
+.mat-progress-bar-fill::after {
+  background: rgb(24, 139, 35);
+}
+
+.mat-progress-bar-buffer {
+  background-color: #20303f;
+}
+
+.progress-bar {
+  grid-column: 1/4;
+  flex: auto;
+  align-self: center;
+  justify-content: center;
+  margin-bottom: 2%;
+}

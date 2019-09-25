@@ -17,6 +17,7 @@ import {ErrorPageComponent} from "./error-page/error-page.component";
 import {DownloadComponent} from "./download/download.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {ReactiveFormsModule} from "@angular/forms";
+import {UploaderService} from "./services/uploader.service";
 
 
 
@@ -38,9 +39,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule,
     HttpClientModule,
     MatTooltipModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [FileStoreService],
+  providers: [FileStoreService, UploaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

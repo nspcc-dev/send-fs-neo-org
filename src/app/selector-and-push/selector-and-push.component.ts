@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FileStoreService} from "../services/filestore.service";
+import {UploaderService} from "../services/uploader.service";
 
 export interface Lifetime {
   value: string;
@@ -15,7 +16,6 @@ export interface Lifetime {
 export class SelectorAndPushComponent implements OnInit {
 
   public selectedLifetime: Lifetime;
-  public clickedUpload = false;
   public lifetimes: Lifetime[];
 
   ngOnInit(): void {
@@ -28,11 +28,11 @@ export class SelectorAndPushComponent implements OnInit {
     this.selectedLifetime = this.lifetimes[0];
   }
 
-  constructor(private filestoreService: FileStoreService) {
+  constructor(private fileStoreService: FileStoreService, private uploaderService: UploaderService) {
   }
 
   onUpload() {
-    this.clickedUpload = true;
-    this.filestoreService.putFile(this.selectedLifetime.value)
+    this.uploaderService.setLoading(true);
+    this.fileStoreService.putFile(this.selectedLifetime.value)
   }
 }

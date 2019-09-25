@@ -1,17 +1,22 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
-import {Lifetime} from "../selector-and-push/selector-and-push.component";
-
+import {UploaderService} from "./uploader.service";
+import get = Reflect.get;
+import {ResponseContentType} from "@angular/http";
 
 @Injectable()
 export class FileStoreService {
 
   baseUrl = environment.baseUrl;
-  files = [];
+  //storing files to be uploaded.
+  files: File[] = [];
 
-  constructor(private httpClient: HttpClient) {
+  //storing response result for uploaded files.
+  uploadResult: any[] = [];
+
+  constructor(private httpClient: HttpClient, private uploaderService: UploaderService) {
   }
 
   // updates all files which stored in cache to be uploaded to the server.
@@ -19,21 +24,51 @@ export class FileStoreService {
     this.files = files;
   }
 
-  // Does POST with file and lifetime.
-  putFile(lifetime: string): Observable<Object> {
-    console.log("sending file with lifetime = " + lifetime);
-    //todo: figure out where to put lifetime
-    let postUrl = this.baseUrl + "/api/putObject";
-    let data = new FormData();
-    data.append('file', this.files[0]);
+  public getUploadResult(): any[] {
+    return this.uploadResult;
+  }
 
-    return this.httpClient.post(postUrl, data);
+  // Does POST with file and lifetime.
+  public putFile(lifetime: string): void {
+    let postUrl = `${this.baseUrl}/api/put/${lifetime}`;
+    this.files.forEach(file => {
+      const data = new FormData();
+      data.append('file', file);
+      this.doPost(postUrl, data);
+    });
+  }
+
+  private doPost(postUrl: string, data: any) {
+    this.httpClient.post(postUrl, data).subscribe(
+      (res) => {
+        console.log(res);
+        console.log(this.uploadResult);
+        this.uploadResult.push(res);
+        this.uploaderService.setLoaded(true);
+      },
+      (err) => {
+        //todo: add correct error handling visible for user.
+        console.log(err);
+      }
+    );
   }
 
   // Does GET for a file by provided id.
-  getFile(id: string): Observable<Object>{
-    let getUrl = this.baseUrl + "/api/getObject";
+  getFile(id: string): Observable<any> {
+    let getUrl = `${this.baseUrl}/api/get/${id}`;
+    const HTTPOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'
+      }),
+      'responseType': 'blob' as 'json'
+    };
 
-    return this.httpClient.get(getUrl + "/" + id);
+    return this.httpClient.get(getUrl, HTTPOptions);
+  }
+
+  // Does CHECK for a file by provided id. Expected answer is 200 HttpCode or 400.
+  public checkFile(id: string): Observable<Object> {
+    let checkUrl = `${this.baseUrl}/api/check/${id}`;
+    return this.httpClient.get(checkUrl);
   }
 }
