@@ -28,7 +28,7 @@ export class SelectorAndPushComponent implements OnInit {
     this.selectedLifetime = this.lifetimes[0];
   }
 
-  constructor(private fileStoreService: FileStoreService, private uploaderService: UploaderService) {
+  constructor(private fileStoreService: FileStoreService, public uploaderService: UploaderService) {
   }
 
   onUpload() {

@@ -14,8 +14,8 @@ export class UploadFileComponent {
   files: File[] = [];
 
   constructor(
-    private uploaderService: UploaderService,
-    private fileStoreService: FileStoreService,
+    public uploaderService: UploaderService,
+    public fileStoreService: FileStoreService,
     private router: Router,
     private notification: MatSnackBar) {
   }
