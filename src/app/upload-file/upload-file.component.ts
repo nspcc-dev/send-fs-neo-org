@@ -41,4 +41,8 @@ export class UploadFileComponent {
   downloadFile(upload: any) {
     this.router.navigateByUrl(`/load/${upload.oid}`);
   }
+
+  getFileUrl(id: string) {
+    return `${window.location.origin}/load/${id}`;
+  }
 }
