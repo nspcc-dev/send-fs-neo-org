@@ -2,5 +2,11 @@
   color: white;
   font-size: 36px;
   font-family: 'Patua One', cursive;
+}
+
+.text-small {
+  color: white;
+  font-size: 20px;
+  font-family: 'Patua One', cursive;
   margin-bottom: 5%;
 }

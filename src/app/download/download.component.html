@@ -14,5 +14,12 @@
   <div class="text-link">
     Download via direct link:
   </div>
-  <a href="{{ getFileUrl() }}" class="url">{{getFileUrl()}}</a>
+  <a href="{{ getFileUrl() }}" class="url">{{ getFileUrl() }}</a>
+  <div class="text-link">
+    Download via <a href="https://github.com/nspcc-dev/neofs-local/blob/master/neofs-local/HOWTO.md#lets-run-neofs-cli">NeoFS
+    client</a> console. Use Container and Object ids:
+  </div>
+  <div class="text-link">
+    CID: {{ getFileCid() }} | OID: {{ getFileOid() }}
+  </div>
 </div>

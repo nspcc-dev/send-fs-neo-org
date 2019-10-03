@@ -4,10 +4,12 @@ import {Routes, RouterModule} from '@angular/router';
 import {UploadComponent} from './upload/upload.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {DownloadComponent} from "./download/download.component";
+import {TosComponent} from "./tos/tos.component";
 
 const appRoutes: Routes = [
   {path: '', component: UploadComponent},
   {path: 'load/:id', component: DownloadComponent},
+  {path: 'tos', component: TosComponent},
   {
     path: 'not-found',
     component: ErrorPageComponent,

@@ -1,10 +1,22 @@
-.footer-content {
+.footer-copyright {
   grid-column: 5;
+  grid-row: 2;
   text-align: center;
-  margin-top: 5%;
-  height: 100%;
+  margin-top: 2%;
+  height: 10%;
   color: white;
   font-family: 'Patua One', cursive;
+}
+
+.social-media {
+  grid-column: 5;
+  text-align: center;
+}
+
+.social-icon {
+  margin: 1%;
+  height: 30px;
+  filter: invert(1)
 }
 
 /* visited link */

@@ -18,6 +18,7 @@ import {DownloadComponent} from "./download/download.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {ReactiveFormsModule} from "@angular/forms";
 import {UploaderService} from "./services/uploader.service";
+import {TosComponent} from "./tos/tos.component";
 
 
 
@@ -32,6 +33,7 @@ import {UploaderService} from "./services/uploader.service";
     ErrorPageComponent,
     SelectorAndPushComponent,
     DownloadComponent,
+    TosComponent,
   ],
   imports: [
     BrowserModule,

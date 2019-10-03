@@ -1,7 +1,55 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+}
+
 .neo-icon {
-  grid-column: 1;
-  grid-row: 1;
+  display: grid;
+  grid-column: 1/2;
   width: 100px;
   height: 100px;
-  margin: 2% 2%;
+  margin-left: 1%;
+  align-content: center;
 }
+
+.blog {
+  grid-column: 4;
+  display: grid;
+  color: white;
+  font-size: 44px;
+  font-family: 'Patua One', cursive;
+  align-content: center;
+}
+
+.coc {
+  grid-column: 5;
+  display: grid;
+  color: white;
+  font-size: 44px;
+  font-family: 'Patua One', cursive;
+  align-content: center;
+}
+
+.blog:hover {
+  color: #4e7138;
+}
+
+.coc:hover {
+  color: #4e7138;
+}
+
+button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  text-align: left;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.line {
+  border-bottom: 2px solid #4e7138;
+  grid-row: 2;
+  grid-column: 1/8;
+}
+
