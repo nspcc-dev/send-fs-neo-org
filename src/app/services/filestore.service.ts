@@ -32,6 +32,10 @@ export class FileStoreService {
     return this.uploadResult;
   }
 
+  public filesAdded(): boolean {
+    return this.files.length > 0;
+  }
+
   // Does POST with file and lifetime.
   public putFile(lifetime: string): void {
     let postUrl = `${this.baseUrl}/api/put/${lifetime}`;
@@ -63,7 +67,7 @@ export class FileStoreService {
   }
 
   // Does GET for a file by provided id.
-  getFile(id: string): Observable<any> {
+  public getFile(id: string): Observable<any> {
     let getUrl = `${this.baseUrl}/api/get/${id}`;
     const HTTPOptions = {
       headers: new HttpHeaders({

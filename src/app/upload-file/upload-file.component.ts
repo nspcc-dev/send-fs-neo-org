@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UploaderService} from "../services/uploader.service";
 import {FileStoreService} from "../services/filestore.service";
 import {Router} from "@angular/router";
@@ -9,7 +9,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './upload-file.component.html',
   styleUrls: ['./upload-file.component.css']
 })
-export class UploadFileComponent {
+export class UploadFileComponent implements OnInit, OnDestroy {
 
   files: File[] = [];
 
@@ -44,5 +44,17 @@ export class UploadFileComponent {
 
   getFileUrl(id: string) {
     return `${window.location.origin}/load/${id}`;
+  }
+
+  ngOnDestroy(): void {
+    this.fileStoreService.updateStoredFiles([]);
+    this.uploaderService.setLoading(false);
+    this.uploaderService.setLoaded(false);
+  }
+
+  ngOnInit(): void {
+    this.fileStoreService.updateStoredFiles([]);
+    this.uploaderService.setLoading(false);
+    this.uploaderService.setLoaded(false);
   }
 }

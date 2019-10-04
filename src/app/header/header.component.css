@@ -10,6 +10,7 @@
   height: 100px;
   margin-left: 1%;
   align-content: center;
+  cursor: pointer;
 }
 
 .blog {
@@ -19,6 +20,7 @@
   font-size: 44px;
   font-family: 'Patua One', cursive;
   align-content: center;
+  cursor: pointer;
 }
 
 .coc {
@@ -28,6 +30,7 @@
   font-size: 44px;
   font-family: 'Patua One', cursive;
   align-content: center;
+  cursor: pointer;
 }
 
 .blog:hover {
