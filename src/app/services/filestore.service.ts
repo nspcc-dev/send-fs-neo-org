@@ -16,6 +16,10 @@ export class FileStoreService {
   //storing response result for uploaded files.
   uploadResult: any[] = [];
 
+  cid: any;
+
+
+
   constructor(
     private httpClient: HttpClient,
     private uploaderService: UploaderService,
@@ -26,6 +30,24 @@ export class FileStoreService {
   // updates all files which stored in cache to be uploaded to the server.
   updateStoredFiles(files: File[]) {
     this.files = files;
+  }
+
+  public getCid(): any {
+    return this.cid
+  }
+
+  public setCid(): any {
+    let cidUrl = `${this.baseUrl}/api/container`;
+    
+    this.httpClient.get(cidUrl).subscribe(
+      (res) => {
+        console.log(res);
+        this.cid = res
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   public getUploadResult(): any[] {

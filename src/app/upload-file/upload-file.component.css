@@ -37,6 +37,16 @@
   grid-row: 3;
 }
 
+
+.push-button {
+  background: rgba(4, 255, 0, 0.44);
+  border-radius: 10px;
+  align-self: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Patua One', cursive;
+}
+
 .dragDrop-text {
   font-family: 'Patua One', cursive;
   font-size: 20px;

@@ -12,11 +12,13 @@
     <button mat-raised-button class="push-button" (click)="download()">DOWNLOAD</button>
   </div>
   <div class="text-link">
-    Download via direct link: 
+    Download via direct link from NeoFS: 
     <a href="{{ getFileUrl() }}" class="url">{{ getFileUrl() }}</a>
 
     <div style="padding-top: 2vw;"></div>
+    Download via HTTP-gate: {{ getFileCid() }}/{{ getFileId() }}
 
+    <div style="padding-top: 2vw;"></div>
 
     Download via <a href="https://github.com/nspcc-dev/neofs-local/blob/master/neofs-local/HOWTO.md#lets-run-neofs-cli">NeoFS client</a> console. 
     
@@ -25,6 +27,7 @@
     Use Container and Object ids:
   
     <br>
-    CID: {{ getFileCid() }} | OID: {{ getFileOid() }}
+    CID: {{ getFileCid() }} <br>
+    OID: {{ getFileId() }}
   </div>
 </div>

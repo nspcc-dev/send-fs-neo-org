@@ -26,6 +26,8 @@ export class SelectorAndPushComponent implements OnInit {
       {value: '360', viewValue: '6 hours'},
     ];
     this.selectedLifetime = this.lifetimes[0];
+
+    this.fileStoreService.setCid()
   }
 
   constructor(public fileStoreService: FileStoreService, public uploaderService: UploaderService) {
