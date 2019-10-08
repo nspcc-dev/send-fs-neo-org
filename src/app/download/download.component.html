@@ -12,14 +12,19 @@
     <button mat-raised-button class="push-button" (click)="download()">DOWNLOAD</button>
   </div>
   <div class="text-link">
-    Download via direct link:
-  </div>
-  <a href="{{ getFileUrl() }}" class="url">{{ getFileUrl() }}</a>
-  <div class="text-link">
-    Download via <a href="https://github.com/nspcc-dev/neofs-local/blob/master/neofs-local/HOWTO.md#lets-run-neofs-cli">NeoFS
-    client</a> console. Use Container and Object ids:
-  </div>
-  <div class="text-link">
+    Download via direct link: 
+    <a href="{{ getFileUrl() }}" class="url">{{ getFileUrl() }}</a>
+
+    <div style="padding-top: 2vw;"></div>
+
+
+    Download via <a href="https://github.com/nspcc-dev/neofs-local/blob/master/neofs-local/HOWTO.md#lets-run-neofs-cli">NeoFS client</a> console. 
+    
+    <br>
+    <br>
+    Use Container and Object ids:
+  
+    <br>
     CID: {{ getFileCid() }} | OID: {{ getFileOid() }}
   </div>
 </div>

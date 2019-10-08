@@ -4,14 +4,14 @@
     <div class="dragDrop-text">
       Drag & Drop files or
     </div>
-    <button class="click-button" mat-raised-button>CLICK</button>
+    <button class="click-button" mat-raised-button >CLICK</button>
     <div class="send-text">
       to send up to 50Mb
     </div>
   </div>
   <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
 </div>
-<div *ngIf="!uploaderService.isLoaded()">
+<div *ngIf="!uploaderService.isLoaded()" style="font-size: 1vw">
   <div class="files-list" *ngFor="let file of files;let i=index">
     <p>{{ file.name }}</p>
     <button class="delete-file" (click)="deleteAttachment(i)" *ngIf="!uploaderService.isLoading()">

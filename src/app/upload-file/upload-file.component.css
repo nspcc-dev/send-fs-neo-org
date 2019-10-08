@@ -40,6 +40,7 @@
 .dragDrop-text {
   font-family: 'Patua One', cursive;
   font-size: 20px;
+  font-size: 1vw;
   align-self: center;
   justify-content: center;
   text-align: center;
@@ -49,6 +50,7 @@
 .send-text {
   font-family: 'Patua One', cursive;
   font-size: 20px;
+  font-size: 1vw;
   align-self: center;
   justify-content: center;
   text-align: center;
@@ -68,6 +70,7 @@
 
 .delete-icon {
   font-size: 40px;
+  font-size: 2vw;
   height: 100%;
   width: 100%;
   align-self: center;
@@ -77,6 +80,7 @@
 
 .delete-icon:hover {
   font-size: 40px;
+  font-size: 2vw;
   height: 100%;
   width: 100%;
   align-self: center;
@@ -120,6 +124,7 @@
 
 .load-icon {
   font-size: 40px;
+  font-size: 2vw;
   height: 100%;
   width: 100%;
   align-self: center;
@@ -129,6 +134,7 @@
 
 .load-icon:hover {
   font-size: 40px;
+  font-size: 2vw;
   height: 100%;
   width: 100%;
   align-self: center;

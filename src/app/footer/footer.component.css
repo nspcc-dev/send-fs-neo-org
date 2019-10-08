@@ -2,10 +2,10 @@
   grid-column: 5;
   grid-row: 2;
   text-align: center;
-  margin-top: 2%;
-  height: 10%;
+  margin-bottom: 20px;
   color: white;
   font-family: 'Patua One', cursive;
+  font-size: 1vw;
 }
 
 .social-media {

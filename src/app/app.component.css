@@ -13,7 +13,7 @@ html, body {
 }
 .wrapper {
   display: grid;
-  grid-template-rows: 15% 70% 15%;
+  grid-template-rows: 15% 70% 5% 9% 1%;
   grid-template-columns: 10% 10% 10% 10% 20% 10% 10% 10% 10%;
 }
 
@@ -28,8 +28,9 @@ html, body {
 }
 
 .footer {
-  grid-row: 3;
+  grid-row: 4;
   grid-column: 3/8;
+  
 }
 
 @keyframes fadeInAnimation {

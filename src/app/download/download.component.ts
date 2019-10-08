@@ -28,11 +28,11 @@ export class DownloadComponent implements OnInit, OnDestroy {
           if (result === "OK") {
             this.loading = false;
           } else {
-            this.router.navigateByUrl("/not-found", {state: {data: `File with id = [${this.fileID}] wasn't found.`}});
+            //this.router.navigateByUrl("/not-found", {state: {data: `File with id = [${this.fileID}] wasn't found.`}});
           }
         },
         errorResponse => {
-          this.router.navigateByUrl("/not-found", {state: {data: errorResponse["error"]["message"]}});
+          //this.router.navigateByUrl("/not-found", {state: {data: errorResponse["error"]["message"]}});
         }
       )
     })
