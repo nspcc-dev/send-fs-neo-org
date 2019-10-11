@@ -14,7 +14,7 @@ html, body {
 .wrapper {
   display: grid;
   grid-template-rows: 15% 70% 5% 9% 1%;
-  grid-template-columns: 10% 10% 10% 10% 20% 10% 10% 10% 10%;
+  grid-template-columns: 5% 10% 10% 10% 30% 10% 10% 10% 5%;
 }
 
 .header {

@@ -1,6 +1,6 @@
 HUB_IMAGE=nspccdev/neofs
-VERSION=0.0.4
-PREFIX=-pre
+VERSION=0.0.9
+PREFIX=
 
 B=\033[0;1m
 G=\033[0;92m

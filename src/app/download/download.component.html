@@ -2,32 +2,35 @@
   <div class="text" *ngIf="loading">
     Loading...
   </div>
-  <div class="text" *ngIf="!loading">
-    Download your files
-  </div>
+
   <div class="loading-screen-wrapper" *ngIf="loading">
     <mat-spinner></mat-spinner>
   </div>
-  <div class="download-button" *ngIf="!loading">
-    <button mat-raised-button class="push-button" (click)="download()">DOWNLOAD</button>
-  </div>
-  <div class="text-link">
-    Download via direct link from NeoFS: 
-    <a href="{{ getFileUrl() }}" class="url">{{ getFileUrl() }}</a>
+</div>
+
+  <div class="text-link" *ngIf="!loading" style="width:100%; word-wrap: break-word;">
+     
+      <div style="font-size:calc(8px + 1.5vw);">Download your files via HTTP-gate</div>
+      <div style="padding-top: 2vw;"></div>
+      <button mat-raised-button class="push-button" (click)="download()">DOWNLOAD</button>
+
+      
 
     <div style="padding-top: 2vw;"></div>
-    Download via HTTP-gate: {{ getFileCid() }}/{{ getFileId() }}
+    Link: <br>
+    <div>
+        <a href="https://send.fs.neo.org/{{ getFileCid() }}/{{ getFileId() }}">https://send.fs.neo.org/{{ getFileCid() }}/{{ getFileId() }}</a>
+    </div>
 
-    <div style="padding-top: 2vw;"></div>
+    <div style="padding-top: 4vw;"></div>
 
-    Download via <a href="https://github.com/nspcc-dev/neofs-local/blob/master/neofs-local/HOWTO.md#lets-run-neofs-cli">NeoFS client</a> console. 
+    <div style="font-size:calc(8px + 1.5vw);">Download via <a href="https://github.com/nspcc-dev/neofs-local/blob/master/neofs-local/HOWTO.md#lets-run-neofs-cli">NeoFS client</a> console.</div>
     
-    <br>
-    <br>
-    Use Container and Object ids:
+    <div style="padding-top: 2vw;"></div>
+    Use Container and Object Ids
   
-    <br>
-    CID: {{ getFileCid() }} <br>
-    OID: {{ getFileId() }}
-  </div>
+    <div style="padding-top: 2vw;"></div>
+    Container ID: {{ getFileCid() }} <br>
+    Object ID: {{ getFileId() }}
+  
 </div>

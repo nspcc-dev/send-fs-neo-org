@@ -42,7 +42,7 @@ export class FileStoreService {
     this.httpClient.get(cidUrl).subscribe(
       (res) => {
         console.log(res);
-        this.cid = res
+        this.cid = res["cid"]
       },
       (err) => {
         console.log(err);

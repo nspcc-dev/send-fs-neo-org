@@ -20,10 +20,9 @@ export class SelectorAndPushComponent implements OnInit {
 
   ngOnInit(): void {
     this.lifetimes = [
-      {value: '15', viewValue: '15 minutes'},
-      {value: '60', viewValue: '1 hour'},
-      {value: '180', viewValue: '3 hours'},
       {value: '360', viewValue: '6 hours'},
+      {value: '720', viewValue: '12 hours'},
+      {value: '1440', viewValue: '24 hours'},
     ];
     this.selectedLifetime = this.lifetimes[0];
 

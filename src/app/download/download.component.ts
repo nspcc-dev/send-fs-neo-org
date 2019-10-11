@@ -21,6 +21,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.fileStoreService.setCid()
+    
     this.routeSub = this.route.params.subscribe(params => {
       this.fileID = params['id'];
       this.fileStoreService.checkFile(this.fileID).subscribe(
@@ -46,7 +48,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.fileStoreService.getFile(this.fileID).subscribe(resp => {
       this.file = resp;
       let downloadLink = document.createElement('a');
-      downloadLink.href = window.URL.createObjectURL(this.file);
+      downloadLink.href = "https://send.fs.neo.org/"+this.getFileCid()+"/"+this.getFileId();
       document.body.appendChild(downloadLink);
       downloadLink.click();
     });
@@ -61,7 +63,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   getFileCid() {
-    return this.fileStoreService.getCid().cid
+    return this.fileStoreService.getCid()
   }
 
   getFileOid() {

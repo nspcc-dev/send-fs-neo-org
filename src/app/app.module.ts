@@ -20,7 +20,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {UploaderService} from "./services/uploader.service";
 import {TosComponent} from "./tos/tos.component";
 
-
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +34,7 @@ import {TosComponent} from "./tos/tos.component";
     SelectorAndPushComponent,
     DownloadComponent,
     TosComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

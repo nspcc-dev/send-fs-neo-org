@@ -1,14 +1,16 @@
 .text {
   color: white;
   font-size: 26px;
-  font-size: 2vw;
-  font-family: 'Patua One', cursive;
+  font-size:calc(7px + 2vw);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
 }
 
 .text-small {
   color: white;
   font-size: 16px;
-  font-size: 1vw;
-  font-family: 'Patua One', cursive;
+  font-size:calc(7px + 1vw);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
   margin-bottom: 5%;
 }
