@@ -30,7 +30,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
           if (result === "OK") {
             this.loading = false;
           } else {
-            this.router.navigateByUrl("/not-found", {state: {data: `File with id = [${this.fileID}] wasn't found.`}});
+            this.router.navigateByUrl("/not-found-404", {state: {data: {message: '404: Requested object not found.', details: 'Most probably the storage period has expired and the object has been deleted.'}}});
           }
         },
         errorResponse => {
@@ -48,7 +48,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.fileStoreService.getFile(this.fileID).subscribe(resp => {
       this.file = resp;
       let downloadLink = document.createElement('a');
-      downloadLink.href = "https://send.fs.neo.org/"+this.getFileCid()+"/"+this.getFileId();
+      downloadLink.href = "https://send.fs.neo.org/"+this.getFileCid()+"/"+this.getFileId()+"?download=1";
       document.body.appendChild(downloadLink);
       downloadLink.click();
     });

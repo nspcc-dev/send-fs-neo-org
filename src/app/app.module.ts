@@ -14,6 +14,7 @@ import {SelectorAndPushComponent} from "./selector-and-push/selector-and-push.co
 import {FileStoreService} from "./services/filestore.service";
 import {UploadComponent} from "./upload/upload.component";
 import {ErrorPageComponent} from "./error-page/error-page.component";
+import {ErrorPageComponent404} from "./error-page-404/error-page-404.component";
 import {DownloadComponent} from "./download/download.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -31,6 +32,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     HeaderComponent,
     UploadComponent,
     ErrorPageComponent,
+    ErrorPageComponent404,
     SelectorAndPushComponent,
     DownloadComponent,
     TosComponent,

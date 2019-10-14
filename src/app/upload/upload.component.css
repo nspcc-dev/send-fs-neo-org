@@ -8,9 +8,29 @@
 
 .text-small {
   color: white;
-  font-size: 16px;
-  font-size:calc(7px + 1vw);
+  font-size: 14px;
+  font-size:calc(7px + 0.8vw);
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   margin-bottom: 5%;
+}
+
+
+a:link {
+  color: rgb(176, 219, 148);
+}
+
+/* visited link */
+a:visited {
+  color: rgb(176, 219, 148);
+}
+
+/* mouse over link */
+a:hover {
+  color: rgb(176, 219, 148);
+}
+
+/* selected link */
+a:active {
+  color:rgb(176, 219, 148);
 }

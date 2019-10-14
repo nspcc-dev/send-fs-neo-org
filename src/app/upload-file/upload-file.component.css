@@ -58,6 +58,7 @@
   justify-content: center;
   text-align: center;
   color: white;
+  margin: auto;
 }
 
 .send-text {
@@ -69,6 +70,7 @@
   justify-content: center;
   text-align: center;
   color: white;
+  margin: auto;
 }
 
 .click-button {
@@ -79,6 +81,7 @@
   color: white;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
+  text-align: center;
   margin: auto;
 }
 

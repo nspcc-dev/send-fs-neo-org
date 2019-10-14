@@ -9,7 +9,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-raised-button class="push-button" style="background: chartreuse"
+  <button mat-raised-button class="push-button" 
           [disabled]="uploaderService.isLoading() || uploaderService.isLoaded() || !fileStoreService.filesAdded()"
           (click)="onUpload()" style="font-size:calc(6px + 0.6vw);">
     UPLOAD

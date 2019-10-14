@@ -13,7 +13,7 @@
 </div>
 <div *ngIf="!uploaderService.isLoaded()" style="font-size:calc(7px + 1vw);">
   <div class="files-list" *ngFor="let file of files;let i=index">
-    <p style="padding-left: 10px; width:80%; word-wrap: break-word;"><a href="">{{ file.name }}</a></p>
+    <p style="margin-left: 10px; width:80%; word-wrap: break-word;"><a href="">{{ file.name }}</a></p>
     <button class="delete-file" (click)="deleteAttachment(i)" *ngIf="!uploaderService.isLoading()">
       <mat-icon color="white" class="delete-icon" matTooltip="Delete file">delete_outline</mat-icon>
     </button>
@@ -21,7 +21,7 @@
 </div>
 <div *ngIf="uploaderService.isLoaded() && fileStoreService.getUploadResult() != null" style="font-size:calc(7px + 1vw);">
   <div class="uploaded-files" *ngFor="let upload of fileStoreService.getUploadResult();let i=index">
-    <p style="padding-left: 10px; padding-top: 5px; width:80%; word-wrap: break-word;"><a href="{{getFileUrl(upload.oid)}}">{{getFileUrl(upload.oid)}}</a></p>
+    <p style="margin-left: 10px; width:80%; word-wrap: break-word;"><a href="{{getFileUrl(upload.oid)}}">{{getFileUrl(upload.oid)}}</a></p>
     <button class="load-file" (click)="downloadFile(upload)" *ngIf="!uploaderService.isLoading()">
       <mat-icon color="white" class="load-icon" matTooltip="Load file">open_in_new</mat-icon>
     </button>
