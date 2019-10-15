@@ -2,6 +2,10 @@ html, body {
   height: 100%;
 }
 
+button:focus {
+  outline: none !important;
+}
+
 .full-width-image {
   animation: fadeInAnimation ease 2s;
   animation-iteration-count: 1;
@@ -13,8 +17,8 @@ html, body {
 }
 .wrapper {
   display: grid;
-  grid-template-rows: 15% 70% 15%;
-  grid-template-columns: 10% 10% 10% 10% 20% 10% 10% 10% 10%;
+  grid-template-rows: 15% auto-fit 5% 9% 1%;
+  grid-template-columns: 5% 10% 10% 10% 30% 10% 10% 10% 5%;
 }
 
 .header {
@@ -28,8 +32,9 @@ html, body {
 }
 
 .footer {
-  grid-row: 3;
+  grid-row: 4;
   grid-column: 3/8;
+  
 }
 
 @keyframes fadeInAnimation {

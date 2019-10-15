@@ -46,6 +46,19 @@ export class UploadFileComponent implements OnInit, OnDestroy {
     return `${window.location.origin}/load/${id}`;
   }
 
+  getFileCopyLink(id: string){
+    return `${window.location.origin}/${this.fileStoreService.getCid()}/${id}`;
+  }
+
+  copyToClipboard(item) {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (item));
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
+  }
+
   ngOnDestroy(): void {
     this.fileStoreService.updateStoredFiles([]);
     this.uploaderService.setLoading(false);
@@ -53,6 +66,7 @@ export class UploadFileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.fileStoreService.setCid()
     this.fileStoreService.updateStoredFiles([]);
     this.uploaderService.setLoading(false);
     this.uploaderService.setLoaded(false);

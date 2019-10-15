@@ -1,12 +1,37 @@
 .text {
   color: white;
-  font-size: 36px;
-  font-family: 'Patua One', cursive;
+  font-size: 26px;
+  font-size:calc(7px + 2vw);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  padding-top: calc(5px + 0.5vw);
 }
 
 .text-small {
   color: white;
-  font-size: 20px;
-  font-family: 'Patua One', cursive;
+  font-size: 14px;
+  font-size:calc(7px + 0.8vw);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
   margin-bottom: 5%;
+}
+
+
+a:link {
+  color: rgb(176, 219, 148);
+}
+
+/* visited link */
+a:visited {
+  color: rgb(176, 219, 148);
+}
+
+/* mouse over link */
+a:hover {
+  color: rgb(176, 219, 148);
+}
+
+/* selected link */
+a:active {
+  color:rgb(176, 219, 148);
 }

@@ -21,6 +21,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.fileStoreService.setCid()
+    
     this.routeSub = this.route.params.subscribe(params => {
       this.fileID = params['id'];
       this.fileStoreService.checkFile(this.fileID).subscribe(
@@ -28,7 +30,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
           if (result === "OK") {
             this.loading = false;
           } else {
-            this.router.navigateByUrl("/not-found", {state: {data: `File with id = [${this.fileID}] wasn't found.`}});
+            this.router.navigateByUrl("/not-found-404", {state: {data: {message: '404: Requested object not found.', details: 'Most probably the storage period has expired and the object has been deleted.'}}});
           }
         },
         errorResponse => {
@@ -46,7 +48,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.fileStoreService.getFile(this.fileID).subscribe(resp => {
       this.file = resp;
       let downloadLink = document.createElement('a');
-      downloadLink.href = window.URL.createObjectURL(this.file);
+      downloadLink.href = "https://send.fs.neo.org/"+this.getFileCid()+"/"+this.getFileId()+"?download=1";
       document.body.appendChild(downloadLink);
       downloadLink.click();
     });
@@ -56,11 +58,16 @@ export class DownloadComponent implements OnInit, OnDestroy {
     return `${environment.baseUrl}/api/get/${this.fileID}`;
   }
 
+  getFileId() {
+    return `${this.fileID}`;
+  }
+
   getFileCid() {
-    return this.file.CID;
+    return this.fileStoreService.getCid()
   }
 
   getFileOid() {
-    return this.file.OID;
+    console.log(this.file.oid)
+    return this.file.oid;
   }
 }

@@ -22,10 +22,12 @@ export class SelectorAndPushComponent implements OnInit {
     this.lifetimes = [
       {value: '15', viewValue: '15 minutes'},
       {value: '60', viewValue: '1 hour'},
-      {value: '180', viewValue: '3 hours'},
-      {value: '360', viewValue: '6 hours'},
+      {value: '1440', viewValue: '24 hours'},
+      {value: '2880', viewValue: '48 hours'},
     ];
     this.selectedLifetime = this.lifetimes[0];
+
+    this.fileStoreService.setCid()
   }
 
   constructor(public fileStoreService: FileStoreService, public uploaderService: UploaderService) {

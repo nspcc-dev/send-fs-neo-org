@@ -1,9 +1,13 @@
 h1 {
-  font-family: 'Patua One', cursive;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
   color: white;
+  font-size:calc(7px + 2vw);
 }
 
 h3 {
-  font-family: 'Patua One', cursive;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
   color: white;
+  font-size:calc(7px + 1vw);
 }

@@ -6,29 +6,36 @@
 .neo-icon {
   display: grid;
   grid-column: 1/2;
-  width: 100px;
-  height: 100px;
-  margin-left: 1%;
+  
+  height: calc(50px + 2vw); 
+  margin-left: 2vw;
+  margin-top: 10px;
   align-content: center;
   cursor: pointer;
 }
 
 .blog {
-  grid-column: 4;
+  grid-column: 6;
   display: grid;
   color: white;
-  font-size: 44px;
-  font-family: 'Patua One', cursive;
+  font-size: 36px;
+  font-size:calc(9px + 2vw);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
   align-content: center;
+  padding-left: 4px;
+  
   cursor: pointer;
 }
 
 .coc {
-  grid-column: 5;
+  grid-column: 4;
   display: grid;
   color: white;
-  font-size: 44px;
-  font-family: 'Patua One', cursive;
+  font-size: 36px;
+  font-size:calc(9px + 2vw);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
   align-content: center;
   cursor: pointer;
 }
