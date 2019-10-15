@@ -114,6 +114,8 @@ a:active {
   align-self: center;
   justify-content: center;
   color: white;
+  height: 100%;
+  width: calc(7px + 2vw);
 }
 
 .delete-icon:hover {
@@ -121,6 +123,8 @@ a:active {
   align-self: center;
   justify-content: center;
   color: #ff0002;
+  height: 100%;
+  width: calc(7px + 2vw);
 }
 
 .files-list {
@@ -143,7 +147,7 @@ a:active {
 }
 
 .files-list .delete-file img {
-  width: 30px;
+  width: calc(7px + 2vw);
 }
 
 .uploaded-files {
@@ -160,20 +164,18 @@ a:active {
 }
 
 .load-icon {
-  font-size: 40px;
-  font-size:calc(7px + 1.8vw);
+  font-size: calc(7px + 2vw);
   height: 100%;
-  width: 30px;
+  width: calc(7px + 2vw);
   align-self: center;
   justify-content: center;
   color: white;
 }
 
 .load-icon:hover {
-  font-size: 40px;
-  font-size:calc(7px + 1.8vw);
+  font-size: calc(7px + 2vw);
   height: 100%;
-  width: 30px;
+  width: calc(7px + 2vw);
   align-self: center;
   justify-content: center;
   color: #00ff1b;
