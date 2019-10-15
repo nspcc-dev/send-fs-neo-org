@@ -1,3 +1,7 @@
+button:focus {
+  outline: none !important;
+}
+
 .uploadfilecontainer {
   grid-column: 2/3;
   grid-row: 2/3;
@@ -27,6 +31,7 @@
   justify-content: center;
   grid-column: 2/3;
   grid-row: 2/3;
+  cursor: pointer;
 }
 
 .button-with-text {
@@ -105,20 +110,14 @@ a:active {
 }
 
 .delete-icon {
-  font-size: 40px;
   font-size:calc(7px + 2vw);
-  height: 100%;
-  width: 100%;
   align-self: center;
   justify-content: center;
   color: white;
 }
 
 .delete-icon:hover {
-  font-size: 40px;
   font-size:calc(7px + 2vw);
-  height: 100%;
-  width: 100%;
   align-self: center;
   justify-content: center;
   color: #ff0002;
@@ -162,9 +161,9 @@ a:active {
 
 .load-icon {
   font-size: 40px;
-  font-size:calc(7px + 2vw);
+  font-size:calc(7px + 1.8vw);
   height: 100%;
-  width: 100%;
+  width: 30px;
   align-self: center;
   justify-content: center;
   color: white;
@@ -172,9 +171,9 @@ a:active {
 
 .load-icon:hover {
   font-size: 40px;
-  font-size:calc(7px + 2vw);
+  font-size:calc(7px + 1.8vw);
   height: 100%;
-  width: 100%;
+  width: 30px;
   align-self: center;
   justify-content: center;
   color: #00ff1b;

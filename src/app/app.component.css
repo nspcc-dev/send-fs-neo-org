@@ -2,6 +2,10 @@ html, body {
   height: 100%;
 }
 
+button:focus {
+  outline: none !important;
+}
+
 .full-width-image {
   animation: fadeInAnimation ease 2s;
   animation-iteration-count: 1;
@@ -13,7 +17,7 @@ html, body {
 }
 .wrapper {
   display: grid;
-  grid-template-rows: 15% 70% 5% 9% 1%;
+  grid-template-rows: 15% auto-fit 5% 9% 1%;
   grid-template-columns: 5% 10% 10% 10% 30% 10% 10% 10% 5%;
 }
 

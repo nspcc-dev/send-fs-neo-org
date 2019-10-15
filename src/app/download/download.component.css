@@ -4,7 +4,9 @@
   grid-template-columns: 20% 60% 20%;
 }
 
-
+button:focus {
+  outline: none !important;
+}
 
 .loading-screen-wrapper ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
   stroke: #90d00a !important;

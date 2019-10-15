@@ -4,6 +4,7 @@
   font-size:calc(7px + 2vw);
   font-family: 'Lato', sans-serif;
   font-weight: 300;
+  padding-top: calc(5px + 0.5vw);
 }
 
 .text-small {
