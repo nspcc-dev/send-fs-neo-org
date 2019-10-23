@@ -1,7 +1,56 @@
+<div class="nav-menu fixed-top navgrid">
+  <div class="navpos">
+    <div class="">
+      <div class="">
+        <nav class="navbar navbar-dark navbar-expand-lg" >
+          <a class="navbar-brand" href="/"><img src="../../assets/img/NeoFS_w2.svg" class="img-fluid" alt="logo"
+              style="height:50px; padding-left:0px; margin-left:-10px;" (click)="routeHome()"></a> 
+              
+              
+              <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-target="#navbar" aria-controls="navbar"
+               aria-expanded="false" aria-label="Toggle navigation" > 
+ 
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background: rgba(32,48,63, 0.7);">
+
+            <span
+              class="navbar-toggler-icon" ></span> </button> <!--style="height:calc(20px + 1vw); width:calc(20px + 1vw);"-->
+              <div class="collapse navbar-collapse "
+              [ngClass]="{ 'show': navbarOpen }" >
+           <ul class="navbar-nav ml-auto">
+
+
+            <li class="nav-item">
+              <a class="nav-link " (click)="routeToToS()" >Agreement</a>
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link " href="https://status.fs.neo.org/d/NEOFS/neofs?orgId=1&kiosk&autofitpanels">Status</a>
+            </li>
+      
+            <li class="nav-item">
+              <a class="nav-link " href="https://medium.com/@neospcc">Blog</a>
+            </li> 
+
+
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--height:calc(25px + 1vw)
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(43, 57, 63, 1);">
   <a class="navbar-brand" style="margin-left:calc(20px + 1vw);">
-    <img src="../../assets/img/NEO_logo_main_basic_neo.svg" class="d-inline-block align-top" alt="" style="cursor: pointer; height:calc(45px + 1vw)" (click)="routeHome()">
+    <img src="../../assets/img/NEOFS_w2.svg" class="d-inline-block align-top" alt="" style="cursor: pointer; height:calc(45px + 1vw)" (click)="routeHome()">
   </a>
 
   <button class="navbar-toggler" type="button"  style="margin-right:calc(20px + 1vw);"
@@ -22,7 +71,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link nav_link" href="https://status.fs.neo.org">Status</a>
+            <a class="nav-link nav_link" href="https://status.fs.neo.org/d/NEOFS/neofs?orgId=1&kiosk&autofitpanels">Status</a>
           </li>
     
           <li class="nav-item">
@@ -32,10 +81,12 @@
   </div>
 </nav>
 
+-->
+
 <!-- 
 
   <button class="coc" (click)="routeToToS()">Agreement</button>
   <button class="blog" (click)="routeMedium()">Blog</button>
--->
-  <div class="line"></div>
+
+  <div class="line"></div>-->
 

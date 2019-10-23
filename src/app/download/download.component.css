@@ -34,7 +34,7 @@ button:focus {
   color: white;
   font-size: 36px;
   font-size:calc(9px + 1.5vw);
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
   margin: auto;
 }
@@ -46,7 +46,7 @@ button:focus {
   color: white;
   font-size: 20px;
   font-size:calc(8px + 0.8vw);
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
   margin: auto;
 }

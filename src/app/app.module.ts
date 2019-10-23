@@ -9,7 +9,6 @@ import {MaterialAppModule} from "./ngmaterial.module";
 import {FooterComponent} from "./footer/footer.component";
 import {UploadFileComponent} from "./upload-file/upload-file.component";
 import {DragDropDirective} from "./drag-drop.directive";
-import {HeaderComponent} from "./header/header.component";
 import {SelectorAndPushComponent} from "./selector-and-push/selector-and-push.component";
 import {FileStoreService} from "./services/filestore.service";
 import {UploadComponent} from "./upload/upload.component";
@@ -29,7 +28,6 @@ import { NavbarComponent } from './navbar/navbar.component';
     FooterComponent,
     UploadFileComponent,
     DragDropDirective,
-    HeaderComponent,
     UploadComponent,
     ErrorPageComponent,
     ErrorPageComponent404,

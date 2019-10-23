@@ -5,19 +5,19 @@
 
 mat-label {
   color: white;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
 }
 
 .lifetime-panel.mat-select-panel {
   background: rgba(4, 255, 0, 0.44);
   border-radius: 10px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
 }
 
 .mat-option-text {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
   color: white;
 }
@@ -37,7 +37,7 @@ mat-label {
   align-self: center;
   justify-content: right;
   color: white;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
 }
 

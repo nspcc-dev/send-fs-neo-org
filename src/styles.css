@@ -1,3 +1,22 @@
 /* You can add global styles to this file, and also import other style files ,400,700,900*/
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import url('https://fonts.googleapis.com/css?family=Lato:300');
+
+
+@font-face {
+    font-family: Rajdhani;
+    src: url('assets/fonts/Rajdhani-Regular.ttf');
+  }
+  @font-face {
+    font-family: Rajdhani-Bold;
+    src: url('assets/fonts/Rajdhani-Bold.ttf');
+  }
+
+.main {
+    font-family: 'Rajdhani', sans-serif;
+margin: 0 0 0 0; 
+background-color: #20303f; overflow-x: hidden;   
+background-image: -moz-linear-gradient( 135deg, rgba(0, 229, 153, 0.8) 0%, rgba(0, 175, 146, 0.8) 100%);
+background-image: -webkit-linear-gradient( 135deg, rgba(0, 229, 153, 0.8) 0%, rgba(0, 175, 146, 0.8) 100%);
+background-image: -ms-linear-gradient( 135deg, rgba(0, 229, 153, 0.8) 0%, rgba(0, 175, 146, 0.8) 100%);
+background-image: linear-gradient( 135deg, rgba(0, 229, 153, 0.8) 0%, rgba(0, 175, 146, 0.8) 100%);
+}

@@ -2,16 +2,14 @@
   color: white;
   font-size: 26px;
   font-size:calc(7px + 2vw);
-  font-family: 'Lato', sans-serif;
   font-weight: 300;
-  padding-top: calc(5px + 0.5vw);
+  padding-top: 20px;
 }
 
 .text-small {
   color: white;
   font-size: 14px;
   font-size:calc(7px + 0.8vw);
-  font-family: 'Lato', sans-serif;
   font-weight: 300;
   margin-bottom: 5%;
 }

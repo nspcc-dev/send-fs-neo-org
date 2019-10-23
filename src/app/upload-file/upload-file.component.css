@@ -49,13 +49,13 @@ button:focus {
   align-self: center;
   justify-content: center;
   color: white;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
   margin: auto;
 }
 
 .dragDrop-text {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
   font-size: 20px;
   font-size:calc(7px + 1vw);
@@ -67,7 +67,7 @@ button:focus {
 }
 
 .send-text {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
   font-size: 20px;
   font-size:calc(7px + 1vw);
@@ -84,7 +84,7 @@ button:focus {
   align-self: center;
   justify-content: center;
   color: white;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
   text-align: center;
   margin: auto;
@@ -136,7 +136,7 @@ a:active {
   border-radius: 10px;
   padding: 5px;
   color: white;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
 }
 
@@ -159,7 +159,7 @@ a:active {
   border-radius: 10px;
   padding: 5px;
   color: white;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
 }
 
@@ -189,7 +189,7 @@ a:active {
 
 ::ng-deep .mat-select-value-text {
   color: white;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
 }
 
