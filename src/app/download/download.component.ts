@@ -30,11 +30,11 @@ export class DownloadComponent implements OnInit, OnDestroy {
           if (result === "OK") {
             this.loading = false;
           } else {
-            this.router.navigateByUrl("/not-found-404", {state: {data: {message: '404: Requested object not found.', details: 'Most probably the storage period has expired and the object has been deleted.'}}});
+            //this.router.navigateByUrl("/not-found-404", {state: {data: {message: '404: Requested object not found.', details: 'Most probably the storage period has expired and the object has been deleted.'}}});
           }
         },
         errorResponse => {
-          this.router.navigateByUrl("/not-found", {state: {data: errorResponse["error"]["message"]}});
+          //this.router.navigateByUrl("/not-found", {state: {data: errorResponse["error"]["message"]}});
         }
       )
     })
@@ -67,7 +67,19 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   getFileOid() {
-    console.log(this.file.oid)
     return this.file.oid;
+  }
+
+  getFileCopyLink(){
+    return `https://send.fs.neo.org/${this.getFileCid()}/${this.getFileId()}`
+  }
+
+  copyToClipboard(item) {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (item));
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
   }
 }

@@ -1,4 +1,10 @@
-<div class="wrapper"  style="font-size:calc(8px + 0.6vw);">
+
+
+      <div class="container d-flex justify-content-center"  style="padding-top:40px;">
+
+
+          <div class="row">
+              <div class="col-auto mr-auto">
   <mat-progress-bar class="progress-bar" mode=indeterminate *ngIf="uploaderService.isLoading()"></mat-progress-bar>
   <mat-form-field class="lifetime-options">
     <mat-label>Select file(s) lifetime</mat-label>
@@ -9,9 +15,20 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-raised-button class="push-button" 
+</div>
+
+
+<div class="col-auto">
+
+
+
+  <button  class="push-button btn btn-primary"
           [disabled]="uploaderService.isLoading() || uploaderService.isLoaded() || !fileStoreService.filesAdded()"
-          (click)="onUpload()" style="font-size:calc(6px + 0.6vw);">
+          (click)="onUpload()">
     UPLOAD
   </button>
 </div>
+</div>
+</div>
+
+

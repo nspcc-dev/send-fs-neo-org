@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
   navbarOpen = false;
-  constructor(private router: Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
     
@@ -18,16 +18,5 @@ export class NavbarComponent implements OnInit {
       this.navbarOpen = !this.navbarOpen;
   }
 
-  routeHome() {
-    this.router.navigateByUrl("/")
-  }
-
-  routeMedium() {
-    window.location.href = "https://medium.com/@neospcc";
-  }
-
-  routeToToS() {
-    this.router.navigateByUrl("/tos")
-  }
 
 }

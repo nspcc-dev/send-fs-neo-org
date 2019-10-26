@@ -2,9 +2,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <nav class="navbar navbar-dark navbar-expand-lg" >
-          <a class="navbar-brand" href="/"><img src="../../assets/img/NeoFS_w2.svg" class="img-fluid" alt="logo"
-              style="height:50px; padding-left:0px;" (click)="routeHome()"></a> 
+        <nav class="navbar navbar-dark navbar-expand-lg" style="padding-left:0px;">
+          <a class="navbar-brand"  [routerLink]="['/']"><img src="../../assets/img/NeoFS_w2.svg" class="img-fluid" alt="logo"
+              style="height:50px; padding-left:0px; cursor: pointer;" ></a> 
               
               
               <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-target="#navbar" aria-controls="navbar"
@@ -20,15 +20,19 @@
 
 
             <li class="nav-item">
-              <a class="nav-link " (click)="routeToToS()" >Agreement</a>
+                <a class="nav-link " [routerLink]="['/']" [ngClass]="{'active': this.router.url == '/'}">Upload</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link " [routerLink]="['tos']" routerLinkActive="active" >Agreement</a>
             </li>
   
             <li class="nav-item">
-              <a class="nav-link " href="https://status.fs.neo.org/d/NEOFS/neofs?orgId=1&kiosk&autofitpanels">Status</a>
+              <a class="nav-link btn btn-outline-light my-3 my-sm-0 ml-lg-3" href="https://status.fs.neo.org/d/NEOFS/neofs?orgId=1&kiosk&autofitpanels">Status</a>
             </li>
       
             <li class="nav-item">
-              <a class="nav-link " href="https://medium.com/@neospcc">Blog</a>
+              <a class="nav-link btn btn-outline-light my-3 my-sm-0 ml-lg-3" href="https://medium.com/@neospcc">Blog</a>
             </li> 
 
 
@@ -39,54 +43,4 @@
     </div>
   </div>
 </div>
-
-
-
-<!--height:calc(25px + 1vw)
-
-
-
-
-
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(43, 57, 63, 1);">
-  <a class="navbar-brand" style="margin-left:calc(20px + 1vw);">
-    <img src="../../assets/img/NEOFS_w2.svg" class="d-inline-block align-top" alt="" style="cursor: pointer; height:calc(45px + 1vw)" (click)="routeHome()">
-  </a>
-
-  <button class="navbar-toggler" type="button"  style="margin-right:calc(20px + 1vw);"
-          (click)="toggleNavbar()">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-
-  <div class="collapse navbar-collapse "
-       [ngClass]="{ 'show': navbarOpen }" >
-    <ul class="navbar-nav mr-auto">
-  
-    </ul>
-
-    <ul class="navbar-nav" style="margin-left:calc(20px + 1vw); margin-right:calc(20px + 1vw);">
-          <li class="nav-item">
-            <a class="nav-link nav_link" (click)="routeToToS()">Agreement</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link nav_link" href="https://status.fs.neo.org/d/NEOFS/neofs?orgId=1&kiosk&autofitpanels">Status</a>
-          </li>
-    
-          <li class="nav-item">
-            <a class="nav-link nav_link" href="https://medium.com/@neospcc">Blog</a>
-          </li> 
-    </ul>
-  </div>
-</nav>
-
--->
-
-<!-- 
-
-  <button class="coc" (click)="routeToToS()">Agreement</button>
-  <button class="blog" (click)="routeMedium()">Blog</button>
-
-  <div class="line"></div>-->
 

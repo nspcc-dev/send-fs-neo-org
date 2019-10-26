@@ -3,49 +3,52 @@ button:focus {
 }
 
 .uploadfilecontainer {
-  grid-column: 2/3;
-  grid-row: 2/3;
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 33% 33% 33%;
-  opacity: 90%;
-  height: 250px;
-  margin-bottom: 5%;
-  border: dashed calc(2px + 0.1vw) white;
+  height: 260px;
+  border: dashed 3px #ffffff;
   border-radius: 20px;
 }
 
 .uploadfilecontainer:hover {
-  border: solid calc(2px + 0.1vw) white;
+  border: solid 3px #ffffff;
   border-radius: 20px;
 }
 
-.plus {
-  display: flex;
-  color: white;
-  height: 100%;
-  width: 100%;
-  font-size: 70px;
+.plus-size {
+  width:65px;
+  height: 65px;
+  font-size: 65px;
   font-weight: 400;
+  cursor: pointer;
+}
+.plus {
+
+  color: white;
   align-self: center;
   justify-content: center;
-  grid-column: 2/3;
-  grid-row: 2/3;
-  cursor: pointer;
+  align-self: center;
+  text-align: center;
+  margin: auto;
+  
 }
 
 .button-with-text {
   display: flex;
   align-self: center;
   justify-content: center;
-  grid-column: 1/4;
-  grid-row: 3;
+ 
 }
 
-
+.click-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+ 
+}
 .push-button {
-  background: rgba(4, 255, 0, 0.44);
-  border-radius: 10px;
+
   align-self: center;
   justify-content: center;
   color: white;
@@ -57,83 +60,65 @@ button:focus {
 .dragDrop-text {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
-  font-size: 20px;
-  font-size:calc(7px + 1vw);
+  font-size: 16px;
+  /*  font-size:calc(7px + 1vw); */
   align-self: center;
   justify-content: center;
   text-align: center;
   color: white;
   margin: auto;
+  padding-left:20px;
 }
 
 .send-text {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 300;
-  font-size: 20px;
-  font-size:calc(7px + 1vw);
+  font-size: 16px;
+
   align-self: center;
   justify-content: center;
   text-align: center;
   color: white;
   margin: auto;
+  padding-right:20px;
 }
 
-.click-button {
-  background: rgba(4, 255, 0, 0.44);
-  border-radius: 10px;
-  align-self: center;
-  justify-content: center;
-  color: white;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 300;
-  text-align: center;
-  margin: auto;
-}
 
-a:link {
-  color: rgb(176, 219, 148);
-}
-
-/* visited link */
-a:visited {
-  color: rgb(176, 219, 148);
-}
-
-/* mouse over link */
-a:hover {
-  color: rgb(176, 219, 148);
-}
-
-/* selected link */
-a:active {
-  color:rgb(176, 219, 148);
-}
+ 
 
 .delete-icon {
-  font-size:calc(7px + 2vw);
+  font-size: 22px;
   align-self: center;
   justify-content: center;
   color: white;
   height: 100%;
-  width: calc(7px + 2vw);
+  width: 22px;
+  font-weight: 300;
 }
 
 .delete-icon:hover {
-  font-size:calc(7px + 2vw);
+  font-size: 22px;
   align-self: center;
   justify-content: center;
-  color: #ff0002;
+  color:rgba(255, 193, 193, 0.815);
   height: 100%;
-  width: calc(7px + 2vw);
+  width: 22px;
+  font-weight: 300;
 }
 
 .files-list {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  margin-bottom: 2%;
-  background: rgba(4, 255, 0, 0.44);
+ 
+  background-image: -moz-linear-gradient(122deg, rgba(0, 229, 153, 0.4) 0%, rgba(0, 175, 146, 0.4) 100%);
+  background-image: -webkit-linear-gradient(122deg, rgba(0, 229, 153, 0.4) 0%, rgba(0, 175, 146, 0.4) 100%);
+  background-image: -ms-linear-gradient(122deg, rgba(0, 229, 153, 0.4) 0%, rgba(0, 175, 146, 0.4) 100%);
+  background-image: linear-gradient(122deg, rgba(0, 229, 153, 0.4) 0%, rgba(0, 175, 146, 0.4) 100%);
+
+
+  box-shadow: 0px 9px 32px 0px rgba(0, 0, 0, 0.2);
+
   border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 5px;
   color: white;
   font-family: 'Rajdhani', sans-serif;
@@ -147,16 +132,21 @@ a:active {
 }
 
 .files-list .delete-file img {
-  width: calc(7px + 2vw);
+  width: 22px;
 }
 
 .uploaded-files {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  margin-bottom: 2%;
-  background: rgba(4, 255, 0, 0.44);
+  
+  background-image: -moz-linear-gradient(122deg, rgba(0, 229, 153, 0.4) 0%, rgba(0, 175, 146, 0.4) 100%);
+  background-image: -webkit-linear-gradient(122deg, rgba(0, 229, 153, 0.4) 0%, rgba(0, 175, 146, 0.4) 100%);
+  background-image: -ms-linear-gradient(122deg, rgba(0, 229, 153, 0.4) 0%, rgba(0, 175, 146, 0.4) 100%);
+  background-image: linear-gradient(122deg, rgba(0, 229, 153, 0.4) 0%, rgba(0, 175, 146, 0.4) 100%);
+
+  box-shadow: 0px 9px 32px 0px rgba(0, 0, 0, 0.2);
+
   border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 5px;
   color: white;
   font-family: 'Rajdhani', sans-serif;
@@ -164,22 +154,26 @@ a:active {
 }
 
 .load-icon {
-  font-size: calc(7px + 2vw);
+  font-size: 22px;
   height: 100%;
-  width: calc(7px + 2vw);
   align-self: center;
   justify-content: center;
   color: white;
+  width: 22px;
+  font-weight: 300;
 }
 
 .load-icon:hover {
-  font-size: calc(7px + 2vw);
+  font-size: 22px;
   height: 100%;
-  width: calc(7px + 2vw);
   align-self: center;
   justify-content: center;
-  color: #00ff1b;
+  color: white;
+  width: 22px;
+  font-weight: 300;
 }
+
+
 
 .uploaded-files .load-file {
   background: transparent;
@@ -195,26 +189,30 @@ a:active {
 
 /*** To change the arrow color ****/
 ::ng-deep .mat-select-arrow {
-  color: #04ff00;
+  color:rgba(0, 229, 153, 1);
   opacity: 0.4;
 }
 
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
-  background-color: #04ff00 !important;
+  background-color: rgba(0, 229, 153, 1) !important;
   opacity: 0.4;
 }
 
 ::ng-deep .mat-form-field-underline .ng-tns-c7-0 .ng-star-inserted {
-  background-color: #04ff00 !important;
+  background-color: rgba(0, 229, 153, 1) !important;
   opacity: 0.4;
 }
 
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
-  background-color: #04ff00 !important;
+  background-color: rgba(0, 229, 153, 1) !important;
   opacity: 0.4;
 }
 
 ::ng-deep .mat-select-arrow {
-  color: #04ff00 !important;
+  color: rgba(0, 229, 153, 1) !important;
   opacity: 0.4;
 }
+
+
+
+ 

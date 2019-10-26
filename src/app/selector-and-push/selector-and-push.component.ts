@@ -27,7 +27,7 @@ export class SelectorAndPushComponent implements OnInit {
     ];
     this.selectedLifetime = this.lifetimes[0];
 
-    this.fileStoreService.setCid()
+    //this.fileStoreService.setCid()
   }
 
   constructor(public fileStoreService: FileStoreService, public uploaderService: UploaderService) {

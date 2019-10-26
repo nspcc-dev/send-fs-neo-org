@@ -1,37 +1,101 @@
-<div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
-  <mat-icon color="white" class="plus" matTooltip="Add file to upload">add</mat-icon>
-  <div class="button-with-text">
-    <div class="dragDrop-text">
-      Drag & Drop files or
-    </div>
-    <button class="click-button" mat-raised-button >CLICK</button>
-    <div class="send-text">
-      to send up to 50Mb
-    </div>
-  </div>
-  <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
-</div>
-<div *ngIf="!uploaderService.isLoaded()" style="font-size:calc(7px + 0.8vw);">
-  <div class="files-list" *ngFor="let file of files;let i=index">
-    <p style="margin-left: 10px; width:80%; word-wrap: break-word; margin-right: calc(7px + 2vw);">{{ file.name }}</p>
 
-    <button class="delete-file" (click)="deleteAttachment(i)" *ngIf="!uploaderService.isLoading()">
-      <mat-icon color="white" class="delete-icon" matTooltip="Delete file">delete_outline</mat-icon>
-    </button>
 
-  </div>
-</div>
-<div *ngIf="uploaderService.isLoaded() && fileStoreService.getUploadResult() != null" style="font-size:calc(7px + 0.8vw);">
-  <div class="uploaded-files" *ngFor="let upload of fileStoreService.getUploadResult();let i=index">
-    <p style="margin-left: 10px; width:80%; word-wrap: break-word; margin-right: calc(14px + 4vw);"><a href="{{getFileUrl(upload.oid)}}">{{getFileUrl(upload.oid)}}</a></p>
+<div class="container d-flex justify-content-center">
+
+  <div class="uploadfilecontainer " (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+
+    <div class="col align-items-center">
+
+      <div class="row" style="height:100%; margin-bottom: -6rem;">
+        <mat-icon color="white" class="plus plus-size" matTooltip="Add file to upload" style="margin-top:70px;">add
+        </mat-icon>
+      </div>
+
+  
+      <div class="row align-items-center" style="">
+        <div class="button-with-text align-items-center plus">
+          <div class="dragDrop-text">
+            Drag & Drop files or
+          </div>
+          <div style=" padding-left:10px;padding-right:10px;">
+            <button class="click-button" class="btn btn-primary">CLICK</button></div>
+          <div class="send-text">
+            to send up to 50Mb
+          </div>
+        </div>
+
     
-    <button class="load-file" (click)="copyToClipboard(getFileCopyLink(upload.oid))" *ngIf="!uploaderService.isLoading()">
-      <mat-icon color="white" class="load-icon" matTooltip="Copy link to file">link_outline</mat-icon>
-    </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+
+
+
+
+
+<select-and-push></select-and-push>
+
+
+
+
+<div class="container" >
+<div *ngIf="!uploaderService.isLoaded()" style="padding-bottom:60px; font-size:16px;">
+  <div  *ngFor="let file of files;let i=index">
+
+      <div class="row" class="files-list">
+          <div class="col-md-12 clearfix">
+      <p style="padding-left: 10px; word-wrap: break-word; padding-right: 20px; margin-bottom:0px;  align-self: center;
+    justify-content: center;" class="float-left">{{ file.name }}</p>
     
-    <button class="load-file" (click)="downloadFile(upload)" *ngIf="!uploaderService.isLoading()">
-      <mat-icon color="white" class="load-icon" matTooltip="Load file">open_in_new</mat-icon>
-    </button>
+    
+     
+      <button class="delete-file float-right" (click)="deleteAttachment(i)" *ngIf="!uploaderService.isLoading()">
+        <mat-icon color="white" class="delete-icon" matTooltip="Delete file">delete_outline</mat-icon>
+      </button> 
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="container">
+<div *ngIf="uploaderService.isLoaded() && fileStoreService.getUploadResult() != null" style="font-size:16px;">
+  <div  *ngFor="let file of files;let i=index">
+
+      <div class="row" class="uploaded-files">
+          <div class="col-md-12 clearfix">
+      <p style="padding-left: 10px; word-wrap: break-word; padding-right: 20px; margin-bottom:0px;  align-self: center;
+    justify-content: center;" class="float-left"><a href="{{getFileUrl(upload.oid)}}">{{upload.oid}}</a></p>
+    
+    
+    <button class="load-file float-right" (click)="copyToClipboard(getFileCopyLink(upload.oid))"
+    *ngIf="!uploaderService.isLoading()">
+        <mat-icon color="white" class="load-icon" matTooltip="Copy link to file">link</mat-icon>
+      </button> 
+
+
+
+      <button class="load-file float-right" (click)="downloadFile(upload)" *ngIf="!uploaderService.isLoading()">
+          <mat-icon color="white" class="load-icon" matTooltip="Delete file">open_in_new</mat-icon>
+        </button> 
+
 
   </div>
 </div>
+</div>
+</div>
+</div>
+
+
+
