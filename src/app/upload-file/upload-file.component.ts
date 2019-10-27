@@ -21,6 +21,8 @@ export class UploadFileComponent implements OnInit, OnDestroy {
   }
 
   uploadFile(event) {
+    this.files=this.fileStoreService.getFiles();
+    
     for (let index = 0; index < event.length; index++) {
       const element = event[index];
       if ((element["size"] / 1000000) > 50) {
@@ -60,15 +62,17 @@ export class UploadFileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.fileStoreService.updateStoredFiles([]);
-    this.uploaderService.setLoading(false);
-    this.uploaderService.setLoaded(false);
+    //this.fileStoreService.updateStoredFiles([]);
+    //this.uploaderService.setLoading(false);
+    //this.uploaderService.setLoaded(false);
   }
 
   ngOnInit(): void {
     this.fileStoreService.setCid()
-    this.fileStoreService.updateStoredFiles([]);
-    this.uploaderService.setLoading(false);
-    this.uploaderService.setLoaded(false);
+    console.log(this.fileStoreService.getUploadResult());
+    this.files=this.fileStoreService.getFiles();
+    //this.fileStoreService.updateStoredFiles([]);
+    //this.uploaderService.setLoading(false);
+    //this.uploaderService.setLoaded(false);
   }
 }

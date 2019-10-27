@@ -22,3 +22,7 @@ export class UploaderService {
     return this.loaded;
   }
 }
+
+// Add list for uploading files to here.
+// Remove on success or error
+// 

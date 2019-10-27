@@ -1,4 +1,4 @@
-
+ 
 
 <div class="container d-flex justify-content-center">
 
@@ -11,8 +11,8 @@
         </mat-icon>
       </div>
 
-  
-      <div class="row align-items-center" style="">
+
+      <div class="row align-items-center">
         <div class="button-with-text align-items-center plus">
           <div class="dragDrop-text">
             Drag & Drop files or
@@ -24,7 +24,7 @@
           </div>
         </div>
 
-    
+
       </div>
     </div>
 
@@ -34,68 +34,68 @@
 
 <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
 
-
-
-
+  
 
 <select-and-push></select-and-push>
 
 
 
 
-<div class="container" >
-<div *ngIf="!uploaderService.isLoaded()" style="padding-bottom:60px; font-size:16px;">
-  <div  *ngFor="let file of files;let i=index">
+<div class="container">
+  <div style="padding-bottom:60px; font-size:16px;">
+ 
+    <div *ngFor="let file of fileStoreService.getFiles();let i=index">
 
       <div class="row" class="files-list">
-          <div class="col-md-12 clearfix">
-      <p style="padding-left: 10px; word-wrap: break-word; padding-right: 20px; margin-bottom:0px;  align-self: center;
+        <div class="col-md-12 clearfix">
+          <p style="padding-left: 10px; word-wrap: break-word; padding-right: 20px; margin-bottom:0px;  align-self: center;
     justify-content: center;" class="float-left">{{ file.name }}</p>
-    
-    
-     
-      <button class="delete-file float-right" (click)="deleteAttachment(i)" *ngIf="!uploaderService.isLoading()">
-        <mat-icon color="white" class="delete-icon" matTooltip="Delete file">delete_outline</mat-icon>
-      </button> 
+
+          <button class="delete-file float-right" (click)="deleteAttachment(i)" *ngIf="!uploaderService.isLoading()">
+            <mat-icon color="white" class="delete-icon" matTooltip="Delete file">delete_outline</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-</div>
-</div>
-</div>
 
 
 
 
+<div class="container" style="padding-top:0px;">
+  <div class="section" *ngIf="fileStoreService.getUploadResult()?.length > 0" style="padding-top:0px;">
 
+    <div class="section-title" style="padding-top:0px;">
 
+      <h2>Uploaded objects</h2>
+    </div>
 
-<div class="container">
-<div *ngIf="uploaderService.isLoaded() && fileStoreService.getUploadResult() != null" style="font-size:16px;">
-  <div  *ngFor="let file of files;let i=index">
+ 
+    <div *ngIf="fileStoreService.getUploadResult()?.length > 0" style="font-size:16px;">
+      <div >
 
-      <div class="row" class="uploaded-files">
+        <div class="row" class="uploaded-files" *ngFor="let upload of fileStoreService.getUploadResult();let i=index">
           <div class="col-md-12 clearfix">
-      <p style="padding-left: 10px; word-wrap: break-word; padding-right: 20px; margin-bottom:0px;  align-self: center;
+            <p style="padding-left: 10px; word-wrap: break-word; padding-right: 20px; margin-bottom:0px;  align-self: center;
     justify-content: center;" class="float-left"><a href="{{getFileUrl(upload.oid)}}">{{upload.oid}}</a></p>
-    
-    
-    <button class="load-file float-right" (click)="copyToClipboard(getFileCopyLink(upload.oid))"
-    *ngIf="!uploaderService.isLoading()">
-        <mat-icon color="white" class="load-icon" matTooltip="Copy link to file">link</mat-icon>
-      </button> 
+
+            <button class="load-file float-right" (click)="copyToClipboard(getFileCopyLink(upload.oid))"
+              *ngIf="!uploaderService.isLoading()">
+              <mat-icon color="white" class="load-icon" matTooltip="Copy link to file">link</mat-icon>
+            </button>
+
+            <button class="load-file float-right" (click)="downloadFile(upload)" *ngIf="!uploaderService.isLoading()">
+              <mat-icon color="white" class="load-icon" matTooltip="Detailed">open_in_new</mat-icon>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-
-      <button class="load-file float-right" (click)="downloadFile(upload)" *ngIf="!uploaderService.isLoading()">
-          <mat-icon color="white" class="load-icon" matTooltip="Delete file">open_in_new</mat-icon>
-        </button> 
 
 
   </div>
-</div>
-</div>
-</div>
-</div>
-
-
-
+</div> 

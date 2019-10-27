@@ -32,7 +32,7 @@
 
 #content-wrap {
   padding-top: 4rem;
-  padding-bottom: 5rem;
+  padding-bottom: 6rem;
   /* Footer height */
 }
 
@@ -67,7 +67,7 @@ button:focus {
 
 body {
   font-family: 'Rajdhani', sans-serif;
-  position: relative;
+  
 }
 
 a { 

@@ -5,7 +5,7 @@
 
           <div class="row">
               <div class="col-auto mr-auto">
-  <mat-progress-bar class="progress-bar" mode=indeterminate *ngIf="uploaderService.isLoading()"></mat-progress-bar>
+  <mat-progress-bar class="progress-bar" mode=indeterminate *ngIf="uploaderService.isLoading()" ></mat-progress-bar>
   <mat-form-field class="lifetime-options">
     <mat-label>Select file(s) lifetime</mat-label>
     <mat-select panelClass="lifetime-panel" [disabled]="uploaderService.isLoading() || uploaderService.isLoaded()"
@@ -21,10 +21,10 @@
 <div class="col-auto">
 
 
+<!-- uploaderService.isLoaded() -->
 
   <button  class="push-button btn btn-primary"
-          [disabled]="uploaderService.isLoading() || uploaderService.isLoaded() || !fileStoreService.filesAdded()"
-          (click)="onUpload()">
+          [disabled]="uploaderService.isLoading() || !fileStoreService.filesAdded()"  (click)="onUpload()">
     UPLOAD
   </button>
 </div>

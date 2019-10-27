@@ -15,10 +15,7 @@ export class FileStoreService {
 
   //storing response result for uploaded files.
   uploadResult: any[] = [];
-
   cid: any;
-
-
 
   constructor(
     private httpClient: HttpClient,
@@ -32,8 +29,12 @@ export class FileStoreService {
     this.files = files;
   }
 
+  public getFiles(): any {
+    return this.files;
+  }
+
   public getCid(): any {
-    return this.cid
+    return this.cid;
   }
 
   public setCid(): any {
@@ -41,7 +42,6 @@ export class FileStoreService {
     
     this.httpClient.get(cidUrl).subscribe(
       (res) => {
-        console.log(res);
         this.cid = res["cid"]
       },
       (err) => {
@@ -61,29 +61,45 @@ export class FileStoreService {
   // Does POST with file and lifetime.
   public putFile(lifetime: string): void {
     let postUrl = `${this.baseUrl}/api/put/${lifetime}`;
+
     this.files.forEach(file => {
+      
+
       const data = new FormData();
       data.append('file', file);
-      this.doPost(postUrl, data, file.name);
+      this.doPost(postUrl, data, file.name, file);
+
     });
+
+ 
   }
 
-  private doPost(postUrl: string, data: any, filename: string) {
+ 
+
+  private doPost(postUrl: string, data: any, filename: string, file: any) {
     this.httpClient.post(postUrl, data).subscribe(
       (res) => {
+        
         console.log(res);
         console.log(this.uploadResult);
         this.uploadResult.push(res);
         this.uploaderService.setLoaded(true);
+
+        this.files = this.files.filter(obj => obj !== file);
       },
       (err) => {
+        
         let snack = this.notification.open(`Something went wrong with uploading file: ${filename}`, "DETAILS", {duration: 5000});
         snack.onAction().subscribe(() => {
           this.router.navigateByUrl("/not-found", {state: {data: `Something went wrong with uploading file: ${filename}. Error = ${err.message}`}})
         });
 
         console.log(err);
-        this.uploaderService.setLoaded(true);
+        this.uploaderService.setLoaded(false);
+        this.uploaderService.setLoading(false);
+
+        //this.files = this.files.filter(obj => obj !== file);
+        
       }
     );
   }
