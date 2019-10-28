@@ -18,5 +18,9 @@ export class NavbarComponent implements OnInit {
       this.navbarOpen = !this.navbarOpen;
   }
 
+  onClick(){
+    this.navbarOpen = false;
+  }
+
 
 }
