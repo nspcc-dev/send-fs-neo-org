@@ -86,6 +86,10 @@ export class FileStoreService {
         this.uploaderService.setLoaded(true);
 
         this.files = this.files.filter(obj => obj !== file);
+
+        if (this.files.length == 0) {
+          this.uploaderService.setLoading(false);
+        }
       },
       (err) => {
         
@@ -96,7 +100,11 @@ export class FileStoreService {
 
         console.log(err);
         this.uploaderService.setLoaded(false);
-        this.uploaderService.setLoading(false);
+
+        if (this.files.length == 1) {
+          this.uploaderService.setLoading(false);
+        }
+       // this.uploaderService.setLoading(false);
 
         //this.files = this.files.filter(obj => obj !== file);
         

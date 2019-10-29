@@ -11,7 +11,7 @@ export class UploaderService {
 
   public setLoaded(state: boolean): void {
     this.loaded = state;
-    this.loading = false;
+    //this.loading = false;
   }
 
   public isLoading(): boolean {
