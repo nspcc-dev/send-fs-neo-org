@@ -78,14 +78,14 @@
         <div class="row" class="uploaded-files" *ngFor="let upload of fileStoreService.getUploadResult();let i=index">
           <div class="col-md-12 clearfix">
             <p style="margin-left: 10px; word-wrap: break-word; margin-right: 20px; margin-bottom:0px;  align-self: center;
-    justify-content: center;" class="float-left"><a href="{{getFileUrl(upload.oid)}}">{{upload.oid}}</a></p> <!-- NEED TO FIX TO ROUTE! -->
+    justify-content: center;" class="float-left"><a [routerLink]="[getFileUrl(upload.oid)]">{{upload.oid}}</a></p> 
 
             <button class="load-file float-right" (click)="copyToClipboard(getFileCopyLink(upload.oid))">
               <mat-icon color="white" class="load-icon" matTooltip="Copy link to file">link</mat-icon>
             </button>
 
             <button class="load-file float-right" (click)="downloadFile(upload)">
-              <mat-icon color="white" class="load-icon" matTooltip="Detailed">open_in_new</mat-icon>
+              <mat-icon color="white" class="load-icon" matTooltip="Detailed info">open_in_new</mat-icon>
               <!-- *ngIf="!uploaderService.isLoading()" -->
             </button>
 

@@ -45,7 +45,7 @@ export class UploadFileComponent implements OnInit, OnDestroy {
   }
 
   getFileUrl(id: string) {
-    return `${window.location.origin}/load/${id}`;
+    return `/load/${id}`;
   }
 
   getFileCopyLink(id: string){

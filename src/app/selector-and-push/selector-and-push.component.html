@@ -8,7 +8,7 @@
   <mat-progress-bar class="progress-bar" mode=indeterminate *ngIf="uploaderService.isLoading()" ></mat-progress-bar>
   <mat-form-field class="lifetime-options">
     <mat-label>Select file(s) lifetime</mat-label>
-    <mat-select panelClass="lifetime-panel" [disabled]="uploaderService.isLoading() || uploaderService.isLoaded()"
+    <mat-select panelClass="lifetime-panel" [disabled]="uploaderService.isLoading() "
                 [(value)]="selectedLifetime.value" required>
       <mat-option *ngFor="let lifetime of lifetimes" [value]="lifetime.value" >
         {{lifetime.viewValue}}
