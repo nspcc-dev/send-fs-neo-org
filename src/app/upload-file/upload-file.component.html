@@ -40,17 +40,17 @@
 
 
 <div class="container">
-  <div style="padding-bottom:60px; font-size:16px;">
+  <div style="padding-bottom:60px;">
 
     <div *ngFor="let file of fileStoreService.getFiles();let i=index">
 
-      <div class="row" class="files-list">
-        <div class="col-md-12 clearfix">
-          <p style="margin-left: 10px; word-wrap: break-word; margin-right: 20px; margin-bottom:0px;  align-self: center;
+      <div class="row files-list">
+        <div class="col-md-12 clearfix ">
+          <p style="font-size:16px; margin-left: 10px; word-wrap: break-word; margin-right: 20px; margin-bottom:0px;  align-self: center;
     justify-content: center;" class="float-left">{{ file.name }}</p>
 
           <button class="delete-file float-right" (click)="deleteAttachment(i)" *ngIf="!uploaderService.isLoading()">
-            <mat-icon color="white" class="delete-icon" matTooltip="Delete file">delete_outline</mat-icon>
+            <mat-icon color="white" class="delete-icon" matTooltip="Delete file" style="height:22px;">delete_outline</mat-icon>
           </button>
 
 
@@ -72,20 +72,20 @@
     </div>
 
 
-    <div *ngIf="fileStoreService.getUploadResult()?.length > 0" style="font-size:16px;">
+    <div *ngIf="fileStoreService.getUploadResult()?.length > 0">
       <div>
 
-        <div class="row" class="uploaded-files" *ngFor="let upload of fileStoreService.getUploadResult();let i=index">
+        <div class="row uploaded-files" *ngFor="let upload of fileStoreService.getUploadResult();let i=index">
           <div class="col-md-12 clearfix">
-            <p style="margin-left: 10px; word-wrap: break-word; margin-right: 20px; margin-bottom:0px;  align-self: center;
+            <p style="font-size:16px; margin-left: 10px; word-wrap: break-word; margin-right: 20px; margin-bottom:0px;  align-self: center;
     justify-content: center;" class="float-left"><a [routerLink]="[getFileUrl(upload.oid)]">{{upload.oid}}</a></p> 
 
             <button class="load-file float-right" (click)="copyToClipboard(getFileCopyLink(upload.oid))">
-              <mat-icon color="white" class="load-icon" matTooltip="Copy link to file">link</mat-icon>
+              <mat-icon color="white" class="load-icon" matTooltip="Copy link to file" style="height:22px;">link</mat-icon>
             </button>
 
             <button class="load-file float-right" (click)="downloadFile(upload)">
-              <mat-icon color="white" class="load-icon" matTooltip="Detailed info">open_in_new</mat-icon>
+              <mat-icon color="white" class="load-icon" matTooltip="Detailed info" style="height:22px;">open_in_new</mat-icon>
               <!-- *ngIf="!uploaderService.isLoading()" -->
             </button>
 
