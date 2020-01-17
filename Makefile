@@ -1,24 +1,17 @@
-HUB_IMAGE=nspccdev/neofs
-VERSION=0.1.6
-PREFIX=
+DISTPATH = "dist/neofs/"
+VERSION?=$(shell git describe --abbrev=4 --dirty --always)
+DATE?= "$(shell date +%y%m%d-%H%M)"
+TARBALL?= "send-neofs_${VERSION}.tar.gz"
+BUILD_FLAG?= "--prod"
 
-B=\033[0;1m
-G=\033[0;92m
-R=\033[0m
+build: deps
+	@echo "=> Building binary"
+	@ng build $(BUILD_FLAG)
+	@tar cfz $(TARBALL) -C $(DISTPATH) ./
 
-.DEFAULT_GOAL := help
-.PHONY: build-image publish-image
+deps:
+	@npm install
 
-build-image:
-	@echo "${B}${G}⇒ Build DropIn WebUI image ${R}"
-	@docker build \
-		 -f Dockerfile \
-		 -t $(HUB_IMAGE)-drop-ui:$(VERSION)$(PREFIX) .
-
-publish-image:
-	@echo "${B}${G}⇒ Publish DropIn WebUI image ${R}"
-	@docker push $(HUB_IMAGE)-drop-ui:$(VERSION)$(PREFIX)
-
-help:
-	@echo "${B}${G}⇒ build-image   Build image for publish ${R}"
-	@echo "${B}${G}⇒ publish-image Publish image for publish ${R}"
+.PHONY: pkgname
+pkgname:
+	@echo $(TARBALL)
