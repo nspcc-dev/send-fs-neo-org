@@ -1,5 +1,5 @@
 HUB_IMAGE=nspccdev/neofs
-VERSION=0.1.4
+VERSION=0.1.6
 PREFIX=
 
 B=\033[0;1m

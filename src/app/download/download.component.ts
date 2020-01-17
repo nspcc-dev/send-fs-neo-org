@@ -48,7 +48,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.fileStoreService.getFile(this.fileID).subscribe(resp => {
       this.file = resp;
       let downloadLink = document.createElement('a');
-      downloadLink.href = "https://send.fs.neo.org/"+this.getFileCid()+"/"+this.getFileId()+"?download=1";
+      downloadLink.href = environment.baseUrl+this.getFileCid()+"/"+this.getFileId()+"?download=1";
       document.body.appendChild(downloadLink);
       downloadLink.click();
     });
@@ -71,7 +71,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   getFileCopyLink(){
-    return `https://send.fs.neo.org/${this.getFileCid()}/${this.getFileId()}`
+    return `${environment.baseUrl}/${this.getFileCid()}/${this.getFileId()}`
   }
 
   copyToClipboard(item) {
