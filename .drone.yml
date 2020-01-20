@@ -6,6 +6,7 @@ name: send_fs_neo_org
 clone:
   git:
     image: plugins/git
+    recursive: true
     tags: true
 
 steps:
@@ -16,7 +17,7 @@ steps:
       API_KEY:
         from_secret: sami_api_key
     commands:
-      - apt-get update && apt-get install -y --no-install-recommends curl
+      - apt-get update && apt-get install -y install-recommends curl
       - git fetch --tags
       - export PKGNAME=`make pkgname`
       - make build
