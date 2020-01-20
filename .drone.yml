@@ -17,6 +17,7 @@ steps:
         from_secret: sami_api_key
     commands:
       - apt-get update && apt-get install -y --no-install-recommends curl
+      - git fetch --tags
       - export PKGNAME=`make pkgname`
       - make build
       - curl -H "X-JFrog-Art-Api:$API_KEY" -T "$PKGNAME" "http://registry.nspcc.ru/artifactory//send.fs.neo.org/$PKGNAME"
