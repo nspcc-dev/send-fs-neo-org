@@ -4,20 +4,20 @@ type: docker
 name: send_fs_neo_org
 
 steps:
-    - name: make prod tarball
-      image: trion/ng-cli:8.3.22
-      user: root
-      environment:
-          API_KEY:
-              from_secret: sami_api_key
-      commands:
-          - apt-get update && apt-get install -y --no-install-recommends curl
-          - export PKGNAME=`make pkgname`
-          - make build
-          - curl -H "X-JFrog-Art-Api:$API_KEY" -T "$PKGNAME" "http://registry.nspcc.ru/artifactory//send.fs.neo.org/$PKGNAME"
+  - name: make prod tarball
+    image: trion/ng-cli:8.3.22
+    user: root
+    environment:
+      API_KEY:
+        from_secret: sami_api_key
+    commands:
+      - apt-get update && apt-get install -y --no-install-recommends curl
+      - export PKGNAME=`make pkgname`
+      - make build
+      - curl -H "X-JFrog-Art-Api:$API_KEY" -T "$PKGNAME" "http://registry.nspcc.ru/artifactory//send.fs.neo.org/$PKGNAME"
 
 trigger:
   event:
-  - push
+    - push
   branch:
-  - master
+    - master
