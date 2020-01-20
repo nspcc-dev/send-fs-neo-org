@@ -3,6 +3,11 @@ kind: pipeline
 type: docker
 name: send_fs_neo_org
 
+clone:
+  git:
+    image: plugins/git
+    tags: true
+
 steps:
   - name: make prod tarball
     image: trion/ng-cli:8.3.22
