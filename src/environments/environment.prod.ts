@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
   //todo: change to real prod
-  baseUrl: ''
+  baseUrl: '',
+  downlodLinkUrl: ''
 };
