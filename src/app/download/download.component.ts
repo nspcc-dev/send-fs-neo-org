@@ -54,6 +54,10 @@ export class DownloadComponent implements OnInit, OnDestroy {
     });
   }
 
+  getCDN(){
+    return `${environment.downloadLinkUrl}`;
+  }
+
   getFileUrl() {
     return `${environment.downloadLinkUrl}/api/get/${this.fileID}`;
   }
