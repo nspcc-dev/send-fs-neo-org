@@ -2,5 +2,5 @@ export const environment = {
   production: true,
   //todo: change to real prod
   baseUrl: '',
-  downloadLinkUrl: ''
+  downloadLinkUrl: 'https://cdn.fs.neo.org'
 };
