@@ -15,7 +15,7 @@ steps:
       - git fetch --tags
       - export PKGNAME=`make pkgname`
       - make build
-      - curl -H "X-JFrog-Art-Api:$API_KEY" -T "$PKGNAME" "http://registry.nspcc.ru/artifactory//send.fs.neo.org/$PKGNAME"
+      - curl -H "X-JFrog-Art-Api:$API_KEY" -T "$PKGNAME" "https://registry.nspcc.ru/artifactory/send.fs.neo.org/$PKGNAME"
 
 trigger:
   event:
