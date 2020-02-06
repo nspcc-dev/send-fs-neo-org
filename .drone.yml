@@ -9,10 +9,8 @@ platform:
 
 steps:
 - name: make prod tarball
-  image: trion/ng-cli:8.3.22
-  user: root
+  image: registry.nspcc.ru/docker-local/ui_builder:latest
   commands:
-  - apt-get update && apt-get install -y --install-recommends curl
   - git fetch --tags
   - export PKGNAME=`make pkgname`
   - make build
@@ -26,5 +24,8 @@ trigger:
   - master
   event:
   - push
+
+image_pull_secrets:
+- docker_auth
 
 ...
