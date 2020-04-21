@@ -21,11 +21,13 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log("init")
-    
-    this.fileStoreService.setCid()
-    console.log("getting")
 
+    this.fileStoreService.setCid()
+ 
+
+    this.loading = false;
+
+    /*
     this.routeSub = this.route.params.subscribe(params => {
       this.fileID = params['id'];
       this.fileStoreService.checkFile(this.fileID).subscribe(
@@ -33,19 +35,26 @@ export class DownloadComponent implements OnInit, OnDestroy {
           if (result === "OK") {
             this.loading = false;
           } else {
-            this.loading = false;
+            //this.loading = false;
             console.log("result:")
             console.log(result)
-            //this.router.navigateByUrl("/not-found-404", {state: {data: {message: '404: Requested object not found.', details: 'Most probably the storage period has expired and the object has been deleted.'}}});
+            this.router.navigateByUrl("/not-found-404", {state: {data: {message: '404: Requested object not found.', details: 'Most probably the storage period has expired and the object has been deleted.'}}});
           }
         },
         errorResponse => {
           console.log("errorResponse:")
           console.log(errorResponse)
-          //this.router.navigateByUrl("/not-found", {state: {data: errorResponse["error"]["message"]}});
+
+          if (errorResponse.state == 200) {
+            this.loading = false;
+          }
+          else {
+            this.router.navigateByUrl("/not-found", {state: {data: errorResponse["error"]["message"]}});
+          }
+         
         }
       )
-    })
+    }) */
   }
 
   ngOnDestroy() {
