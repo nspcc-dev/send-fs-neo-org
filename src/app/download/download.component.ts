@@ -21,8 +21,11 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.fileStoreService.setCid()
+    console.log("init")
     
+    this.fileStoreService.setCid()
+    console.log("getting")
+
     this.routeSub = this.route.params.subscribe(params => {
       this.fileID = params['id'];
       this.fileStoreService.checkFile(this.fileID).subscribe(
@@ -37,6 +40,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
           }
         },
         errorResponse => {
+          console.log("errorResponse:")
+          console.log(errorResponse)
           //this.router.navigateByUrl("/not-found", {state: {data: errorResponse["error"]["message"]}});
         }
       )
