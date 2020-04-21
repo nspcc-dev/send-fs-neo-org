@@ -38,7 +38,7 @@ export class FileStoreService {
   }
 
   public setCid(): any {
-    let cidUrl = `${this.baseUrl}/api/container`;
+    let cidUrl = `${this.baseUrl}/api/container/`;
     
     this.httpClient.get(cidUrl).subscribe(
       (res) => {
@@ -60,7 +60,7 @@ export class FileStoreService {
 
   // Does POST with file and lifetime.
   public putFile(lifetime: string): void {
-    let postUrl = `${this.baseUrl}/api/put/${lifetime}`;
+    let postUrl = `${this.baseUrl}/api/put/${lifetime}/`;
 
     this.files.forEach(file => {
       
@@ -114,7 +114,7 @@ export class FileStoreService {
 
   // Does GET for a file by provided id.
   public getFile(id: string): Observable<any> {
-    let getUrl = `${this.baseUrl}/api/get/${id}`;
+    let getUrl = `${this.baseUrl}/api/get/${id}/`;
     const HTTPOptions = {
       headers: new HttpHeaders({
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'
@@ -127,7 +127,7 @@ export class FileStoreService {
 
   // Does CHECK for a file by provided id. Expected answer is 200 HttpCode or 400.
   public checkFile(id: string): Observable<Object> {
-    let checkUrl = `${this.baseUrl}/api/check/${id}`;
+    let checkUrl = `${this.baseUrl}/api/check/${id}/`;
     return this.httpClient.get(checkUrl);
   }
 }

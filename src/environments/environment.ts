@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   baseUrl: '',
-  downlodaLinkUrl: ''
+  downloadLinkUrl: 'https://cdn.fs.neo.org'
 };

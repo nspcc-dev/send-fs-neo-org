@@ -59,7 +59,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   getFileUrl() {
-    return `${environment.downloadLinkUrl}/api/get/${this.fileID}`;
+    return `${environment.downloadLinkUrl}/api/get/${this.fileID}/`;
   }
 
   getFileId() {
