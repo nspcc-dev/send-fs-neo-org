@@ -26,10 +26,15 @@ export class DownloadComponent implements OnInit, OnDestroy {
  
 
     this.loading = false;
+    
 
-    /*
+    
     this.routeSub = this.route.params.subscribe(params => {
       this.fileID = params['id'];
+    })
+
+      
+      /*
       this.fileStoreService.checkFile(this.fileID).subscribe(
         result => {
           if (result === "OK") {
