@@ -30,6 +30,9 @@ export class DownloadComponent implements OnInit, OnDestroy {
           if (result === "OK") {
             this.loading = false;
           } else {
+            this.loading = false;
+            console.log("result:")
+            console.log(result)
             //this.router.navigateByUrl("/not-found-404", {state: {data: {message: '404: Requested object not found.', details: 'Most probably the storage period has expired and the object has been deleted.'}}});
           }
         },
@@ -75,7 +78,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   getFileCopyLink(){
-    return `${environment.downloadLinkUrl}/${this.getFileCid()}/${this.getFileId()}`
+    return `${environment.downloadLinkUrl}/${this.getFileCid()}/${this.getFileId()}/`
   }
 
   copyToClipboard(item) {
