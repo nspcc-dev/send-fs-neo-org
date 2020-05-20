@@ -1,7 +1,7 @@
 DISTPATH = "dist/"
 VERSION?=$(shell git describe --abbrev=4 --dirty --always)
 DATE?= "$(shell date +%y%m%d-%H%M)"
-TARBALL?= "send-neofs_${VERSION}.tar.gz"
+TARBALL?= "send-neofs_${VERSION}${SUFFIX}.tar.gz"
 BUILD_FLAG?= "--prod"
 
 build: deps

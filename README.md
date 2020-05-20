@@ -30,6 +30,19 @@ If you want to build locally:
 - Run `docker image build -t my-angular-app .` to create docker image.
 - Run `docker run -p 3000:80 --rm my-angular-app` to run app within docker
 
+
+## Building a distribution for a testbench
+
+To build and publish a tarball with test code to the internal artifactory,
+one should run a command:
+```
+drone exec --secret-file=secrets.txt --include 'make test tarball'
+```
+It will trigger a local build of pipeline step and produce a tarball.
+To push a tarball to the artifactory, one need to specify his Artifactory
+API Key in `secrets.txt` file. One might make an API Key in Artifactory
+settings.
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
