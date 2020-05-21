@@ -20,12 +20,12 @@ steps:
   environment:
     API_KEY:
       from_secret: sami_api_key
-- name: make test tarball
+- name: make localtest tarball
   image: registry.nspcc.ru/docker-local/ui_builder:latest
   pull: if-not-exists
   commands:
   - git fetch --tags
-  - export SUFFIX='-test'
+  - export SUFFIX='-localtest'
   - export PKGNAME=`make pkgname`
   - make build
   - export SHA1SUM=`shasum -a 1 $PKGNAME | awk '{ print $1 }'`
@@ -34,7 +34,7 @@ steps:
   environment:
     API_KEY:
       from_secret: sami_api_key
-    BUILD_FLAG: "--prod --configuration=test"
+    BUILD_FLAG: "--prod --configuration=localtest"
 
 trigger:
   branch:
@@ -44,5 +44,3 @@ trigger:
 
 image_pull_secrets:
 - docker_auth
-
-...
