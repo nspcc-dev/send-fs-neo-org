@@ -3,6 +3,7 @@ import {UploaderService} from "../services/uploader.service";
 import {FileStoreService} from "../services/filestore.service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-upload-file',
@@ -49,7 +50,7 @@ export class UploadFileComponent implements OnInit, OnDestroy {
   }
 
   getFileCopyLink(id: string){
-    return `${window.location.origin}/${this.fileStoreService.getCid()}/${id}`;
+    return `${environment.downloadLinkUrl}/${this.fileStoreService.getCid()}/${id}`;
   }
 
   copyToClipboard(item) {
