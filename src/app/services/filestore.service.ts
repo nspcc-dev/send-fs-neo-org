@@ -10,6 +10,10 @@ import {Router} from "@angular/router";
 export class FileStoreService {
 
   baseUrl = environment.baseUrl;
+  downloadLinkUrl = environment.downloadLinkUrl;
+  netmap_contract = environment.netmap_contract;
+  epoch_line = environment.epoch_line;
+
   //storing files to be uploaded.
   files: File[] = [];
 
@@ -38,16 +42,7 @@ export class FileStoreService {
   }
 
   public setCid(): any {
-    let cidUrl = `${this.baseUrl}/api/container/`;
-    
-    this.httpClient.get(cidUrl).subscribe(
-      (res) => {
-        this.cid = res["cid"]
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.cid = environment.cid;
   }
 
   public getUploadResult(): any[] {
@@ -60,56 +55,92 @@ export class FileStoreService {
 
   // Does POST with file and lifetime.
   public putFile(lifetime: string): void {
-    let postUrl = `${this.baseUrl}/api/put/${lifetime}/`;
+    let postUrl = `${this.downloadLinkUrl}/upload/${this.getCid()}`;
 
     this.files.forEach(file => {
-      
-
       const data = new FormData();
       data.append('file', file);
-      this.doPost(postUrl, data, file.name, file);
+      this.doPost(postUrl, data, file.name, file, lifetime);
 
     });
 
  
   }
 
- 
 
-  private doPost(postUrl: string, data: any, filename: string, file: any) {
-    this.httpClient.post(postUrl, data).subscribe(
+private  _base64ToArrayBuffer(base64) {
+    let bytes = new Uint8Array([0, 0, 0, 0]);
+    let binary_string = base64;
+    let len = binary_string.length;
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes;
+}
+
+
+  private doPost(postUrl: string, data: any, filename: string, file: any, lifetime: any) {
+
+    let headers = new HttpHeaders();
+    headers.append("Content-Type", "application/json");
+  
+    let body = {id:"1", jsonrpc: "2.0", method: "getstorage", params: [this.netmap_contract, this.epoch_line]};
+  
+    this.httpClient.post('/chain', body, { headers: headers }).subscribe(
       (res) => {
+        var epoch_b64 = atob(res['result']);
+        var epoch_bytes = this._base64ToArrayBuffer(epoch_b64)
+        const dv2 = new DataView(epoch_bytes.buffer);
+        const epoch = dv2.getUint32(0, /* little endian data */ true);
+        console.log("Epoch: " + epoch);
         
-        console.log(res);
-        console.log(this.uploadResult);
-        this.uploadResult.push(res);
-        this.uploaderService.setLoaded(true);
+        const httpOptions = {
+          headers: new HttpHeaders({ 'X-Attribute-NEOFS-Expiration-Epoch': String(Number(epoch)+Number(lifetime)) })
+        };
+    
+        this.httpClient.post(postUrl, data, httpOptions).subscribe(
+          (res) => {
+            
+            console.log("QQQQQQQQQQ");
+            console.log(res);
+            console.log(this.uploadResult);
+            
+            res['filename']=filename
 
-        this.files = this.files.filter(obj => obj !== file);
-
-        if (this.files.length == 0) {
-          this.uploaderService.setLoading(false);
-        }
+            this.uploadResult.push(res);
+            this.uploaderService.setLoaded(true);
+    
+            this.files = this.files.filter(obj => obj !== file);
+    
+            if (this.files.length == 0) {
+              this.uploaderService.setLoading(false);
+            }
+          },
+          (err) => {
+            
+            let snack = this.notification.open(`Something went wrong with uploading file: ${filename}`, "DETAILS", {duration: 5000});
+            snack.onAction().subscribe(() => {
+              this.router.navigateByUrl("/not-found", {state: {data: `Something went wrong with uploading file: ${filename}. Error = ${err.message}`}})
+            });
+    
+            console.log(err);
+            this.uploaderService.setLoaded(false);
+    
+            if (this.files.length == 1) {
+              this.uploaderService.setLoading(false);
+            }
+           // this.uploaderService.setLoading(false);
+    
+            //this.files = this.files.filter(obj => obj !== file);
+            
+          }
+        );
       },
       (err) => {
-        
-        let snack = this.notification.open(`Something went wrong with uploading file: ${filename}`, "DETAILS", {duration: 5000});
-        snack.onAction().subscribe(() => {
-          this.router.navigateByUrl("/not-found", {state: {data: `Something went wrong with uploading file: ${filename}. Error = ${err.message}`}})
-        });
-
         console.log(err);
-        this.uploaderService.setLoaded(false);
-
-        if (this.files.length == 1) {
-          this.uploaderService.setLoading(false);
-        }
-       // this.uploaderService.setLoading(false);
-
-        //this.files = this.files.filter(obj => obj !== file);
-        
       }
     );
+
   }
 
   // Does GET for a file by provided id.

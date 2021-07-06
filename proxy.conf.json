@@ -1,10 +1,22 @@
 {
-    "/api/*": {
-        "target": "https://send.fs.neo.org/api/",
+    "/chain/*": {
+        "target": "http://morph_chain.neofs.devenv:30333",
         "secure": true,
         "changeOrigin": true,
         "pathRewrite": {
-            "^/api": ""
+            "^/chain": ""
         }
-    }
+    },
+    "/gate/*": {
+        "target": "http://http.neofs.devenv",
+        "secure": false,
+        "changeOrigin": false,
+        "pathRewrite": {
+            "^/gate": ""
+        },
+        "headers": {
+            "X-Attribute-TEST": "idtest"
+        }
+    },
+    "logLevel": "debug"
 }

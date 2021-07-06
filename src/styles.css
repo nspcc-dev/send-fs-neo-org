@@ -49,7 +49,7 @@ button:focus {
   animation-fill-mode: forwards;
   min-height: 100vh;
   width: 100vw;
-  background: url("/assets/img/neo-bg.svg") no-repeat center center fixed;
+  background: url("/assets/img/neo-bg-re.svg") no-repeat center center fixed;
   background-size: cover;
 
 }
