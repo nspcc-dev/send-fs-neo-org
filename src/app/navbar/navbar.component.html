@@ -1,39 +1,44 @@
 <div class="nav-menu fixed-top">
   <div class="container" style="padding:0px;">
-     
-      <div class="col-md-12" >
-        <nav class="navbar navbar-dark navbar-expand-lg" >
-          <a class="navbar-brand" [routerLink]="['/']"><img src="../../assets/img/NeoFS_w2.svg" class="img-fluid" alt="logo"
-              style="height:50px; cursor: pointer;" ></a> 
-                            
-              <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-target="#navbar" aria-controls="navbar"
-               aria-expanded="false" aria-label="Toggle navigation" > 
 
-            <span
-              class="navbar-toggler-icon" ></span> </button> <!--style="height:calc(20px + 1vw); width:calc(20px + 1vw);"  margin-left:-10px logo-->
-              <div class="collapse navbar-collapse "
-              [ngClass]="{ 'show': navbarOpen }" >
-           <ul class="navbar-nav ml-auto">
+    <div class="col-md-12">
+      <nav class="navbar navbar-dark navbar-expand-lg">
+        <a class="navbar-brand" [routerLink]="['/']"><img src="../../assets/img/NeoFS_w2.svg" class="img-fluid"
+            alt="logo" style="height:50px; cursor: pointer;"></a>
+
+        <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-target="#navbar"
+          aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+
+          <span class="navbar-toggler-icon"></span> </button>
+        <div class="collapse navbar-collapse " [ngClass]="{ 'show': navbarOpen }">
+          <ul class="navbar-nav ml-auto" *ngIf="this.cookieValue">
 
 
             <li class="nav-item">
-                <a class="nav-link " [routerLink]="['/']" [ngClass]="{'active': this.router.url == '/'}" (click)="onClick()">Upload</a>
+              <a class="nav-link " [routerLink]="['/']" [ngClass]="{'active': this.router.url == '/'}"
+                (click)="onClick()">Upload</a>
             </li>
 
             <li class="nav-item">
               <a class="nav-link " [routerLink]="['tos']" routerLinkActive="active" (click)="onClick()">Agreement</a>
             </li>
-      
-            <li class="nav-item"> <!--  btn btn-outline-light my-3 my-sm-0 ml-lg-3 -->
+
+            <li class="nav-item">
               <a class="nav-link" href="https://medium.com/@neospcc" target="_blank" (click)="onClick()">Blog</a>
-            </li> 
+            </li>
 
 
-            </ul>
-          </div>
-        </nav>
-    
+
+            <li class="nav-item">
+
+              <a class="nav-item  btn btn-outline-light" (click)="logout()"
+                style="margin-left:30px; margin-right:30px; margin-top: 5px; color: rgba(255,255,255,.5);"> logout</a>
+            </li>
+
+
+          </ul>
+        </div>
+      </nav>
     </div>
   </div>
 </div>
-

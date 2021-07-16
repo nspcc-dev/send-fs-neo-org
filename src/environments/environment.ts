@@ -7,7 +7,8 @@ export const environment = {
   production: false,
   baseUrl: '',
   downloadLinkUrl: '/gate',
-  cid: '6zmvmcoqyr5eU4EZGggLcdeJXiNDjhgKLigh9tuNpLez',
-  netmap_contract: "0xff50668206f8c804205990672f9a26af61780db5",
+  getLinkUrl:'https://http.fs.neo.org',
+  cid: '7VWuXeJGCk2jLqsazzJgqKg8BnrhTqzQs866XHMdMJGC',
+  netmap_contract: "0x5283a843ee68f8fa9ee664df6b495054be5738d4",
   epoch_line: "c25hcHNob3RFcG9jaA=="
 };

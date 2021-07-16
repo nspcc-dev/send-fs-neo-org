@@ -4,7 +4,40 @@
         <app-navbar></app-navbar>
 
         <div class="container">
-            <router-outlet></router-outlet>
+
+            <div *ngIf="!this.c_bearer">
+                <div class="container d-flex justify-content-center">
+
+
+                    <div class="section">
+
+
+                        <div class="section-title">
+
+                            <h2>Sign in with Google ot GitHub account</h2>
+
+                            <div class="container d-flex justify-content-center">
+
+                                <div style="padding:40px; float:left;  align-self: center;
+                                        justify-content: center; ">
+                                    <a href="http://send.fs.neo.org/signup_google"><img class="social-icon"
+                                            src="../../assets/img/iconmonstr-google-plus-4.svg" alt=""
+                                            style="height:140px; filter: invert(100%);"></a>
+                                </div>
+
+                                <div style="padding:40px; float:left;  align-self: center;
+                                        justify-content: center;">
+                                    <a href="http://send.fs.neo.org/signup_github"><img class="social-icon"
+                                            src="../../assets/img/iconmonstr-github-1.svg" alt=""
+                                            style="height:140px; filter: invert(100%);"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <router-outlet *ngIf="this.c_bearer"></router-outlet>
 
 
 

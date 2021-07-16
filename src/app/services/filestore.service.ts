@@ -6,13 +6,19 @@ import {UploaderService} from "./uploader.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 
+import { CookieService } from 'ngx-cookie-service';
+
 @Injectable()
 export class FileStoreService {
 
   baseUrl = environment.baseUrl;
   downloadLinkUrl = environment.downloadLinkUrl;
+  getLinkUrl = environment.getLinkUrl;
   netmap_contract = environment.netmap_contract;
   epoch_line = environment.epoch_line;
+  c_email = 'UNKNOWN';
+  c_email_hash = 'UNKNOWN';
+  c_bearer = 'UNKNOWN';
 
   //storing files to be uploaded.
   files: File[] = [];
@@ -25,7 +31,8 @@ export class FileStoreService {
     private httpClient: HttpClient,
     private uploaderService: UploaderService,
     private notification: MatSnackBar,
-    private router: Router) {
+    private router: Router,
+    private cookieService: CookieService) {
   }
 
   // updates all files which stored in cache to be uploaded to the server.
@@ -94,14 +101,20 @@ private  _base64ToArrayBuffer(base64) {
         const epoch = dv2.getUint32(0, /* little endian data */ true);
         console.log("Epoch: " + epoch);
         
+        this.c_email = this.cookieService.get('Email');
+        this.c_email_hash = this.cookieService.get('X-Attribute-Email');
+        this.c_bearer = this.cookieService.get('Bearer');
+        
         const httpOptions = {
-          headers: new HttpHeaders({ 'X-Attribute-NEOFS-Expiration-Epoch': String(Number(epoch)+Number(lifetime)) })
+          headers: new HttpHeaders({ 'X-Attribute-NEOFS-Expiration-Epoch': String(Number(epoch)+Number(lifetime)),
+                                     'Authorization': "Bearer " + this.c_bearer,
+                                     'X-Attribute-Email': this.c_email_hash,
+                                     'X-Attribute-Owner-Email': this.c_email })
         };
     
         this.httpClient.post(postUrl, data, httpOptions).subscribe(
           (res) => {
             
-            console.log("QQQQQQQQQQ");
             console.log(res);
             console.log(this.uploadResult);
             
@@ -145,7 +158,7 @@ private  _base64ToArrayBuffer(base64) {
 
   // Does GET for a file by provided id.
   public getFile(id: string): Observable<any> {
-    let getUrl = `${this.baseUrl}/api/get/${id}/`;
+    let getUrl = `${this.baseUrl}/gate/get/${this.getCid()}/${id}`;
     const HTTPOptions = {
       headers: new HttpHeaders({
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'

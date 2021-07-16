@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {FileStoreService} from "../services/filestore.service";
-import {UploaderService} from "../services/uploader.service";
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FileStoreService } from "../services/filestore.service";
+import { UploaderService } from "../services/uploader.service";
 
 export interface Lifetime {
   value: string;
@@ -20,10 +20,10 @@ export class SelectorAndPushComponent implements OnInit {
 
   ngOnInit(): void {
     this.lifetimes = [
-      {value: '2', viewValue: '12 hours (2 epoch)'},
-      {value: '4', viewValue: '1 day (4 epoch)'},
-      {value: '8', viewValue: '2 days (8 epoch)'},
-      {value: '16', viewValue: '4 days (16 epoch)'},
+      { value: '2', viewValue: '12 hours (2 epochs)' },
+      { value: '4', viewValue: '1 day (4 epochs)' },
+      { value: '8', viewValue: '2 days (8 epochs)' },
+      { value: '16', viewValue: '4 days (16 epochs)' },
     ];
     this.selectedLifetime = this.lifetimes[0];
 

@@ -70,19 +70,19 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.fileStoreService.getFile(this.fileID).subscribe(resp => {
       this.file = resp;
       let downloadLink = document.createElement('a');
-      downloadLink.href = environment.downloadLinkUrl+"/get/"+this.getFileCid()+"/"+this.getFileId()+"/?download=1";
+      downloadLink.href = environment.baseUrl+"/gate/get/"+this.getFileCid()+"/"+this.getFileId()+"?download=1";
       document.body.appendChild(downloadLink);
       downloadLink.click();
     });
   }
 
   getCDN(){
-    return `${environment.downloadLinkUrl}`;
+    return `${environment.getLinkUrl}`;
   }
 
-  getFileUrl() {
-    return `${environment.downloadLinkUrl}/api/get/${this.fileID}/`;
-  }
+ // getFileUrl() {
+ //   return `${environment.getLinkUrl}/api/get/${this.fileID}/`;
+ // }
 
   getFileId() {
     return `${this.fileID}`;
@@ -97,7 +97,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   getFileCopyLink(){
-    return `${environment.downloadLinkUrl}/get/${this.getFileCid()}/${this.getFileId()}/`
+    return `${environment.getLinkUrl}/${this.getFileCid()}/${this.getFileId()}`
   }
 
   copyToClipboard(item) {
