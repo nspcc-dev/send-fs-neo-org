@@ -13,7 +13,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 This procedure has been prepared as fast solution and will be updated in future.
 Given the automation of deployments through ansible, this procedure has no priority.
 
- - Create container: `neofs-cli --rpc-endpoint st1.storage.fs.neo.org:8080 --wif Kxp5YtFG75xEGKzUu3Asn5bb5UN4iqvfNycatvfDcwBYq3S3X996 container create --policy 'REP 2 IN X CBF 1 SELECT 4 FROM F AS X FILTER "Deployed" EQ "NSPCC" AS F' --basic-acl public-read --await`
+ - Create container: `neofs-cli --rpc-endpoint st1.storage.fs.neo.org:8080 --wif WIF_KEY_HERE container create --policy 'REP 2 IN X CBF 1 SELECT 4 FROM F AS X FILTER "Deployed" EQ "NSPCC" AS F' --basic-acl public-read --await`
  - Update `/bin/upload.py` script with actual `cid`
  - Run `make`
  - Untar archive to separate dir
