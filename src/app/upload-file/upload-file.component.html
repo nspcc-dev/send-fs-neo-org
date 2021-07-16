@@ -78,9 +78,9 @@
         <div class="row uploaded-files" *ngFor="let upload of fileStoreService.getUploadResult();let i=index">
           <div class="col-md-12 clearfix">
             <p style="font-size:16px; margin-left: 10px; word-wrap: break-word; margin-right: 20px; margin-bottom:0px;  align-self: center;
-    justify-content: center;" class="float-left"><a [routerLink]="[getFileUrl(upload.oid)]">{{upload.oid}}</a></p> 
+    justify-content: center;" class="float-left"><a [routerLink]="[getFileUrl(upload.object_id)]">{{upload.filename}}</a></p> 
 
-            <button class="load-file float-right" (click)="copyToClipboard(getFileCopyLink(upload.oid))">
+            <button class="load-file float-right" (click)="copyToClipboard(getFileCopyLink(upload.object_id))">
               <mat-icon color="white" class="load-icon" matTooltip="Copy link to file" style="height:22px;">link</mat-icon>
             </button>
 

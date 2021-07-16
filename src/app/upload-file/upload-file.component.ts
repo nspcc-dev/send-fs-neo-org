@@ -42,7 +42,7 @@ export class UploadFileComponent implements OnInit, OnDestroy {
   }
 
   downloadFile(upload: any) {
-    this.router.navigateByUrl(`/load/${upload.oid}`);
+    this.router.navigateByUrl(`/load/${upload.object_id}`);
   }
 
   getFileUrl(id: string) {
@@ -50,7 +50,7 @@ export class UploadFileComponent implements OnInit, OnDestroy {
   }
 
   getFileCopyLink(id: string){
-    return `${environment.downloadLinkUrl}/${this.fileStoreService.getCid()}/${id}`;
+    return `${environment.getLinkUrl}/${this.fileStoreService.getCid()}/${id}`;
   }
 
   copyToClipboard(item) {

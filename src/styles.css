@@ -49,18 +49,10 @@ button:focus {
   animation-fill-mode: forwards;
   min-height: 100vh;
   width: 100vw;
-  background: url("/assets/img/neo-bg.svg") no-repeat center center fixed;
+  background: url("/assets/img/neo-bg-1.svg") no-repeat center center fixed;
   background-size: cover;
 
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -134,13 +126,9 @@ p {
 }
 
 
-
-
 .btn-outline-light:hover {
   color: rgba(0, 229, 153, 1) !important;
 }
-
-
 
 
 .btn-primary {
@@ -207,12 +195,14 @@ p {
 }
 
 
-
-
 .nav-menu {
   padding: 1rem 0;
   transition: all 0.3s ease;
-  background-color: #2B393F;
+ /*  background-color: #20303f; /* #2B393F; */
+  background-image: -moz-linear-gradient(135deg, #20303f 0%, rgba(43, 57, 63, 1) 100%);
+  background-image: -webkit-linear-gradient(135deg, #20303f 0%, rgba(43, 57, 63, 1) 100%);
+  background-image: -ms-linear-gradient(135deg, #20303f 0%, rgba(43, 57, 63, 1) 100%);
+  background-image: linear-gradient(135deg, #20303f 0%, rgba(43, 57, 63, 1) 100%);
   /* R43 G57 B63 */
 }
 
@@ -448,7 +438,11 @@ header {
 
 
 .footer {
-  background-color: #2B393F;
+  /* background-color: #2B393F; */
+  background-image: -moz-linear-gradient(135deg, #20303f 0%, rgba(43, 57, 63, 1) 100%);
+  background-image: -webkit-linear-gradient(135deg, #20303f 0%, rgba(43, 57, 63, 1) 100%);
+  background-image: -ms-linear-gradient(135deg, #20303f 0%, rgba(43, 57, 63, 1) 100%);
+  background-image: linear-gradient(135deg, #20303f 0%, rgba(43, 57, 63, 1) 100%);
   padding: 1rem 0;
   position: absolute;
   bottom: 0;

@@ -21,6 +21,7 @@ import {UploaderService} from "./services/uploader.service";
 import {TosComponent} from "./tos/tos.component";
 
 import { NavbarComponent } from './navbar/navbar.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     MatTooltipModule,
     ReactiveFormsModule,
   ],
-  providers: [FileStoreService, UploaderService],
+  providers: [FileStoreService, UploaderService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
