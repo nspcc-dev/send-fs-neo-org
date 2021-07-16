@@ -142,9 +142,7 @@ private  _base64ToArrayBuffer(base64) {
             if (this.files.length == 1) {
               this.uploaderService.setLoading(false);
             }
-           // this.uploaderService.setLoading(false);
-    
-            //this.files = this.files.filter(obj => obj !== file);
+          
             
           }
         );
