@@ -97,7 +97,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   getFileCopyLink(){
-    return `${environment.getLinkUrl}/${this.getFileCid()}/${this.getFileId()}`
+    return `${environment.getLinkUrl}/${this.getFileId()}`
   }
 
   copyToClipboard(item) {

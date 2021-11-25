@@ -50,7 +50,7 @@ export class UploadFileComponent implements OnInit, OnDestroy {
   }
 
   getFileCopyLink(id: string){
-    return `${environment.getLinkUrl}/${this.fileStoreService.getCid()}/${id}`;
+    return `${environment.getLinkUrl}/${id}`;
   }
 
   copyToClipboard(item) {
