@@ -1,12 +1,18 @@
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `make start PORT=3000` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
+
+## Requirements
+
+- docker
+- make
+- node (`14+`)
 
 ## Send.FS local up
  - Start neofs-dev-env
- - Update `src/environments/environment.ts`
- - Execute `npm install`
- - Run local server `ng serve --proxy-config proxy.conf.js`
+ - Update `web/.env`
+ - Execute `npm install` in `web` folder
+ - Run local `npm start`
 
 ## Deployment to prod
 
