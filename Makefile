@@ -1,20 +1,44 @@
-DISTPATH = "dist/"
-VERSION?=$(shell git describe --abbrev=4 --dirty --always)
-DATE?= "$(shell date +%y%m%d-%H%M)"
-TARBALL?= "send-neofs_${VERSION}${SUFFIX}.tar.gz"
-BUILD_FLAG?= "--prod"
+#!/usr/bin/make -f
 
-build: deps
-	@echo "=> Building binary"
-	@ng build $(BUILD_FLAG)
-	@tar cfz $(TARBALL) -C $(DISTPATH) ./
+SHELL = bash
 
-deps:
-	@npm install
+VERSION ?= $(shell git rev-parse --short=8 HEAD)
+SITE_DIR ?= send.fs.neo.org
+RELEASE_DIR ?= $(SITE_DIR)-$(VERSION)
+RELEASE_PATH ?= $(SITE_DIR)-$(VERSION).tar.gz
+CURRENT_UID ?=  $(shell id -u $$USER)
 
-.PHONY: pkgname version
-pkgname:
-	@echo $(TARBALL)
+PORT = 3000
+
+$(SITE_DIR):
+	docker run \
+	-v $$(pwd)/src:/usr/src/app/src \
+	-v $$(pwd)/public:/usr/src/app/public \
+	-v $$(pwd)/package.json:/usr/src/app/package.json \
+	-v $$(pwd)/.env:/usr/src/app/.env \
+	-v $$(pwd)/$(SITE_DIR):/usr/src/app/$(SITE_DIR) \
+	-e CURRENT_UID=$(CURRENT_UID) \
+	-w /usr/src/app node:14-alpine \
+	sh -c 'npm install && npm run build && chown -R $$CURRENT_UID: $(SITE_DIR)'
+
+start:
+	docker run \
+	-p $(PORT):3000 \
+	-v `pwd`:/usr/src/app \
+	-w /usr/src/app node:14-alpine \
+	sh -c 'npm install --silent && npm run build && npm install -g serve && serve -s $(SITE_DIR) -p 3000'
+
+release: $(SITE_DIR)
+	cp $(SITE_DIR)/index.html $(SITE_DIR)/agreement 
+	@ln -sf $(SITE_DIR) $(RELEASE_DIR)
+	@tar cfvhz $(RELEASE_PATH) $(RELEASE_DIR)
+
+clean:
+	@echo "Cleaning up ..."
+	@rm -rf $(SITE_DIR) $(RELEASE_DIR) $(RELEASE_PATH)
+
+release_name:
+	@echo $(RELEASE_PATH)
 
 version:
 	@echo $(VERSION)
