@@ -34,7 +34,6 @@ const Load = ({
 		setLoading(true);
 		let downloadLink = document.createElement('a');
 		downloadLink.href = `${environment.server ? environment.server : ''}/gate/get/${objectID}?download=1`;
-		downloadLink.target = '_blank';
 		document.body.appendChild(downloadLink);
 		downloadLink.click();
 		setTimeout(() => {
