@@ -189,18 +189,6 @@ div.navbar-item:hover {
     font-weight: 400;
 }
 
-.github-button {
-    background: #24292f;
-    color: #fff !important;
-    border: 0;
-}
-
-.google-button {
-    background: #ef492b;
-    color: #fff !important;
-    border: 0;
-}
-
 .button.is-focused,
 .button:focus {
     border-color: inherit;
