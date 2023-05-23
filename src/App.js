@@ -53,6 +53,7 @@ function getCookie(name) {
 export const App = () => {
 	const location = useLocation();
 	const [environment] = useState({
+		version: process.env.REACT_APP_VERSION,
 		server: process.env.REACT_APP_NEOFS,
 		containerID: process.env.REACT_APP_CONTAINER_ID,
 		netmapContract: process.env.REACT_APP_NETMAP_CONTRACT,
@@ -182,7 +183,7 @@ export const App = () => {
 					</Navbar.Menu>
 				)}
 			</Navbar>
-			<main style={{ minHeight: 'calc(100vh - 212px)' }}>
+			<main style={{ minHeight: 'calc(100vh - 231.8px)' }}>
 				<Routes>
 					<Route
 						path="/"
@@ -264,8 +265,17 @@ export const App = () => {
 					weight="light"
 					subtitle
 					align="center"
+					style={{ marginBottom: '0.3rem' }}
 				>
 					Send.NeoFS
+				</Heading>
+				<Heading
+					size={7}
+					weight="light"
+					subtitle
+					align="center"
+				>
+					{`v${environment.version}`}
 				</Heading>
 			</Footer>
     </>
