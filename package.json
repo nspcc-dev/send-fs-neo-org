@@ -17,7 +17,7 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=false react-scripts start",
+    "start": "REACT_APP_VERSION=`git rev-parse --short=8 HEAD` GENERATE_SOURCEMAP=false react-scripts start",
     "build": "GENERATE_SOURCEMAP=false BUILD_PATH='./send.fs.neo.org' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
