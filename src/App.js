@@ -163,14 +163,6 @@ export const App = () => {
 							>
 								Agreement
 							</Link>
-							<Navbar.Item
-								href="https://medium.com/@neospcc"
-								target="_blank"
-								rel="noopener noreferrer nofollow"
-								onClick={() => setMenuActive(false)}
-							>
-								Blog
-							</Navbar.Item>
 						</Navbar.Container>
 						<Navbar.Container align="right">
 							<Navbar.Item
@@ -257,6 +249,14 @@ export const App = () => {
 							width={30}
 							height={30}
 							alt="youtube logo"
+						/>
+					</a>
+					<a href="https://medium.com/@neospcc" target="_blank" rel="noopener noreferrer">
+						<img
+							src="/img/socials/medium.svg"
+							width={30}
+							height={30}
+							alt="medium logo"
 						/>
 					</a>
 				</div>
