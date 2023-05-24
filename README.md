@@ -1,3 +1,12 @@
+<p align="center">
+<img src="./.github/logo.svg" width="500px" alt="NeoFS">
+</p>
+<p align="center">
+  <a href="https://fs.neo.org">NeoFS</a> is a decentralized distributed object storage integrated with the <a href="https://neo.org">Neo Blockchain</a>.
+</p>
+
+---
+
 ## Development server
 
 Run `make start PORT=3000` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
