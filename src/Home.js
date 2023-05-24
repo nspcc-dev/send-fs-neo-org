@@ -286,7 +286,7 @@ const Home = ({
 									<Button
 										renderAs="a"
 										href="/signup_google"
-										className="google-button"
+										color="primary"
 									>
 										<FontAwesomeIcon icon={['fab', 'google']} style={{ marginRight: 5 }} />
 										<span>Continue with Google</span>
@@ -296,7 +296,7 @@ const Home = ({
 									<Button
 										renderAs="a"
 										href="/signup_github"
-										className="github-button"
+										color="primary"
 									>
 										<FontAwesomeIcon icon={['fab', 'github']} style={{ marginRight: 5 }} />
 										<span>Continue with GitHub</span>
