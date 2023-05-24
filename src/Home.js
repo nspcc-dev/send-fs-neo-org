@@ -287,8 +287,16 @@ const Home = ({
 										renderAs="a"
 										href="/signup_google"
 										color="primary"
+										style={{ paddingLeft: '2.5rem' }}
 									>
-										<FontAwesomeIcon icon={['fab', 'google']} style={{ marginRight: 5 }} />
+										<FontAwesomeIcon
+											icon={['fab', 'google']}
+											style={{
+												position: 'absolute',
+												left: 0,
+												padding: 12,
+											}}
+										/>
 										<span>Continue with Google</span>
 									</Button>
 								</Button.Group>
@@ -297,8 +305,16 @@ const Home = ({
 										renderAs="a"
 										href="/signup_github"
 										color="primary"
+										style={{ paddingLeft: '2.5rem' }}
 									>
-										<FontAwesomeIcon icon={['fab', 'github']} style={{ marginRight: 5 }} />
+										<FontAwesomeIcon
+											icon={['fab', 'github']}
+											style={{
+												position: 'absolute',
+												left: 0,
+												padding: 12,
+											}}
+										/>
 										<span>Continue with GitHub</span>
 									</Button>
 								</Button.Group>
