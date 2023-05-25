@@ -11,36 +11,57 @@
 
 ![Demo](./.github/demo.png)
 
-## Development server
+# Overview
 
-Run `make start PORT=3000` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
+Send.NeoFS is a simple example of integration with NeoFS network via HTTP protocol. It allows to store your files in decentralized network for the selected period of time and share them via generated link. Send.NeoFS should be used for NeoFS public test only.
 
-## Requirements
+# Requirements
 
 - docker
 - make
 - node (`14+`)
 
-## Send.FS local up
- - Start neofs-dev-env
- - Update `web/.env`
- - Execute `npm install` in `web` folder
+# Make instructions
+
+* Compile the build using `make` (will be generated in `send.fs.neo.org` dir)
+* Start app using `make start PORT=3000` (PORT=3000 by default)
+* Clean up cache directories using `make clean`
+* Get release directory with tar.gz using `make release`
+
+Set variables in the `.env` file before executing the commands:
+- `REACT_APP_NEOFS` - Path to SendFS
+- `REACT_APP_CONTAINER_ID` - NeoFS container ID where the objects would be stored
+- `REACT_APP_NETMAP_CONTRACT` - NeoFS netmap contract
+- `REACT_APP_EPOCH_LINE` - Epoch value storage key used in the netmap contract
+
+# Send.NeoFS local up
+
+ - Start [neofs-dev-env](https://github.com/nspcc-dev/neofs-dev-env)
+ - Update `.env`
+ - Execute `npm install`
  - Run local `npm start`
 
-## Deployment to prod
+# Deployment to production
 
 This procedure has been prepared as fast solution and will be updated in future.
 Given the automation of deployments through ansible, this procedure has no priority.
 
- - Create container: `neofs-cli --rpc-endpoint st1.storage.fs.neo.org:8080 --wif WIF_KEY_HERE container create --policy 'REP 2 IN X CBF 1 SELECT 4 FROM F AS X FILTER "Deployed" EQ "NSPCC" AS F' --basic-acl public-read --await`
+ - Create container: `neofs-cli --rpc-endpoint st1.storage.fs.neo.org:8080 --config CONFIG_PATH container create --policy 'REP 2 IN X CBF 1 SELECT 4 FROM F AS X FILTER "Deployed" EQ "NSPCC" AS F' --basic-acl public-read --await`
+
+CONFIG_PATH – path to wallet config, wallet config example:
+```
+wallet: test.json
+address: NWuFifWC3F5R9hY3xHyy9UvAAKxGgZfp4W
+password: <secret>
+```
  - Update `/bin/upload.py` script with actual `cid`
  - Run `make`
  - Untar archive to separate dir
  - Copy `/bin/upload.py` to dir
  - Run `upload.py` to put send.fs to the NeoFS container
- - Update nginx.config to use new container in the prod server
+ - Update nginx.config to use new container in the production server
 
-## nginx config example on the prod server
+# Nginx config example on the production server
 
 ```
 # Please do not change this file directly since it is managed by Ansible and will be overwritten
@@ -49,9 +70,7 @@ Given the automation of deployments through ansible, this procedure has no prior
 #    - https://send.fs.neo.org/
 
 server {
-
         listen [::]:443 ssl http2;
-        
 
         ssl_certificate           /etc/nginx/ssl/send.fs.neo.org.crt;
         ssl_certificate_key       /etc/nginx/ssl/send.fs.neo.org.key;
@@ -98,7 +117,6 @@ server {
         send_timeout                300;
         default_type application/octet-stream;
 
-
         # Disallow access to hidden files and directories, except `/.well-known/`
         # https://www.mnot.net/blog/2010/04/07/well-known
         # https://tools.ietf.org/html/rfc5785
@@ -124,26 +142,24 @@ server {
                 deny all;
         }
 
-
         location ~ "^\/chain" {
                 rewrite ^/chain/(.*) /$1 break;
                 proxy_pass https://rpc1.morph.fs.neo.org:40341;
         }
 
         location /gate/upload/ {
-                rewrite  ^/gate/(.*) /$1 break;
+                set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
+                rewrite ^/gate/(.*) /upload/$cid break;
                 proxy_pass https://http.fs.neo.org;
                 proxy_pass_request_headers      on;
-                proxy_set_header X-Attribute-Email $http_x_attribute_email;
+                proxy_set_header X-Attribute-email $http_x_attribute_email;
                 proxy_set_header X-Attribute-NEOFS-Expiration-Epoch $http_x_attribute_neofs_expiration_epoch;
-                proxy_set_header X-Attribute-Owner-Email $http_x_attribute_owner_email;                
-
         }
 
         location ~ "^\/gate\/get(/.*)?\/?$" {
                 rewrite  ^/gate/get/(.*) /$1 break;
                 proxy_pass https://http.fs.neo.org;
-          
+
                 proxy_intercept_errors on;
                 proxy_cache_valid 404 0;
                 proxy_cache_valid 200 15m;
@@ -151,9 +167,6 @@ server {
                 proxy_cache neofs_cache;
                 proxy_cache_methods GET;
         }
-
- 
-
 
         location /signup_google/ {
                 proxy_pass http://localhost:8084/login?service=google;
@@ -178,8 +191,6 @@ server {
         location ~ "^\/callback" {
                rewrite ^/callback\?(.*) /$1 break;
                proxy_pass http://localhost:8084;
-
-
         }
 
         location /load {
@@ -196,7 +207,6 @@ server {
                 include             /etc/nginx/mime.types;
         }
 
-
         location / {
                 set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
 
@@ -209,10 +219,7 @@ server {
                 proxy_pass https://http.fs.neo.org/;
                 include             /etc/nginx/mime.types;
         }
-
 }
-
-
 ```
 
 # License
