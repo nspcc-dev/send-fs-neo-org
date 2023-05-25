@@ -52,7 +52,7 @@ const Load = ({
 								renderAs={Notification}
 								color={"gray"}
 							>
-								<Heading weight="semibold" subtitle align="center">Download your files via HTTP-gate</Heading>
+								<Heading weight="semibold" subtitle align="center">Download your files via HTTP gate</Heading>
 								<Button.Group style={{ justifyContent: 'center' }}>
 									<Button
 										onClick={onDownload}
