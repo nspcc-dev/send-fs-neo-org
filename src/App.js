@@ -70,12 +70,6 @@ export const App = () => {
 		params: '',
 	});
   
-	useEffect(() => {
-		if (!user && location.pathname !== '/') {
-			onRedirect('/');
-		}
-	}, [user]); // eslint-disable-line react-hooks/exhaustive-deps
-
 	const onModal = (current = null, text = null, params = null) => {
 		setModal({ current, text, params });
 	};
@@ -131,49 +125,47 @@ export const App = () => {
 			)}
 			<Navbar>
 				<Navbar.Brand>
-					<Link
-						to="/"
-						className="navbar-item"
+					<Navbar.Item
+						renderAs="div"
+						style={{ cursor: 'default' }}
 					>
 						<img src="/img/logo.svg" height="28" width="112" alt="logo"/>
-					</Link>
-					{user && (
-						<Navbar.Burger
-							className={menuActive ? 'is-active' : ''}
-							onClick={() => setMenuActive(!menuActive)}
-						/>
-					)}
-				</Navbar.Brand>
-				{user && (
-					<Navbar.Menu
+					</Navbar.Item>
+					<Navbar.Burger
 						className={menuActive ? 'is-active' : ''}
-					>
-						<Navbar.Container>
-							<Link
-								to="/"
-								className="navbar-item"
-								onClick={() => setMenuActive(false)}
-							>
-								Upload
-							</Link>
-							<Link
-								to="/agreement"
-								className="navbar-item"
-								onClick={() => setMenuActive(false)}
-							>
-								Agreement
-							</Link>
-						</Navbar.Container>
-						<Navbar.Container align="right">
-							<Navbar.Item
-								renderAs="div"
-								onClick={onLogout}
-							>
-								<Button>Logout</Button>
-							</Navbar.Item>
-						</Navbar.Container>
-					</Navbar.Menu>
-				)}
+						onClick={() => setMenuActive(!menuActive)}
+					/>
+				</Navbar.Brand>
+				<Navbar.Menu
+					className={menuActive ? 'is-active' : ''}
+				>
+					<Navbar.Container>
+						<Link
+							to="/"
+							className="navbar-item"
+							onClick={() => setMenuActive(false)}
+						>
+							Upload
+						</Link>
+						<Link
+							to="/agreement"
+							className="navbar-item"
+							onClick={() => setMenuActive(false)}
+						>
+							Agreement
+						</Link>
+					</Navbar.Container>
+					{user && (
+					<Navbar.Container align="right">
+						<Navbar.Item
+							renderAs="div"
+							onClick={onLogout}
+						>
+							<Button>Logout</Button>
+						</Navbar.Item>
+					</Navbar.Container>
+					)}
+				</Navbar.Menu>
 			</Navbar>
 			<main style={{ minHeight: 'calc(100vh - 231.8px)' }}>
 				<Routes>
@@ -188,7 +180,6 @@ export const App = () => {
 					<Route
 						path="/load/:id"
 						element={<Load
-							user={user}
 							onRedirect={onRedirect}
 							environment={environment}
 							location={location}
@@ -196,9 +187,7 @@ export const App = () => {
 					/>
 					<Route
 						path="/agreement"
-						element={<Agreement
-							user={user}
-						/>}
+						element={<Agreement />}
 					/>
 					<Route
 						path="*"
