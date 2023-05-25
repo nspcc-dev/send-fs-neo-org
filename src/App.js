@@ -264,7 +264,7 @@ export const App = () => {
 					subtitle
 					align="center"
 				>
-					{`v${environment.version}`}
+					{environment.version}
 				</Heading>
 			</Footer>
     </>
