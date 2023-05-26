@@ -40,7 +40,7 @@ export default function api(method, url, params = {}, headers = {}) {
 				} else if (method === 'GET' && url.indexOf(`/gate/get/`) !== -1) {
 					res = await response.blob();
 					resolve(res);
-				} else if (response) {
+				} else if (response && response.status === 200) {
 					res = await response.json();
 					resolve(res);
 				} else {

@@ -110,11 +110,11 @@ const Home = ({
 				});
 			} else {
 				setLoading(false);
-				onModal('failed', `Something went wrong, try again`);
+				onModal('failed', 'Something went wrong, try again');
 			}
-		}).catch((err) => {
+		}).catch(() => {
 			setLoading(false);
-			onModal('failed', `Something went wrong: ${err}`);
+			onModal('failed', 'Something went wrong, try again');
 		});
     e.preventDefault();
 	};
@@ -135,8 +135,8 @@ const Home = ({
 				}
 				return filesTemp;
 			});
-		}).catch((err) => {
-			onModal('failed', `Something went wrong with uploading file: ${err}`);
+		}).catch(() => {
+			onModal('failed', 'Something went wrong while uploading file, try again');
 		});
 	};
 
