@@ -42,13 +42,16 @@ const Load = ({
 
 	const onDownload = () => {
 		setLoading(true);
-		let downloadLink = document.createElement('a');
-		downloadLink.href = `${environment.server ? environment.server : ''}/gate/get/${objectData.objectId}?download=1`;
-		document.body.appendChild(downloadLink);
-		downloadLink.click();
+		const a = document.createElement('a');
+		document.body.appendChild(a);
+		const url = `${environment.server ? environment.server : ''}/gate/get/${objectData.objectId}?download=1`;
+		a.href = url;
+		a.download = objectData.filename;
+		a.click();
 		setTimeout(() => {
 			setLoading(false);
-			document.body.removeChild(downloadLink);
+			window.URL.revokeObjectURL(url);
+			document.body.removeChild(a);
 		}, 0);
 	};
 
