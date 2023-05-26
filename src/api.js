@@ -31,7 +31,13 @@ export default function api(method, url, params = {}, headers = {}) {
 				resolve({ status: 'success' });
 			} else {
 				let res = response;
-				if (method === 'GET' && url.indexOf(`/gate/get/`) !== -1) {
+				if (method === 'HEAD') {
+					resolve({
+						'filename:': response.headers ? response.headers.get('X-Attribute-Filename') : '',
+						'containerId': response.headers ? response.headers.get('X-Container-Id') : '',
+						'ownerId': response.headers ? response.headers.get('X-Owner-Id') : '',
+					});
+				} else if (method === 'GET' && url.indexOf(`/gate/get/`) !== -1) {
 					res = await response.blob();
 					resolve(res);
 				} else if (response) {

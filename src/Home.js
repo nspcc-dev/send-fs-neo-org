@@ -120,10 +120,10 @@ const Home = ({
 	};
 
 	const onUploadFile = (formData, filename, epoch, lifetime) => {
-		api('POST', `/gate/upload/${environment.containerID}`, formData, {
+		document.cookie = `Bearer=${user.XBearer}; path=/gate/upload; expires=${new Date(Date.now() + 10 * 1000).toUTCString()}`;
+		api('POST', '/gate/upload/', formData, {
 			'X-Attribute-NEOFS-Expiration-Epoch': String(Number(epoch) + Number(lifetime)),
-			'Authorization': `Bearer ${user.XBearer}`,
-			'X-Attribute-Email': user.XAttributeEmail,
+			'X-Attribute-email': user.XAttributeEmail,
 			'Content-Type': 'multipart/form-data',
 		}).then((res) => {
 			res['filename'] = filename;
