@@ -55,7 +55,6 @@ export const App = () => {
 	const [environment] = useState({
 		version: process.env.REACT_APP_VERSION,
 		server: process.env.REACT_APP_NEOFS,
-		containerID: process.env.REACT_APP_CONTAINER_ID,
 		netmapContract: process.env.REACT_APP_NETMAP_CONTRACT,
 		epochLine: process.env.REACT_APP_EPOCH_LINE,
 	});
@@ -81,6 +80,7 @@ export const App = () => {
 	const onLogout = () => {
 		setMenuActive(false);
 		const date = new Date(Date.now() - 1).toUTCString();
+		document.cookie = `Bearer=; expires=` + date;
 		document.cookie = `X-Bearer=; expires=` + date;
 		document.cookie = `X-Attribute-Email=; expires=` + date;
 		onRedirect('/');
@@ -180,6 +180,7 @@ export const App = () => {
 					<Route
 						path="/load/:id"
 						element={<Load
+							onModal={onModal}
 							onRedirect={onRedirect}
 							environment={environment}
 							location={location}

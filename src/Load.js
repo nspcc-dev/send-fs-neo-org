@@ -10,20 +10,31 @@ import {
 	Tile,
 	Notification,
 } from 'react-bulma-components';
+import api from './api';
 
 const Load = ({
+	onModal,
 	onRedirect,
 	environment,
 	location,
 }) => {
-	const [objectID, setObjectID] = useState(null);
+	const [objectData, setObjectData] = useState({
+		objectId: null,
+	});
 	const [isLoading, setLoading] = useState(false);
 	const [isCopied, setCopied] = useState(false);
 
   useEffect(() => {
 		const objectIDTemp = location.pathname.replace('/load/', '');
 		if (objectIDTemp.length > 0) {
-			setObjectID(objectIDTemp);
+			api('HEAD', `/gate/get/${objectIDTemp}`).then((res) => {
+				setObjectData({
+					...res,
+					objectId: objectIDTemp,
+				});
+			}).catch(() => {
+				onModal('failed', 'Something went wrong, try again');
+			});
 		} else {
 			onRedirect('/');
 		}
@@ -32,7 +43,7 @@ const Load = ({
 	const onDownload = () => {
 		setLoading(true);
 		let downloadLink = document.createElement('a');
-		downloadLink.href = `${environment.server ? environment.server : ''}/gate/get/${objectID}?download=1`;
+		downloadLink.href = `${environment.server ? environment.server : ''}/gate/get/${objectData.objectId}?download=1`;
 		document.body.appendChild(downloadLink);
 		downloadLink.click();
 		setTimeout(() => {
@@ -44,7 +55,7 @@ const Load = ({
   return (
 		<Container>
 			<Section>
-				{objectID && (
+				{objectData.objectId && (
 					<Tile kind="ancestor">
 						<Tile kind="parent">
 							<Tile
@@ -63,7 +74,7 @@ const Load = ({
 								</Button.Group>
 								<Button.Group style={{ justifyContent: 'center' }}>
 									<CopyToClipboard
-										text={`${environment.server ? environment.server : document.location.origin}/gate/get/${objectID}`}
+										text={`${environment.server ? environment.server : document.location.origin}/gate/get/${objectData.objectId}`}
 										onCopy={() => {
 											setCopied(true);
 											setTimeout(() => {
@@ -82,7 +93,7 @@ const Load = ({
 								</Button.Group>
 								<Button.Group style={{ justifyContent: 'center' }}>
 									<Link
-										to={`${environment.server ? environment.server : ''}/gate/get/${objectID}`}
+										to={`${environment.server ? environment.server : ''}/gate/get/${objectData.objectId}`}
 										target='_blank'
 										rel="noopener noreferrer"
 										style={{ textDecoration: 'underline' }}
@@ -91,8 +102,9 @@ const Load = ({
 										<FontAwesomeIcon icon={['fas', 'square-arrow-up-right']} style={{ marginLeft: 5 }} />
 									</Link>
 								</Button.Group>
-								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '40px 0 10px 0' }}>{`Container ID: ${environment.containerID}`}</Heading>
-								<Heading weight="light" size="6" subtitle align="center">{`Object ID: ${objectID}`}</Heading>
+								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '40px 0 10px 0' }}>{`Container ID: ${objectData.containerId}`}</Heading>
+								<Heading weight="light" size="6" subtitle align="center">{`Object ID: ${objectData.objectId}`}</Heading>
+								<Heading weight="light" size="6" subtitle align="center">{`Owner ID: ${objectData.ownerId}`}</Heading>
 							</Tile>
 						</Tile>
 					</Tile>
