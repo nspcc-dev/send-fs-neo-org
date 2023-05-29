@@ -263,6 +263,10 @@ div.navbar-item:hover {
 }
 
 @media (prefers-color-scheme: dark) {
+    html {
+        background: #2d333b;
+    }
+
     body {
         color: #adbac7;
         background: #22272d;
