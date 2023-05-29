@@ -148,6 +148,12 @@ div.navbar-item:hover {
     margin: 0 10px;
 }
 
+.social_pipe {
+    border-right: 2px solid rgb(0, 0, 0);
+    padding-right: 10px;
+    display: flex;
+}
+
 .button {
     outline: none;
     box-shadow: unset !important;
@@ -320,6 +326,10 @@ div.navbar-item:hover {
 
     .socials a {
         filter: invert(1);
+    }
+
+    .social_pipe {
+        border-color: #fff;
     }
 }
 

@@ -209,15 +209,17 @@ export const App = () => {
 							alt="neo logo"
 						/>
 					</a>
-					<a href="https://nspcc.io" target="_blank" rel="noopener noreferrer" style={{ borderRight: '2px solid #000000', paddingRight: 20 }}>
-						<img
-							src="/img/socials/neo_spcc.svg"
-							width={37}
-							height={37}
-							alt="neo spcc logo"
-						/>
-					</a>
-					<a href="https://github.com/nspcc-dev" target="_blank" rel="noopener noreferrer">
+					<span className="social_pipe">
+						<a href="https://nspcc.io" target="_blank" rel="noopener noreferrer">
+							<img
+								src="/img/socials/neo_spcc.svg"
+								width={37}
+								height={37}
+								alt="neo spcc logo"
+							/>
+						</a>
+					</span>
+					<a href="https://github.com/nspcc-dev" target="_blank" rel="noopener noreferrer" style={{ paddingLeft: 10 }}>
 						<img
 							src="/img/socials/github.svg"
 							width={30}
