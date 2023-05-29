@@ -26,6 +26,8 @@ function base64ToArrayBuffer(base64) {
 
 const Home = ({
 	onModal,
+	onScroll,
+	onDownload,
 	environment,
 	user,
 }) => {
@@ -33,7 +35,10 @@ const Home = ({
 	const [dragActive, setDragActive] = useState(false);
 	const [lifetimeData, setLifetimeData] = useState(2);
 	const [isLoading, setLoading] = useState(false);
-	const [isCopied, setCopied] = useState(false);
+	const [isCopiedUrl, setCopiedUrl] = useState(false);
+	const [isCopiedMetadata, setCopiedMetadata] = useState(false);
+	const [isCopiedContainerId, setCopiedContainerId] = useState(false);
+	const [isCopiedObjectId, setCopiedObjectId] = useState(false);
 	const [uploadedObjects, setUploadedObjects] = useState([]);
 
 	const handleFile = (file, index) => {
@@ -223,47 +228,113 @@ const Home = ({
 								))}
 								{uploadedObjects && uploadedObjects.length > 0 && (
 									<>
-										<Heading weight="semibold" subtitle align="center" style={{ marginTop: '2rem' }}>Uploaded objects</Heading>
+										<Heading weight="semibold" subtitle align="center" style={{ marginTop: '2rem' }}>
+											Uploaded objects
+										</Heading>
 										{uploadedObjects.map((uploadedObject, index) => (
 											<Notification
 												key={uploadedObject.filename}
+												className="uploaded_object"
 												color="primary"
 											>
-												<Link
-													to={`/load/${uploadedObject.object_id}`}
-													style={{ textDecoration: 'underline' }}
-													target='_blank'
-													rel="noopener noreferrer"
-												>
-													{uploadedObject.filename}
-												</Link>
-												<div className="notification_manage">
-													<Link
-														to={`/load/${uploadedObject.object_id}`}
-														style={{ marginRight: '1rem' }}
-														target='_blank'
-														rel="noopener noreferrer"
-													>
-														<FontAwesomeIcon icon={['fas', 'square-arrow-up-right']} />
-													</Link>
+												<div className="uploaded_object_group">
+													<Heading size="6" subtitle>
+														<Link
+															to={`${environment.server ? environment.server : ''}/gate/get/${uploadedObject.object_id}`}
+															onClick={onScroll}
+															style={{ textDecoration: 'underline' }}
+															rel="noopener noreferrer"
+														>
+															{uploadedObject.filename}
+														</Link>
+														<CopyToClipboard
+															text={`${environment.server ? environment.server : document.location.origin}/gate/get/${uploadedObject.object_id}`}
+															onCopy={() => {
+																setCopiedUrl(true);
+																setTimeout(() => {
+																	setCopiedUrl(false);
+																}, 700);
+															}}
+														>
+															<div>
+																<FontAwesomeIcon icon={['fas', 'copy']} />
+																{isCopiedUrl && (
+																	<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
+																)}
+															</div>
+														</CopyToClipboard>
+														<div
+															onClick={() => onDownload(uploadedObject.object_id, uploadedObject.filename)}
+															style={{ lineHeight: 0 }}
+														>
+															<FontAwesomeIcon icon={['fas', 'download']} />
+														</div>
+													</Heading>
+													<Heading size="6" subtitle>
+														<Link
+															to={`/load/${uploadedObject.object_id}`}
+															onClick={onScroll}
+															style={{ textDecoration: 'underline' }}
+															rel="noopener noreferrer"
+														>
+															Metadata
+														</Link>
+														<CopyToClipboard
+															text={`${document.location.origin}/load/${uploadedObject.object_id}`}
+															onCopy={() => {
+																setCopiedMetadata(true);
+																setTimeout(() => {
+																	setCopiedMetadata(false);
+																}, 700);
+															}}
+														>
+															<div>
+																<FontAwesomeIcon icon={['fas', 'copy']} />
+																{isCopiedMetadata && (
+																	<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
+																)}
+															</div>
+														</CopyToClipboard>
+													</Heading>
+												</div>
+												<Heading size="6" subtitle>
+													{`Container ID: ${uploadedObject.container_id}`}
 													<CopyToClipboard
-														text={`${document.location.origin}/load/${uploadedObject.object_id}`}
-														style={{ cursor: 'pointer', position: 'relative' }}
+														text={uploadedObject.container_id}
 														onCopy={() => {
-															setCopied(true);
+															setCopiedContainerId(true);
 															setTimeout(() => {
-																setCopied(false);
+																setCopiedContainerId(false);
 															}, 700);
 														}}
 													>
 														<div>
-															<FontAwesomeIcon icon={['fas', 'link']} />
-															{isCopied && (
-																<div className="tooltip" style={{ top: '-120%', left: '-120%' }}>Copied!</div>
+															<FontAwesomeIcon icon={['fas', 'copy']} />
+															{isCopiedContainerId && (
+																<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
 															)}
 														</div>
 													</CopyToClipboard>
-												</div>
+												</Heading>
+												<Heading size="6" subtitle>
+													{`Object ID: ${uploadedObject.object_id}`}
+													<CopyToClipboard
+														text={uploadedObject.object_id}
+														onCopy={() => {
+															setCopiedObjectId(true);
+															setTimeout(() => {
+																setCopiedObjectId(false);
+															}, 700);
+														}}
+													>
+														<div>
+															<FontAwesomeIcon icon={['fas', 'copy']} />
+															{isCopiedObjectId && (
+																<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
+															)}
+														</div>
+													</CopyToClipboard>
+												</Heading>
 											</Notification>
 										))}
 									</>

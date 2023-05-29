@@ -19,9 +19,9 @@ import {
 	faPlus,
 	faXmark,
 	faSpinner,
-	faLink,
+	faDownload,
 	faFileArrowDown,
-	faSquareArrowUpRight,
+	faCopy,
 } from '@fortawesome/free-solid-svg-icons';
 import {
 	faCircleXmark,
@@ -32,8 +32,8 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
-  faSquareArrowUpRight,
-  faLink,
+  faCopy,
+  faDownload,
   faFileArrowDown,
   faSpinner,
   faCircleXmark,
@@ -68,7 +68,7 @@ export const App = () => {
 		text: '',
 		params: '',
 	});
-  
+
 	const onModal = (current = null, text = null, params = null) => {
 		setModal({ current, text, params });
 	};
@@ -84,6 +84,23 @@ export const App = () => {
 		document.cookie = `X-Bearer=; expires=` + date;
 		document.cookie = `X-Attribute-Email=; expires=` + date;
 		onRedirect('/');
+	};
+
+	const onScroll = () => {
+		document.querySelector('html').scrollTop = 0;
+  }
+
+	const onDownload = (objectId, filename) => {
+		const a = document.createElement('a');
+		document.body.appendChild(a);
+		const url = `${environment.server ? environment.server : ''}/gate/get/${objectId}?download=1`;
+		a.href = url;
+		a.download = filename;
+		a.click();
+		setTimeout(() => {
+			window.URL.revokeObjectURL(url);
+			document.body.removeChild(a);
+		}, 0);
 	};
 
   return (
@@ -173,6 +190,8 @@ export const App = () => {
 						path="/"
 						element={<Home
 							onModal={onModal}
+							onScroll={onScroll}
+							onDownload={onDownload}
 							environment={environment}
 							user={user}
 						/>}
@@ -181,6 +200,7 @@ export const App = () => {
 						path="/load/:id"
 						element={<Load
 							onModal={onModal}
+							onDownload={onDownload}
 							onRedirect={onRedirect}
 							environment={environment}
 							location={location}
