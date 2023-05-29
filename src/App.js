@@ -233,7 +233,7 @@ export const App = () => {
 							alt="twitter logo"
 						/>
 					</a>
-					<a href="https://www.youtube.com/channel/UCAC6lR1bJFv0-O07Nol_p8w" target="_blank" rel="noopener noreferrer">
+					<a href="https://www.youtube.com/@neospcc5818" target="_blank" rel="noopener noreferrer">
 						<img
 							src="/img/socials/youtube.svg"
 							width={30}
@@ -241,7 +241,7 @@ export const App = () => {
 							alt="youtube logo"
 						/>
 					</a>
-					<a href="https://medium.com/@neospcc" target="_blank" rel="noopener noreferrer">
+					<a href="https://neospcc.medium.com/" target="_blank" rel="noopener noreferrer">
 						<img
 							src="/img/socials/medium.svg"
 							width={30}
