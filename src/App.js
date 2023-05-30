@@ -56,7 +56,7 @@ export const App = () => {
 		version: process.env.REACT_APP_VERSION,
 		server: process.env.REACT_APP_NEOFS,
 		netmapContract: process.env.REACT_APP_NETMAP_CONTRACT,
-		epochLine: process.env.REACT_APP_EPOCH_LINE,
+		epochLine: "c25hcHNob3RFcG9jaA==",
 	});
 	const [user] = useState(getCookie('X-Bearer') && getCookie('X-Attribute-Email') ? {
 		XBearer: getCookie('X-Bearer'),
