@@ -32,7 +32,6 @@ Set variables in the `.env` file before executing the commands:
 - `REACT_APP_NEOFS` - Path to SendFS
 - `REACT_APP_CONTAINER_ID` - NeoFS container ID where the objects would be stored
 - `REACT_APP_NETMAP_CONTRACT` - NeoFS netmap contract
-- `REACT_APP_EPOCH_LINE` - Epoch value storage key used in the netmap contract
 
 # Send.NeoFS local up
 
