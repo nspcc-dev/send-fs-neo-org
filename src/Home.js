@@ -358,7 +358,7 @@ const Home = ({
 										renderAs="a"
 										href="/signup_google"
 										color="primary"
-										style={{ paddingLeft: '2.5rem' }}
+										style={{ paddingLeft: '2.5rem', minWidth: 240 }}
 									>
 										<FontAwesomeIcon
 											icon={['fab', 'google']}
@@ -376,7 +376,7 @@ const Home = ({
 										renderAs="a"
 										href="/signup_github"
 										color="primary"
-										style={{ paddingLeft: '2.5rem' }}
+										style={{ paddingLeft: '2.5rem', minWidth: 240 }}
 									>
 										<FontAwesomeIcon
 											icon={['fab', 'github']}
