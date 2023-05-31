@@ -14,6 +14,7 @@ import api from './api';
 
 const Load = ({
 	onModal,
+	onDownload,
 	onRedirect,
 	environment,
 	location,
@@ -21,7 +22,6 @@ const Load = ({
 	const [objectData, setObjectData] = useState({
 		objectId: null,
 	});
-	const [isLoading, setLoading] = useState(false);
 	const [isCopied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -40,21 +40,6 @@ const Load = ({
 		}
   },[]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const onDownload = () => {
-		setLoading(true);
-		const a = document.createElement('a');
-		document.body.appendChild(a);
-		const url = `${environment.server ? environment.server : ''}/gate/get/${objectData.objectId}?download=1`;
-		a.href = url;
-		a.download = objectData.filename;
-		a.click();
-		setTimeout(() => {
-			setLoading(false);
-			window.URL.revokeObjectURL(url);
-			document.body.removeChild(a);
-		}, 0);
-	};
-
   return (
 		<Container>
 			<Section>
@@ -68,11 +53,9 @@ const Load = ({
 							>
 								<Heading weight="semibold" subtitle align="center">Download your files via HTTP gate</Heading>
 								<Button.Group style={{ justifyContent: 'center' }}>
-									<Button
-										onClick={onDownload}
-									>
+									<Button onClick={() => onDownload(objectData.objectId, objectData.filename)}>
 										<span>Download</span>
-										<FontAwesomeIcon icon={isLoading ? ['fas', 'spinner'] : ['fas', 'file-arrow-down']} style={{ marginLeft: 5, fontSize: 14 }} spin={isLoading} />
+										<FontAwesomeIcon icon={['fas', 'file-arrow-down']} style={{ marginLeft: 5, fontSize: 14 }} />
 									</Button>
 								</Button.Group>
 								<Button.Group style={{ justifyContent: 'center' }}>
@@ -87,7 +70,7 @@ const Load = ({
 									>
 										<Button>
 											<span>Copy link</span>
-											<FontAwesomeIcon icon={['fas', 'link']} style={{ marginLeft: 5, fontSize: 14 }} />
+											<FontAwesomeIcon icon={['fas', 'download']} style={{ marginLeft: 5, fontSize: 14 }} />
 											{isCopied && (
 												<div className='tooltip'>Copied!</div>
 											)}
@@ -102,7 +85,7 @@ const Load = ({
 										style={{ textDecoration: 'underline' }}
 									>
 										<span>Open file by link</span>
-										<FontAwesomeIcon icon={['fas', 'square-arrow-up-right']} style={{ marginLeft: 5 }} />
+										<FontAwesomeIcon icon={['fas', 'copy']} style={{ marginLeft: 5 }} />
 									</Link>
 								</Button.Group>
 								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '40px 0 10px 0' }}>{`Container ID: ${objectData.containerId}`}</Heading>
