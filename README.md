@@ -42,6 +42,9 @@ Set variables in the `.env` file before executing the commands:
 
 # Deployment to production
 
+Two containers are used, one to store website data and another to store
+uploaded content. Then nginx is set up to use both for a single website.
+
  - Create container: `neofs-cli --rpc-endpoint st1.storage.fs.neo.org:8080 --config CONFIG_PATH container create --policy 'REP 2 IN X CBF 1 SELECT 4 FROM F AS X FILTER "Deployed" EQ "NSPCC" AS F' --basic-acl public-read --await`
 
 CONFIG_PATH – path to wallet config, wallet config example:
@@ -55,6 +58,9 @@ password: <secret>
  - Untar archive to separate dir
  - Copy `/bin/upload.py` to dir
  - Run `upload.py` to put send.fs to the NeoFS container
+ - Create data container: `neofs-cli container create -r st1.storage.fs.neo.org:8080 --config CONFIG_PATH --basic-acl 0X0fbfbfff --policy 'REP 2 IN X CBF 2 SELECT 2 FROM F AS X FILTER Deployed EQ NSPCC AS F' --await`
+ - Create EACL for it: `neofs-cli acl extended create --cid DATA_CID -r 'deny put others' -r 'deny delete others' --out eacl.json`
+ - Set EACL for data container: `neofs-cli container set-eacl -r st1.storage.fs.neo.org:8080 --cid DATA_CID --table eacl.json --config CONFIG_PATH --await`
  - Update nginx.config to use new container in the production server
 
 # Nginx config example on the production server
