@@ -239,14 +239,14 @@ const Home = ({
 											>
 												<div className="uploaded_object_group">
 													<Heading size="6" subtitle>
-														<Link
-															to={`${environment.server ? environment.server : ''}/gate/get/${uploadedObject.object_id}`}
+														<a
+															href={`${environment.server ? environment.server : ''}/gate/get/${uploadedObject.object_id}`}
 															onClick={onScroll}
 															style={{ textDecoration: 'underline' }}
 															rel="noopener noreferrer"
 														>
 															{uploadedObject.filename}
-														</Link>
+														</a>
 														<CopyToClipboard
 															text={`${environment.server ? environment.server : document.location.origin}/gate/get/${uploadedObject.object_id}`}
 															onCopy={() => {
