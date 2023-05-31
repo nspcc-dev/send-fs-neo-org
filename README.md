@@ -205,7 +205,6 @@ server {
                 set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
 
                 rewrite '^(/[0-9a-zA-Z\-]{43,44})$' /get/$cid/$1 break;
-                #rewrite '^/load'                   /get_by_attribyre/$cid/FileName/index.html break;
                 rewrite '^/$'                       /get_by_attribute/$cid/FileName/index.html break;
                 rewrite '^/([^/]*)$'                /get_by_attribute/$cid/FileName/$1 break;
                 rewrite '^(/.*)$'                   /get_by_attribute/$cid/FilePath/$1 break;
