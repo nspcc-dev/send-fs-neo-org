@@ -62,7 +62,7 @@ password: <secret>
 
 # Nginx config example on the production server
 
-```
+```Nginx
 # Please do not change this file directly since it is managed by Ansible and will be overwritten
 
 # nginx server configuration for:
