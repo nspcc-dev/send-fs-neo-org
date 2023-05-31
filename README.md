@@ -42,8 +42,8 @@ Set variables in the `.env` file before executing the commands:
 
 # Deployment to production
 
-This procedure has been prepared as fast solution and will be updated in future.
-Given the automation of deployments through ansible, this procedure has no priority.
+Two containers are used, one to store website data and another to store
+uploaded content. Then nginx is set up to use both for a single website.
 
  - Create container: `neofs-cli --rpc-endpoint st1.storage.fs.neo.org:8080 --config CONFIG_PATH container create --policy 'REP 2 IN X CBF 1 SELECT 4 FROM F AS X FILTER "Deployed" EQ "NSPCC" AS F' --basic-acl public-read --await`
 
@@ -58,13 +58,14 @@ password: <secret>
  - Untar archive to separate dir
  - Copy `/bin/upload.py` to dir
  - Run `upload.py` to put send.fs to the NeoFS container
+ - Create data container: `neofs-cli container create -r st1.storage.fs.neo.org:8080 --config CONFIG_PATH --basic-acl 0X0fbfbfff --policy 'REP 2 IN X CBF 2 SELECT 2 FROM F AS X FILTER Deployed EQ NSPCC AS F' --await`
+ - Create EACL for it: `neofs-cli acl extended create --cid DATA_CID -r 'deny put others' -r 'deny delete others' --out eacl.json`
+ - Set EACL for data container: `neofs-cli container set-eacl -r st1.storage.fs.neo.org:8080 --cid DATA_CID --table eacl.json --config CONFIG_PATH --await`
  - Update nginx.config to use new container in the production server
 
 # Nginx config example on the production server
 
 ```Nginx
-# Please do not change this file directly since it is managed by Ansible and will be overwritten
-
 # nginx server configuration for:
 #    - https://send.fs.neo.org/
 
@@ -73,7 +74,7 @@ server {
 
         ssl_certificate           /etc/nginx/ssl/send.fs.neo.org.crt;
         ssl_certificate_key       /etc/nginx/ssl/send.fs.neo.org.key;
-        ssl_protocols             TLSv1.1 TLSv1.2 TLSv1.3;
+        ssl_protocols             TLSv1.2 TLSv1.3;
         ssl_prefer_server_ciphers on;
         ssl_ciphers               "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:ECDHE-RSA-RC4-SHA:ECDHE-ECDSA-RC4-SHA:AES128:AES256:RC4-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!3DES:!MD5:!PSK"; # TLS cipher suites set: mozilla
         ssl_dhparam               /etc/pki/dhparam/set0;
@@ -105,6 +106,10 @@ server {
         location @maintenance {
                 rewrite ^(.*)$ /maintenance.html break;
         }
+
+        set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
+        set $data_cid 41tVWBvQVTLGQPHBmXySHsJkcc6X17i39bMuJe9wYhAJ;
+        set $neofs_http_gateway http.fs.neo.org;
 
         client_body_buffer_size     10K;
         client_header_buffer_size   1k;
@@ -147,9 +152,8 @@ server {
         }
 
         location /gate/upload/ {
-                set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
-                rewrite ^/gate/(.*) /upload/$cid break;
-                proxy_pass https://http.fs.neo.org;
+                rewrite ^/gate/(.*) /upload/$data_cid break;
+                proxy_pass https://$neofs_http_gateway;
                 proxy_pass_request_headers      on;
                 proxy_set_header X-Attribute-email $http_x_attribute_email;
                 proxy_set_header X-Attribute-NEOFS-Expiration-Epoch $http_x_attribute_neofs_expiration_epoch;
@@ -157,7 +161,7 @@ server {
 
         location ~ "^\/gate\/get(/.*)?\/?$" {
                 rewrite  ^/gate/get/(.*) /$1 break;
-                proxy_pass https://http.fs.neo.org;
+                proxy_pass https://$neofs_http_gateway;
 
                 proxy_intercept_errors on;
                 proxy_cache_valid 404 0;
@@ -193,29 +197,24 @@ server {
         }
 
         location /load {
-                set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
                 rewrite '^(/.*)$'                       /get_by_attribute/$cid/FileName/index.html break;
-                proxy_pass https://http.fs.neo.org/;
+                proxy_pass https://$neofs_http_gateway/;
                 include             /etc/nginx/mime.types;
         }
 
         location /toc {
-                set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
                 rewrite '^(/.*)$'                       /get_by_attribute/$cid/FileName/index.html break;
-                proxy_pass https://http.fs.neo.org/;
+                proxy_pass https://$neofs_http_gateway/;
                 include             /etc/nginx/mime.types;
         }
 
         location / {
-                set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
-
                 rewrite '^(/[0-9a-zA-Z\-]{43,44})$' /get/$cid/$1 break;
-                #rewrite '^/load'                   /get_by_attribyre/$cid/FileName/index.html break;
                 rewrite '^/$'                       /get_by_attribute/$cid/FileName/index.html break;
                 rewrite '^/([^/]*)$'                /get_by_attribute/$cid/FileName/$1 break;
                 rewrite '^(/.*)$'                   /get_by_attribute/$cid/FilePath/$1 break;
 
-                proxy_pass https://http.fs.neo.org/;
+                proxy_pass https://$neofs_http_gateway/;
                 include             /etc/nginx/mime.types;
         }
 }
