@@ -42,9 +42,6 @@ Set variables in the `.env` file before executing the commands:
 
 # Deployment to production
 
-This procedure has been prepared as fast solution and will be updated in future.
-Given the automation of deployments through ansible, this procedure has no priority.
-
  - Create container: `neofs-cli --rpc-endpoint st1.storage.fs.neo.org:8080 --config CONFIG_PATH container create --policy 'REP 2 IN X CBF 1 SELECT 4 FROM F AS X FILTER "Deployed" EQ "NSPCC" AS F' --basic-acl public-read --await`
 
 CONFIG_PATH – path to wallet config, wallet config example:
@@ -63,8 +60,6 @@ password: <secret>
 # Nginx config example on the production server
 
 ```Nginx
-# Please do not change this file directly since it is managed by Ansible and will be overwritten
-
 # nginx server configuration for:
 #    - https://send.fs.neo.org/
 
