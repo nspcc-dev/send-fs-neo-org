@@ -101,6 +101,10 @@ server {
                 rewrite ^(.*)$ /maintenance.html break;
         }
 
+        set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
+        set $data_cid 41tVWBvQVTLGQPHBmXySHsJkcc6X17i39bMuJe9wYhAJ;
+        set $neofs_http_gateway http.fs.neo.org;
+
         client_body_buffer_size     10K;
         client_header_buffer_size   1k;
         client_max_body_size        100m;
@@ -142,9 +146,8 @@ server {
         }
 
         location /gate/upload/ {
-                set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
-                rewrite ^/gate/(.*) /upload/$cid break;
-                proxy_pass https://http.fs.neo.org;
+                rewrite ^/gate/(.*) /upload/$data_cid break;
+                proxy_pass https://$neofs_http_gateway;
                 proxy_pass_request_headers      on;
                 proxy_set_header X-Attribute-email $http_x_attribute_email;
                 proxy_set_header X-Attribute-NEOFS-Expiration-Epoch $http_x_attribute_neofs_expiration_epoch;
@@ -152,7 +155,7 @@ server {
 
         location ~ "^\/gate\/get(/.*)?\/?$" {
                 rewrite  ^/gate/get/(.*) /$1 break;
-                proxy_pass https://http.fs.neo.org;
+                proxy_pass https://$neofs_http_gateway;
 
                 proxy_intercept_errors on;
                 proxy_cache_valid 404 0;
@@ -188,28 +191,24 @@ server {
         }
 
         location /load {
-                set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
                 rewrite '^(/.*)$'                       /get_by_attribute/$cid/FileName/index.html break;
-                proxy_pass https://http.fs.neo.org/;
+                proxy_pass https://$neofs_http_gateway/;
                 include             /etc/nginx/mime.types;
         }
 
         location /toc {
-                set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
                 rewrite '^(/.*)$'                       /get_by_attribute/$cid/FileName/index.html break;
-                proxy_pass https://http.fs.neo.org/;
+                proxy_pass https://$neofs_http_gateway/;
                 include             /etc/nginx/mime.types;
         }
 
         location / {
-                set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
-
                 rewrite '^(/[0-9a-zA-Z\-]{43,44})$' /get/$cid/$1 break;
                 rewrite '^/$'                       /get_by_attribute/$cid/FileName/index.html break;
                 rewrite '^/([^/]*)$'                /get_by_attribute/$cid/FileName/$1 break;
                 rewrite '^(/.*)$'                   /get_by_attribute/$cid/FilePath/$1 break;
 
-                proxy_pass https://http.fs.neo.org/;
+                proxy_pass https://$neofs_http_gateway/;
                 include             /etc/nginx/mime.types;
         }
 }
