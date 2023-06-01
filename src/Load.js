@@ -55,7 +55,7 @@ const Load = ({
 								<Button.Group style={{ justifyContent: 'center' }}>
 									<Button onClick={() => onDownload(objectData.objectId, objectData.filename)}>
 										<span>Download</span>
-										<FontAwesomeIcon icon={['fas', 'file-arrow-down']} style={{ marginLeft: 5, fontSize: 14 }} />
+										<FontAwesomeIcon icon={['fas', 'download']} style={{ marginLeft: 5, fontSize: 14 }} />
 									</Button>
 								</Button.Group>
 								<Button.Group style={{ justifyContent: 'center' }}>
@@ -70,7 +70,7 @@ const Load = ({
 									>
 										<Button>
 											<span>Copy link</span>
-											<FontAwesomeIcon icon={['fas', 'download']} style={{ marginLeft: 5, fontSize: 14 }} />
+											<FontAwesomeIcon icon={['fas', 'copy']} style={{ marginLeft: 5, fontSize: 14 }} />
 											{isCopied && (
 												<div className='tooltip'>Copied!</div>
 											)}
@@ -78,15 +78,13 @@ const Load = ({
 									</CopyToClipboard>
 								</Button.Group>
 								<Button.Group style={{ justifyContent: 'center' }}>
-									<Link
-										to={`${environment.server ? environment.server : ''}/gate/get/${objectData.objectId}`}
-										target='_blank'
+									<a
+										href={`${environment.server ? environment.server : ''}/gate/get/${objectData.objectId}`}
 										rel="noopener noreferrer"
 										style={{ textDecoration: 'underline' }}
 									>
 										<span>Open file by link</span>
-										<FontAwesomeIcon icon={['fas', 'copy']} style={{ marginLeft: 5 }} />
-									</Link>
+									</a>
 								</Button.Group>
 								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '40px 0 10px 0' }}>{`Container ID: ${objectData.containerId}`}</Heading>
 								<Heading weight="light" size="6" subtitle align="center">{`Object ID: ${objectData.objectId}`}</Heading>

@@ -20,7 +20,6 @@ import {
 	faXmark,
 	faSpinner,
 	faDownload,
-	faFileArrowDown,
 	faCopy,
 } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -34,7 +33,6 @@ import {
 library.add(
   faCopy,
   faDownload,
-  faFileArrowDown,
   faSpinner,
   faCircleXmark,
   faPlus,
