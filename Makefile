@@ -19,7 +19,7 @@ $(SITE_DIR):
 	-v $$(pwd)/$(SITE_DIR):/usr/src/app/$(SITE_DIR) \
 	-e CURRENT_UID=$(CURRENT_UID) \
 	-w /usr/src/app node:14-alpine \
-	sh -c 'npm install && npm run build && chown -R $$CURRENT_UID: $(SITE_DIR)'
+	sh -c 'npm install && REACT_APP_VERSION=$(VERSION) npm run build && chown -R $$CURRENT_UID: $(SITE_DIR)'
 
 start:
 	docker run \
