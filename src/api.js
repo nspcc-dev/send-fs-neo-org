@@ -36,6 +36,8 @@ export default function api(method, url, params = {}, headers = {}) {
 						'filename:': response.headers ? response.headers.get('X-Attribute-Filename') : '',
 						'containerId': response.headers ? response.headers.get('X-Container-Id') : '',
 						'ownerId': response.headers ? response.headers.get('X-Owner-Id') : '',
+						'size': response.headers ? response.headers.get('Content-Length') : '',
+						'expirationEpoch': response.headers ? response.headers.get('X-Attribute-Neofs-Expiration-Epoch') : '',
 					});
 				} else if (method === 'GET' && url.indexOf(`/gate/get/`) !== -1) {
 					res = await response.blob();

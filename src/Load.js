@@ -86,9 +86,12 @@ const Load = ({
 										<span>Open file by link</span>
 									</a>
 								</Button.Group>
-								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '40px 0 10px 0' }}>{`Container ID: ${objectData.containerId}`}</Heading>
-								<Heading weight="light" size="6" subtitle align="center">{`Object ID: ${objectData.objectId}`}</Heading>
-								<Heading weight="light" size="6" subtitle align="center">{`Owner ID: ${objectData.ownerId}`}</Heading>
+								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '40px 0 10px 0' }}>{`Filename: ${objectData.filename ? objectData.filename : '-'}`}</Heading>
+								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '10px 0' }}>{`Size: ${objectData.size ? objectData.size : '-'}`}</Heading>
+								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '10px 0' }}>{`Expiration epoch: ${objectData.expirationEpoch ? objectData.expirationEpoch : '-'}`}</Heading>
+								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '10px 0' }}>{`Owner ID: ${objectData.ownerId ? objectData.ownerId : '-'}`}</Heading>
+								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '10px 0' }}>{`Container ID: ${objectData.containerId ? objectData.containerId : '-'}`}</Heading>
+								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '10px 0' }}>{`Object ID: ${objectData.objectId ? objectData.objectId : '-'}`}</Heading>
 							</Tile>
 						</Tile>
 					</Tile>
