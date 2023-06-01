@@ -60,6 +60,7 @@ export const App = () => {
 		XBearer: getCookie('X-Bearer'),
 		XAttributeEmail: getCookie('X-Attribute-Email'),
 	} : null);
+	const [uploadedObjects, setUploadedObjects] = useState([]);
 	const [menuActive, setMenuActive] = useState(false);
 	const [modal, setModal] = useState({
 		current: null,
@@ -190,6 +191,8 @@ export const App = () => {
 							onModal={onModal}
 							onScroll={onScroll}
 							onDownload={onDownload}
+							uploadedObjects={uploadedObjects}
+							setUploadedObjects={setUploadedObjects}
 							environment={environment}
 							user={user}
 						/>}
