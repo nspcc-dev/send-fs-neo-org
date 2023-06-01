@@ -31,7 +31,7 @@ start:
 release: $(SITE_DIR)
 	cp $(SITE_DIR)/index.html $(SITE_DIR)/agreement
 	@ln -sf $(SITE_DIR) $(RELEASE_DIR)
-	@tar cfvhz $(RELEASE_PATH) $(RELEASE_DIR)
+	@tar cfvhz $(RELEASE_PATH) -C $(RELEASE_DIR) .
 
 clean:
 	@echo "Cleaning up ..."
