@@ -31,14 +31,15 @@ export default function api(method, url, params = {}, headers = {}) {
 				resolve({ status: 'success' });
 			} else {
 				let res = response;
-				if (method === 'HEAD') {
-					resolve({
-						'filename': response.headers ? response.headers.get('X-Attribute-Filename') : '',
-						'containerId': response.headers ? response.headers.get('X-Container-Id') : '',
-						'ownerId': response.headers ? response.headers.get('X-Owner-Id') : '',
-						'size': response.headers ? response.headers.get('Content-Length') : '',
-						'expirationEpoch': response.headers ? response.headers.get('X-Attribute-Neofs-Expiration-Epoch') : '',
-					});
+				if (method === 'HEAD' && response.headers) {
+					const res = {
+						'filename': response.headers.get('X-Attribute-Filename'),
+						'containerId': response.headers.get('X-Container-Id'),
+						'ownerId': response.headers.get('X-Owner-Id'),
+						'size': response.headers.get('Content-Length') ? response.headers.get('Content-Length') : response.headers.get('x-neofs-payload-length'),
+						'expirationEpoch': response.headers.get('X-Attribute-Neofs-Expiration-Epoch'),
+					}
+					resolve(res);
 				} else if (method === 'GET' && url.indexOf(`/gate/get/`) !== -1) {
 					res = await response.blob();
 					resolve(res);
