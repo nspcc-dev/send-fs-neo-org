@@ -33,7 +33,7 @@ export default function api(method, url, params = {}, headers = {}) {
 				let res = response;
 				if (method === 'HEAD') {
 					resolve({
-						'filename:': response.headers ? response.headers.get('X-Attribute-Filename') : '',
+						'filename': response.headers ? response.headers.get('X-Attribute-Filename') : '',
 						'containerId': response.headers ? response.headers.get('X-Container-Id') : '',
 						'ownerId': response.headers ? response.headers.get('X-Owner-Id') : '',
 						'size': response.headers ? response.headers.get('Content-Length') : '',
