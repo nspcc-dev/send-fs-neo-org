@@ -142,6 +142,7 @@ const Home = ({
 				return filesTemp;
 			});
 		}).catch(() => {
+			setLoading(false);
 			onModal('failed', 'Something went wrong while uploading file, try again');
 		});
 	};
