@@ -362,6 +362,14 @@ div.navbar-item:hover {
     }
 }
 
+@media (max-width: 1000px) {
+    .uploaded_object_group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
 @media (max-width: 500px) {
     .title {
         font-size: 20px;
