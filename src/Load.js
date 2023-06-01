@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -42,8 +41,8 @@ const Load = ({
 
   return (
 		<Container>
-			<Section>
-				{objectData.objectId && (
+			{objectData.objectId && (
+				<Section>
 					<Tile kind="ancestor">
 						<Tile kind="parent">
 							<Tile
@@ -53,12 +52,13 @@ const Load = ({
 							>
 								<Heading weight="semibold" subtitle align="center">Download your files via HTTP gate</Heading>
 								<Button.Group style={{ justifyContent: 'center' }}>
-									<Button onClick={() => onDownload(objectData.objectId, objectData.filename)}>
+									<Button
+										style={{ marginRight: 20 }}
+										onClick={() => onDownload(objectData.objectId, objectData.filename)}
+									>
 										<span>Download</span>
 										<FontAwesomeIcon icon={['fas', 'download']} style={{ marginLeft: 5, fontSize: 14 }} />
 									</Button>
-								</Button.Group>
-								<Button.Group style={{ justifyContent: 'center' }}>
 									<CopyToClipboard
 										text={`${environment.server ? environment.server : document.location.origin}/gate/get/${objectData.objectId}`}
 										onCopy={() => {
@@ -86,17 +86,28 @@ const Load = ({
 										<span>Open file by link</span>
 									</a>
 								</Button.Group>
-								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '40px 0 10px 0' }}>{`Filename: ${objectData.filename ? objectData.filename : '-'}`}</Heading>
-								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '10px 0' }}>{`Size: ${objectData.size ? objectData.size : '-'}`}</Heading>
-								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '10px 0' }}>{`Expiration epoch: ${objectData.expirationEpoch ? objectData.expirationEpoch : '-'}`}</Heading>
-								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '10px 0' }}>{`Owner ID: ${objectData.ownerId ? objectData.ownerId : '-'}`}</Heading>
-								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '10px 0' }}>{`Container ID: ${objectData.containerId ? objectData.containerId : '-'}`}</Heading>
-								<Heading weight="light" size="6" subtitle align="center" style={{ margin: '10px 0' }}>{`Object ID: ${objectData.objectId ? objectData.objectId : '-'}`}</Heading>
 							</Tile>
 						</Tile>
 					</Tile>
-				)}
-			</Section>
+					<Tile kind="ancestor">
+						<Tile kind="parent">
+							<Tile
+								kind="child"
+								renderAs={Notification}
+								color={"gray"}
+							>
+								<Heading weight="semibold" subtitle align="center">File data</Heading>
+								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Filename: ${objectData.filename ? objectData.filename : '-'}`}</Heading>
+								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Size: ${objectData.size ? objectData.size : '-'}`}</Heading>
+								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Expiration epoch: ${objectData.expirationEpoch ? objectData.expirationEpoch : '-'}`}</Heading>
+								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Owner ID: ${objectData.ownerId ? objectData.ownerId : '-'}`}</Heading>
+								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Container ID: ${objectData.containerId ? objectData.containerId : '-'}`}</Heading>
+								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Object ID: ${objectData.objectId ? objectData.objectId : '-'}`}</Heading>
+							</Tile>
+						</Tile>
+					</Tile>
+				</Section>
+			)}
 		</Container>
   );
 }
