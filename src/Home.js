@@ -29,6 +29,8 @@ const Home = ({
 	onScroll,
 	onDownload,
 	environment,
+	uploadedObjects,
+	setUploadedObjects,
 	user,
 }) => {
 	const [files, setFiles] = useState([]);
@@ -39,7 +41,6 @@ const Home = ({
 	const [isCopiedMetadata, setCopiedMetadata] = useState(false);
 	const [isCopiedContainerId, setCopiedContainerId] = useState(false);
 	const [isCopiedObjectId, setCopiedObjectId] = useState(false);
-	const [uploadedObjects, setUploadedObjects] = useState([]);
 
 	const handleFile = (file, index) => {
 		if (index !== undefined) {
@@ -241,7 +242,6 @@ const Home = ({
 													<Heading size="6" subtitle>
 														<a
 															href={`${environment.server ? environment.server : ''}/gate/get/${uploadedObject.object_id}`}
-															onClick={onScroll}
 															style={{ textDecoration: 'underline' }}
 															rel="noopener noreferrer"
 														>
