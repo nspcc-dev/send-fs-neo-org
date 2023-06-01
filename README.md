@@ -66,157 +66,82 @@ password: <secret>
 # Nginx config example on the production server
 
 ```Nginx
-# nginx server configuration for:
-#    - https://send.fs.neo.org/
+proxy_cache_path /srv/neofs_cache/ levels=1:2 keys_zone=neofs_cache:50m max_size=16g inactive=60m use_temp_path=off;
 
 server {
-        listen [::]:443 ssl http2;
-
-        ssl_certificate           /etc/nginx/ssl/send.fs.neo.org.crt;
-        ssl_certificate_key       /etc/nginx/ssl/send.fs.neo.org.key;
-        ssl_protocols             TLSv1.2 TLSv1.3;
-        ssl_prefer_server_ciphers on;
-        ssl_ciphers               "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:ECDHE-RSA-RC4-SHA:ECDHE-ECDSA-RC4-SHA:AES128:AES256:RC4-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!3DES:!MD5:!PSK"; # TLS cipher suites set: mozilla
-        ssl_dhparam               /etc/pki/dhparam/set0;
-        ssl_ecdh_curve            secp384r1;
-        ssl_stapling              on;
-        resolver                  67.207.67.2 67.207.67.3 valid=300s;
-        resolver_timeout          5s;
-        add_header                Strict-Transport-Security "max-age=63072000; includeSubDomains" always;
-        add_header                Content-Security-Policy "frame-ancestors 'none';";
-        add_header                X-Content-Type-Options "nosniff" always;
-        add_header                X-Frame-Options "DENY" always;
-        add_header                X-XSS-Protection "1; mode=block";
-        add_header                Referrer-Policy "same-origin";
-
-        server_name send.fs.neo.org;
-
-        root /srv/www/sites/send.fs.neo.org/v0.2.0;
-
-        keepalive_timeout 60;
-
-        access_log /var/log/nginx/send.fs.neo.org-https_access.log;
-        error_log /var/log/nginx/send.fs.neo.org-https_error.log;
-        index index.html index.htm;
-
-        if (-f $document_root/maintenance.html) {
-                return 503;
-        }
-        error_page 503 @maintenance;
-        location @maintenance {
-                rewrite ^(.*)$ /maintenance.html break;
-        }
-
-        set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
-        set $data_cid 41tVWBvQVTLGQPHBmXySHsJkcc6X17i39bMuJe9wYhAJ;
-        set $neofs_http_gateway http.fs.neo.org;
-
-        client_body_buffer_size     10K;
-        client_header_buffer_size   1k;
-        client_max_body_size        100m;
-        large_client_header_buffers 2 1k;
-        proxy_connect_timeout       300;
-        proxy_send_timeout          300;
-        proxy_read_timeout          300;
-        send_timeout                300;
-        default_type application/octet-stream;
-
-        # Disallow access to hidden files and directories, except `/.well-known/`
-        # https://www.mnot.net/blog/2010/04/07/well-known
-        # https://tools.ietf.org/html/rfc5785
-        location ~ /\.(?!well-known/) {
-                return 404;
-        }
-
-        location = /favicon.ico {
-                try_files /favicon.ico =204;
-                access_log off;
-                log_not_found off;
-        }
-
-        location = /nginx_status {
-                stub_status on;
-                access_log off;
-                allow 127.0.0.1/32;
-                allow ::1/128;
-                allow 178.62.211.89;
-                allow 10.18.0.6;
-                allow 10.110.0.2;
-                allow 172.17.0.1;
-                deny all;
-        }
-
-        location ~ "^\/chain" {
-                rewrite ^/chain/(.*) /$1 break;
-                proxy_pass https://rpc1.morph.fs.neo.org:40341;
-        }
-
-        location /gate/upload/ {
-                rewrite ^/gate/(.*) /upload/$data_cid break;
-                proxy_pass https://$neofs_http_gateway;
-                proxy_pass_request_headers      on;
-                proxy_set_header X-Attribute-email $http_x_attribute_email;
-                proxy_set_header X-Attribute-NEOFS-Expiration-Epoch $http_x_attribute_neofs_expiration_epoch;
-        }
-
-        location ~ "^\/gate\/get(/.*)?\/?$" {
-                rewrite  ^/gate/get/(.*) /$1 break;
-                proxy_pass https://$neofs_http_gateway;
-
-                proxy_intercept_errors on;
-                proxy_cache_valid 404 0;
-                proxy_cache_valid 200 15m;
-                proxy_buffering on;
-                proxy_cache neofs_cache;
-                proxy_cache_methods GET;
-        }
-
-        location /signup_google/ {
-                proxy_pass http://localhost:8084/login?service=google;
-                proxy_intercept_errors on;
-                proxy_buffering on;
-                proxy_set_header Host                 $http_host;
-                proxy_set_header X-Real-IP            $remote_addr;
-                proxy_set_header X-Forwarded-For      $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto    $scheme;
-        }
-
-        location /signup_github/ {
-                proxy_pass http://localhost:8084/login?service=github;
-                proxy_intercept_errors on;
-                proxy_buffering on;
-                proxy_set_header Host                 $http_host;
-                proxy_set_header X-Real-IP            $remote_addr;
-                proxy_set_header X-Forwarded-For      $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto    $scheme;
-        }
-
-        location ~ "^\/callback" {
-               rewrite ^/callback\?(.*) /$1 break;
-               proxy_pass http://localhost:8084;
-        }
-
-        location /load {
-                rewrite '^(/.*)$'                       /get_by_attribute/$cid/FileName/index.html break;
-                proxy_pass https://$neofs_http_gateway/;
-                include             /etc/nginx/mime.types;
-        }
-
-        location /toc {
-                rewrite '^(/.*)$'                       /get_by_attribute/$cid/FileName/index.html break;
-                proxy_pass https://$neofs_http_gateway/;
-                include             /etc/nginx/mime.types;
-        }
-
-        location / {
-                rewrite '^(/[0-9a-zA-Z\-]{43,44})$' /get/$cid/$1 break;
-                rewrite '^/$'                       /get_by_attribute/$cid/FileName/index.html break;
-                rewrite '^/([^/]*)$'                /get_by_attribute/$cid/FileName/$1 break;
-                rewrite '^(/.*)$'                   /get_by_attribute/$cid/FilePath/$1 break;
-
-                proxy_pass https://$neofs_http_gateway/;
-                include             /etc/nginx/mime.types;
-        }
+	set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
+	set $data_cid 41tVWBvQVTLGQPHBmXySHsJkcc6X17i39bMuJe9wYhAJ;
+	set $neofs_http_gateway http.fs.neo.org;
+	set $rpc rpc.morph.fs.neo.org:40341;
+	client_max_body_size 100m;
+	proxy_connect_timeout 5m;
+	proxy_send_timeout    5m;
+	proxy_read_timeout    5m;
+	send_timeout          5m;
+	default_type application/octet-stream;
+	
+	location ~ "^\/chain" {
+		rewrite ^/chain/(.*) /$1 break;
+		proxy_pass https://rpc;
+	}
+	
+	location /gate/upload/ {
+		rewrite ^/gate/(.*) /upload/$data_cid break;
+		proxy_pass https://$neofs_http_gateway;
+		proxy_set_header X-Attribute-email $http_x_attribute_email;
+		proxy_set_header X-Attribute-NEOFS-Expiration-Epoch $http_x_attribute_neofs_expiration_epoch;
+	}
+	
+	location ~ "^\/gate\/get(/.*)?\/?$" {
+		rewrite ^/gate/get/(.*) /$data_cid/$1 break;
+		proxy_pass https://$neofs_http_gateway;
+		proxy_intercept_errors on;
+		proxy_cache_valid 404 0;
+		proxy_cache_valid 200 15m;
+		proxy_cache neofs_cache;
+		proxy_cache_methods GET;
+	}
+	
+	location /signup_google/ {
+		proxy_pass http://localhost:8084/login?service=google;
+		proxy_intercept_errors on;
+		proxy_set_header Host              $http_host;
+		proxy_set_header X-Real-IP         $remote_addr;
+		proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+	}
+	
+	location /signup_github/ {
+		proxy_pass http://localhost:8084/login?service=github;
+		proxy_intercept_errors on;
+		proxy_set_header Host              $http_host;
+		proxy_set_header X-Real-IP         $remote_addr;
+		proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+	}
+	
+	location ~ "^\/callback" {
+		rewrite ^/callback\?(.*) /$1 break;
+		proxy_pass http://localhost:8084;
+	}
+	
+	location /load {
+		rewrite '^(/.*)$' /get_by_attribute/$cid/FileName/index.html break;
+		proxy_pass https://$neofs_http_gateway;
+	}
+	
+	location /toc {
+		rewrite '^(/.*)$' /get_by_attribute/$cid/FileName/index.html break;
+		proxy_pass https://$neofs_http_gateway;
+	}
+	
+	location / {
+		rewrite '^(/[0-9a-zA-Z\-]{43,44})$' /get/$cid/$1 break;
+		rewrite '^/$'                       /get_by_attribute/$cid/FileName/index.html break;
+		rewrite '^/([^/]*)$'                /get_by_attribute/$cid/FileName/$1 break;
+		rewrite '^(/.*)$'                   /get_by_attribute/$cid/FilePath/$1 break;
+		proxy_pass https://$neofs_http_gateway;
+	}
 }
 ```
 
