@@ -32,7 +32,7 @@ const Load = ({
 					objectId: objectIDTemp,
 				});
 			}).catch(() => {
-				onModal('failed', 'Something went wrong, try again');
+				onModal('failed', 'Object not found: missing or expired');
 			});
 		} else {
 			onRedirect('/');
