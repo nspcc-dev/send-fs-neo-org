@@ -35,7 +35,7 @@ const Home = ({
 }) => {
 	const [files, setFiles] = useState([]);
 	const [dragActive, setDragActive] = useState(false);
-	const [lifetimeData, setLifetimeData] = useState(2);
+	const [lifetimeData, setLifetimeData] = useState(12);
 	const [isLoading, setLoading] = useState(false);
 	const [isCopiedUrl, setCopiedUrl] = useState(false);
 	const [isCopiedMetadata, setCopiedMetadata] = useState(false);
@@ -198,10 +198,10 @@ const Home = ({
 												value={lifetimeData}
 												disabled={isLoading}
 											>
-												<option value="2">12 hours (2 epochs)</option>
-												<option value="4">1 day (4 epochs)</option>
-												<option value="8">2 days (8 epochs)</option>
-												<option value="16">4 days (16 epochs)</option>
+												<option value="12">12 epochs (hours)</option>
+												<option value="24">24 epochs (1 day)</option>
+												<option value="48">48 epochs (2 days)</option>
+												<option value="96">96 epochs (4 days)</option>
 											</Form.Select>
 										</Form.Control>
 									</Form.Field>
