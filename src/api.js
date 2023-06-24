@@ -31,7 +31,9 @@ export default function api(method, url, params = {}, headers = {}) {
 				resolve({ status: 'success' });
 			} else {
 				let res = response;
-				if (method === 'HEAD' && response.headers) {
+				if (method === 'HEAD' && response.status !== 200) {
+					reject(res);
+				} else if (method === 'HEAD' && response.headers) {
 					const res = {
 						'filename': response.headers.get('X-Attribute-Filename'),
 						'containerId': response.headers.get('X-Container-Id'),
