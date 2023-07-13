@@ -41,18 +41,28 @@ const Home = ({
 	const [isCopiedMetadata, setCopiedMetadata] = useState(false);
 	const [isCopiedContainerId, setCopiedContainerId] = useState(false);
 	const [isCopiedObjectId, setCopiedObjectId] = useState(false);
+	const fileUploadMbLimit = 200 * 1024 * 1024;
 
-	const handleFile = (file, index) => {
+	const handleAllFiles = (files) => {
+		for (let i = 0; i < files.length; i += 1) {
+			handleFile(files[i], i === (files.length - 1));
+		}
+	};
+
+	const handleFile = (file, isClear = true, index) => {
 		if (index !== undefined) {
 			setFiles((filesTemp) => filesTemp.filter((item, indexItem) => indexItem !== index));
 		} else {
-			document.querySelector('input').value = '';
+			if (isClear) {
+				document.querySelector('input').value = '';
+			}
+
 			if (file === undefined) {
 				return;
 			}
 
-			if (file.size > 50 * 1024 * 1024) {
-				onModal('failed', 'Selected file is over 50Mb. We don\'t support such big files');
+			if (file.size > fileUploadMbLimit) {
+				onModal('failed', 'Selected file is over 200Mb. We don\'t support such big files');
 				return;
 			}
 
@@ -60,7 +70,7 @@ const Home = ({
 				onModal('failed', 'Selected file has already been added');
 				return;
 			}
-			setFiles([...files, file]);
+			setFiles((files) => [...files, file]);
 		}
 	};
 
@@ -82,7 +92,7 @@ const Home = ({
 		if (!isLoading) {
 			setDragActive(false);
 			if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-				handleFile(e.dataTransfer.files[0]);
+				handleAllFiles(e.dataTransfer.files);
 			}
 		}
 	};
@@ -181,11 +191,12 @@ const Home = ({
 									onDrop={handleDrop}
 								>
 									<Form.InputFile
-										label={dragActive ? "Drop the files here ..." : "Drag & Drop files or click to send up to 50Mb"}
+										label={dragActive ? "Drop the files here ..." : "Drag & Drop files or click to send up to 200Mb"}
 										align="center"
-										onChange={(e) => handleFile(e.target.files[0])}
+										onChange={(e) => handleAllFiles(e.target.files)}
 										icon={<FontAwesomeIcon icon={['fas', 'plus']} style={{ fontSize: 30 }} />}
 										style={isLoading ? { display: 'flex', pointerEvents: 'none' } : { display: 'flex' }}
+										inputProps={{ "multiple": true }}
 										boxed
 									/>
 								</Form.Field>
@@ -222,7 +233,7 @@ const Home = ({
 										{fileItem.name}
 										{!isLoading && (
 											<Button
-												onClick={(e) => handleFile(e, index)}
+												onClick={(e) => handleFile(e, true, index)}
 												remove
 											/>
 										)}
