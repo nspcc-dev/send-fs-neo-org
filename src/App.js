@@ -256,7 +256,7 @@ export const App = () => {
 							alt="twitter logo"
 						/>
 					</a>
-					<a href="https://www.youtube.com/@neospcc5818" target="_blank" rel="noopener noreferrer">
+					<a href="https://www.youtube.com/@NeoSPCC" target="_blank" rel="noopener noreferrer">
 						<img
 							src="/img/socials/youtube.svg"
 							width={30}
