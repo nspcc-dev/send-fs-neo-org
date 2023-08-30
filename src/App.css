@@ -155,7 +155,7 @@ div.navbar-item:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .socials a {
@@ -213,6 +213,10 @@ div.navbar-item:hover {
 .button.is-focused,
 .button:focus {
     border-color: inherit;
+}
+
+.footer .subtitle {
+    line-height: 1.5;
 }
 
 /* modal */

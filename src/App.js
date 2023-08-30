@@ -273,15 +273,17 @@ export const App = () => {
 						/>
 					</a>
 				</div>
-				<Heading
-					size={6}
-					weight="light"
-					subtitle
-					align="center"
-					style={{ marginBottom: '0.3rem' }}
-				>
-					Send.NeoFS
-				</Heading>
+				<a href="https://fs.neo.org/hosting/">
+					<Heading
+						size={7}
+						weight="light"
+						subtitle
+						align="center"
+						style={{ marginBottom: 0 }}
+					>
+						🪄 <span style={{ textDecoration: 'underline' }}>Hosted on NeoFS</span> 🚀
+					</Heading>
+				</a>
 				<Heading
 					size={7}
 					weight="light"
