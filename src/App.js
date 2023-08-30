@@ -183,7 +183,7 @@ export const App = () => {
 					)}
 				</Navbar.Menu>
 			</Navbar>
-			<main style={{ minHeight: 'calc(100vh - 231.8px)' }}>
+			<main style={{ minHeight: 'calc(100vh - 218px)' }}>
 				<Routes>
 					<Route
 						path="/"
