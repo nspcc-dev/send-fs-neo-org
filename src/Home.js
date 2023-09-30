@@ -37,10 +37,7 @@ const Home = ({
 	const [dragActive, setDragActive] = useState(false);
 	const [lifetimeData, setLifetimeData] = useState(12);
 	const [isLoading, setLoading] = useState(false);
-	const [isCopiedUrl, setCopiedUrl] = useState(false);
-	const [isCopiedMetadata, setCopiedMetadata] = useState(false);
-	const [isCopiedContainerId, setCopiedContainerId] = useState(false);
-	const [isCopiedObjectId, setCopiedObjectId] = useState(false);
+	const [isCopied, setCopy] = useState(false);
 	const fileUploadMbLimit = 200 * 1024 * 1024;
 
 	const handleAllFiles = (files) => {
@@ -262,15 +259,15 @@ const Home = ({
 														<CopyToClipboard
 															text={`${environment.server ? environment.server : document.location.origin}/gate/get/${uploadedObject.object_id}`}
 															onCopy={() => {
-																setCopiedUrl(true);
+																setCopy(`name${index}`);
 																setTimeout(() => {
-																	setCopiedUrl(false);
+																	setCopy(false);
 																}, 700);
 															}}
 														>
 															<div>
 																<FontAwesomeIcon icon={['fas', 'copy']} />
-																{isCopiedUrl && (
+																{isCopied === `name${index}` && (
 																	<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
 																)}
 															</div>
@@ -294,15 +291,15 @@ const Home = ({
 														<CopyToClipboard
 															text={`${document.location.origin}/load/${uploadedObject.object_id}`}
 															onCopy={() => {
-																setCopiedMetadata(true);
+																setCopy(`link${index}`);
 																setTimeout(() => {
-																	setCopiedMetadata(false);
+																	setCopy(false);
 																}, 700);
 															}}
 														>
 															<div>
 																<FontAwesomeIcon icon={['fas', 'copy']} />
-																{isCopiedMetadata && (
+																{isCopied === `link${index}` && (
 																	<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
 																)}
 															</div>
@@ -314,15 +311,15 @@ const Home = ({
 													<CopyToClipboard
 														text={uploadedObject.container_id}
 														onCopy={() => {
-															setCopiedContainerId(true);
+															setCopy(`container_id${index}`);
 															setTimeout(() => {
-																setCopiedContainerId(false);
+																setCopy(false);
 															}, 700);
 														}}
 													>
 														<div>
 															<FontAwesomeIcon icon={['fas', 'copy']} />
-															{isCopiedContainerId && (
+															{isCopied === `container_id${index}` && (
 																<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
 															)}
 														</div>
@@ -333,15 +330,15 @@ const Home = ({
 													<CopyToClipboard
 														text={uploadedObject.object_id}
 														onCopy={() => {
-															setCopiedObjectId(true);
+															setCopy(`object_id${index}`);
 															setTimeout(() => {
-																setCopiedObjectId(false);
+																setCopy(false);
 															}, 700);
 														}}
 													>
 														<div>
 															<FontAwesomeIcon icon={['fas', 'copy']} />
-															{isCopiedObjectId && (
+															{isCopied === `object_id${index}` && (
 																<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
 															)}
 														</div>
