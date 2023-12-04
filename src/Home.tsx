@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import api from './api';
+import { UploadedObject } from './App.tsx';
+import api from './api.ts';
 import {
 	Content,
 	Container,
@@ -14,11 +15,11 @@ import {
 	Button,
 } from 'react-bulma-components';
 
-function base64ToArrayBuffer(base64) {
-	const bytes = new Uint8Array([0, 0, 0, 0]);
-	const binary_string = base64;
-	const len = binary_string.length;
-	for (let i = 0; i < len; i++) {
+function base64ToArrayBuffer(base64: string) {
+	const bytes: any = new Uint8Array([0, 0, 0, 0]);
+	const binary_string: string = base64;
+	const len: number = binary_string.length;
+	for (let i: number = 0; i < len; i += 1) {
 			bytes[i] = binary_string.charCodeAt(i);
 	}
 	return bytes;
@@ -33,25 +34,28 @@ const Home = ({
 	setUploadedObjects,
 	user,
 }) => {
-	const [files, setFiles] = useState([]);
-	const [dragActive, setDragActive] = useState(false);
-	const [lifetimeData, setLifetimeData] = useState(12);
-	const [isLoading, setLoading] = useState(false);
-	const [isCopied, setCopy] = useState(false);
-	const fileUploadMbLimit = 200 * 1024 * 1024;
+	const [files, setFiles] = useState<File[]>([]);
+	const [dragActive, setDragActive] = useState<boolean>(false);
+	const [lifetimeData, setLifetimeData] = useState<number>(12);
+	const [isLoading, setLoading] = useState<boolean>(false);
+	const [isCopied, setCopy] = useState<boolean | string>(false);
+	const fileUploadMbLimit: number = 200 * 1024 * 1024;
 
-	const handleAllFiles = (files) => {
+	const handleAllFiles = (files: any) => {
 		for (let i = 0; i < files.length; i += 1) {
 			handleFile(files[i], i === (files.length - 1));
 		}
 	};
 
-	const handleFile = (file, isClear = true, index) => {
+	const handleFile = (file: any, isClear: boolean = true, index?: number | undefined) => {
 		if (index !== undefined) {
-			setFiles((filesTemp) => filesTemp.filter((item, indexItem) => indexItem !== index));
+			setFiles((filesTemp: File[]) => filesTemp.filter((item: File, indexItem: number) => indexItem !== index));
 		} else {
 			if (isClear) {
-				document.querySelector('input').value = '';
+				const inputElement: HTMLInputElement | null = document.querySelector('input');
+				if (inputElement) {
+					inputElement.value = '';
+				}
 			}
 
 			if (file === undefined) {
@@ -63,15 +67,16 @@ const Home = ({
 				return;
 			}
 
-			if (files.some((fileItem) => fileItem.name === file.name)) {
+			if (files.some((fileItem: File) => fileItem.name === file.name)) {
 				onModal('failed', 'Selected file has already been added');
 				return;
 			}
-			setFiles((files) => [...files, file]);
+			setFiles((files: File[]) => [...files, file]);
+			console.log([...files, file])
 		}
 	};
 
-	const handleDrag = (e) => {
+	const handleDrag = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
 		if (!isLoading) {
@@ -83,7 +88,7 @@ const Home = ({
 		}
 	};
 
-	const handleDrop = (e) => {
+	const handleDrop = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
 		if (!isLoading) {
@@ -94,7 +99,7 @@ const Home = ({
 		}
 	};
 
-	const onUpload = (e) => {
+	const onUpload = (e: any) => {
 		if (files.length === 0) {
 			onModal('failed', 'Select file to upload to NeoFS');
 			return;
@@ -109,15 +114,15 @@ const Home = ({
 				environment.netmapContract,
 				environment.epochLine,
 			],
-		}).then((res) => {
+		}).then((res: any) => {
 			if (res['result']) {
-				const epoch_b64 = atob(res['result']);
-				const epoch_bytes = base64ToArrayBuffer(epoch_b64);
-				const dv2 = new DataView(epoch_bytes.buffer);
-				const epoch = dv2.getUint32(0, true);
+				const epoch_b64: any = atob(res['result']);
+				const epoch_bytes: any = base64ToArrayBuffer(epoch_b64);
+				const dv2: any = new DataView(epoch_bytes.buffer);
+				const epoch: string | number = dv2.getUint32(0, true);
 
-				files.forEach((file) => {
-					const formData = new FormData();
+				files.forEach((file: File) => {
+					const formData: any = new FormData();
 					formData.append('file', file);
 					onUploadFile(formData, file.name, epoch, lifetimeData);
 				});
@@ -132,17 +137,17 @@ const Home = ({
     e.preventDefault();
 	};
 
-	const onUploadFile = (formData, filename, epoch, lifetime) => {
+	const onUploadFile = (formData: any, filename: string | null, epoch: string | number, lifetime: string | number) => {
 		document.cookie = `Bearer=${user.XBearer}; path=/gate/upload; expires=${new Date(Date.now() + 10 * 1000).toUTCString()}`;
 		api('POST', '/gate/upload/', formData, {
 			'X-Attribute-NEOFS-Expiration-Epoch': String(Number(epoch) + Number(lifetime)),
 			'X-Attribute-email': user.XAttributeEmail,
 			'Content-Type': 'multipart/form-data',
-		}).then((res) => {
+		}).then((res: any) => {
 			res['filename'] = filename;
-			setUploadedObjects((uploadedObjectsTemp) => [...uploadedObjectsTemp, res]);
-			setFiles((files) => {
-				const filesTemp = files.filter((item) => item.name !== filename);
+			setUploadedObjects((uploadedObjectsTemp: UploadedObject[]) => [...uploadedObjectsTemp, res]);
+			setFiles((files: File[]) => {
+				const filesTemp = files.filter((item: File) => item.name !== filename);
 				if (filesTemp.length === 0) {
 					setLoading(false);
 				}
@@ -165,7 +170,7 @@ const Home = ({
 								renderAs={Notification}
 								color={"gray"}
 							>
-								<Heading weight="semibold" subtitle align="center">Send.NeoFS: HTTP-gate demo for distributed object storage</Heading>
+								<Heading weight="semibold" subtitle style={{ textAlign: 'center' }}>Send.NeoFS: HTTP-gate demo for distributed object storage</Heading>
 								<Content>
 									<p>Send.NeoFS is a simple example of integration with NeoFS network via HTTP protocol. It allows to store your files in decentralized network for the selected period of time and share them via generated link. Send.NeoFS should be used for NeoFS public test only.</p>
 									<p>During the test, we are collecting network metrics and feedback from participants which will help to improve the developed system. Your feedback is important for us. Please, send it to <a href="mailto:testnet@nspcc.ru" style={{ textDecoration: 'underline' }}>testnet@nspcc.ru</a>.</p>
@@ -189,10 +194,10 @@ const Home = ({
 								>
 									<Form.InputFile
 										label={dragActive ? "Drop the files here ..." : "Drag & Drop files or click to send up to 200Mb"}
-										align="center"
-										onChange={(e) => handleAllFiles(e.target.files)}
+										onChange={(e: any) => handleAllFiles(e.target.files)}
 										icon={<FontAwesomeIcon icon={['fas', 'plus']} style={{ fontSize: 30 }} />}
-										style={isLoading ? { display: 'flex', pointerEvents: 'none' } : { display: 'flex' }}
+										style={isLoading ? { display: 'flex', justifyContent: 'center', pointerEvents: 'none' } : { display: 'flex', justifyContent: 'center' }}
+										// @ts-ignore: Not assignable to type
 										inputProps={{ "multiple": true }}
 										boxed
 									/>
@@ -202,7 +207,7 @@ const Home = ({
 										<Form.Label>Select file(s) lifetime</Form.Label>
 										<Form.Control>
 											<Form.Select
-												onChange={(e) => setLifetimeData(e.target.value)}
+												onChange={(e: any) => setLifetimeData(e.target.value)}
 												value={lifetimeData}
 												disabled={isLoading}
 											>
@@ -222,7 +227,7 @@ const Home = ({
 										{isLoading ? <FontAwesomeIcon icon={['fas', 'spinner']} spin /> : 'Upload'}
 									</Button>
 								</Button.Group>
-								{files && files.map((fileItem, index) => (
+								{files && files.map((fileItem, index: number) => (
 									<Notification
 										key={fileItem.name}
 										color="primary"
@@ -230,7 +235,7 @@ const Home = ({
 										{fileItem.name}
 										{!isLoading && (
 											<Button
-												onClick={(e) => handleFile(e, true, index)}
+												onClick={(e: any) => handleFile(e, true, index)}
 												remove
 											/>
 										)}
@@ -238,17 +243,17 @@ const Home = ({
 								))}
 								{uploadedObjects && uploadedObjects.length > 0 && (
 									<>
-										<Heading weight="semibold" subtitle align="center" style={{ marginTop: '2rem' }}>
+										<Heading weight="semibold" subtitle style={{ textAlign: 'center', marginTop: '2rem' }}>
 											Uploaded objects
 										</Heading>
-										{uploadedObjects.map((uploadedObject, index) => (
+										{uploadedObjects.map((uploadedObject, index: number) => (
 											<Notification
 												key={uploadedObject.filename}
 												className="uploaded_object"
 												color="primary"
 											>
 												<div className="uploaded_object_group">
-													<Heading size="6" subtitle>
+													<Heading size={6} subtitle>
 														<a
 															href={`${environment.server ? environment.server : ''}/gate/get/${uploadedObject.object_id}`}
 															style={{ textDecoration: 'underline' }}
@@ -279,7 +284,7 @@ const Home = ({
 															<FontAwesomeIcon icon={['fas', 'download']} />
 														</div>
 													</Heading>
-													<Heading size="6" subtitle>
+													<Heading size={6} subtitle>
 														<Link
 															to={`/load/${uploadedObject.object_id}`}
 															onClick={onScroll}
@@ -306,7 +311,7 @@ const Home = ({
 														</CopyToClipboard>
 													</Heading>
 												</div>
-												<Heading size="6" subtitle>
+												<Heading size={6} subtitle>
 													{`Container ID: ${uploadedObject.container_id}`}
 													<CopyToClipboard
 														text={uploadedObject.container_id}
@@ -325,7 +330,7 @@ const Home = ({
 														</div>
 													</CopyToClipboard>
 												</Heading>
-												<Heading size="6" subtitle>
+												<Heading size={6} subtitle>
 													{`Object ID: ${uploadedObject.object_id}`}
 													<CopyToClipboard
 														text={uploadedObject.object_id}
@@ -361,7 +366,7 @@ const Home = ({
 								renderAs={Notification}
 								color={"gray"}
 							>
-								<Heading weight="semibold" subtitle align="center">Sign in with Google or GitHub account</Heading>
+								<Heading weight="semibold" subtitle style={{ textAlign: 'center' }}>Sign in with Google or GitHub account</Heading>
 								<Button.Group style={{ justifyContent: 'center' }}>
 									<Button
 										renderAs="a"

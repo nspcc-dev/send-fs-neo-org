@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, Route, Routes, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
 	Navbar,
@@ -8,10 +7,10 @@ import {
 	Footer,
 	Button,
 } from 'react-bulma-components';
-import Home from './Home';
-import Agreement from './Agreement';
-import Load from './Load';
-import NotFound from './NotFound';
+import Home from './Home.tsx';
+import Agreement from './Agreement.tsx';
+import Load from './Load.tsx';
+import NotFound from './NotFound.tsx';
 import 'bulma/css/bulma.min.css';
 import './App.css';
 
@@ -41,44 +40,68 @@ library.add(
 	faGithub,
 );
 
-function getCookie(name) {
-  let matches = document.cookie.match(new RegExp(
+interface Environment {
+	version: string | undefined
+	server: string | undefined
+	netmapContract: string | undefined
+	epochLine: string | undefined
+}
+
+interface User {
+	XBearer: string | undefined
+	XAttributeEmail: string | undefined
+}
+
+export interface UploadedObject {
+	filename: string
+	container_id: string
+	object_id: string
+}
+
+interface Modal {
+	current: "success" | "failed" | null
+	text: string | null
+	params: any
+}
+
+function getCookie(name: string) {
+  let matches: string[] | null = document.cookie.match(new RegExp(
     "(?:^|; )" + name.replace(/([.$?*|{}()[]\\\/\+^])/g, '\\$1') + "=([^;]*)"
   ));
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
 export const App = () => {
-	const location = useLocation();
-	const [environment] = useState({
+	const location: any = useLocation();
+	const [environment] = useState<Environment>({
 		version: process.env.REACT_APP_VERSION,
 		server: process.env.REACT_APP_NEOFS,
 		netmapContract: process.env.REACT_APP_NETMAP_CONTRACT,
 		epochLine: "c25hcHNob3RFcG9jaA==",
 	});
-	const [user] = useState(getCookie('X-Bearer') && getCookie('X-Attribute-Email') ? {
+	const [user] = useState<User | null>(getCookie('X-Bearer') && getCookie('X-Attribute-Email') ? {
 		XBearer: getCookie('X-Bearer'),
 		XAttributeEmail: getCookie('X-Attribute-Email'),
 	} : null);
-	const [uploadedObjects, setUploadedObjects] = useState([]);
-	const [menuActive, setMenuActive] = useState(false);
-	const [modal, setModal] = useState({
+	const [uploadedObjects, setUploadedObjects] = useState<UploadedObject[]>([]);
+	const [menuActive, setMenuActive] = useState<boolean>(false);
+	const [modal, setModal] = useState<Modal>({
 		current: null,
 		text: '',
 		params: '',
 	});
 
-	const onModal = (current = null, text = null, params = null) => {
+	const onModal = (current: "success" | "failed" | null = null, text: string | null = null, params: any = null) => {
 		setModal({ current, text, params });
 	};
 
-	const onRedirect = (path) => {
+	const onRedirect = (path: string) => {
 		document.location.pathname = path;
 	};
 
 	const onLogout = () => {
 		setMenuActive(false);
-		const date = new Date(Date.now() - 1).toUTCString();
+		const date: string = new Date(Date.now() - 1).toUTCString();
 		document.cookie = `Bearer=; expires=` + date;
 		document.cookie = `X-Bearer=; expires=` + date;
 		document.cookie = `X-Attribute-Email=; expires=` + date;
@@ -86,13 +109,16 @@ export const App = () => {
 	};
 
 	const onScroll = () => {
-		document.querySelector('html').scrollTop = 0;
+		const html: HTMLElement | null = document.querySelector('html');
+		if (html) {
+			html.scrollTop = 0;
+		}
   }
 
-	const onDownload = (objectId, filename) => {
-		const a = document.createElement('a');
+	const onDownload = (objectId: string, filename: string) => {
+		const a: HTMLAnchorElement = document.createElement('a');
 		document.body.appendChild(a);
-		const url = `${environment.server ? environment.server : ''}/gate/get/${objectId}?download=1`;
+		const url: string = `${environment.server ? environment.server : ''}/gate/get/${objectId}?download=1`;
 		a.href = url;
 		a.download = filename;
 		a.click();
@@ -108,12 +134,12 @@ export const App = () => {
 				<div className="modal">
 					<div
 						className="modal_close_panel"
-						onClick={onModal}
+						onClick={() => onModal()}
 					/>
 					<div className="modal_content">
 						<div
 							className="modal_close"
-							onClick={onModal}
+							onClick={() => onModal()}
 						>
 							<img
 								src="/img/close.svg"
@@ -122,20 +148,8 @@ export const App = () => {
 								alt="close"
 							/>
 						</div>
-						<Heading weight="semibold" subtitle align="center">{modal.current === 'success' ? 'Success' : 'Failed'}</Heading>
-						<p align="center">{modal.text}</p>
-					</div>
-				</div>
-			)}
-			{modal.current === 'loading' && (
-				<div className="modal">
-					<div className="modal_content">
-						<Heading weight="semibold" subtitle align="center">{modal.text ? modal.text : 'Loading'}</Heading>
-						<FontAwesomeIcon
-							icon={['fas', 'spinner']}
-							style={{ margin: '20px auto', display: 'flex', fontSize: 22 }}
-							spin
-						/>
+						<Heading weight="semibold" subtitle style={{ textAlign: 'center' }}>{modal.current === 'success' ? 'Success' : 'Failed'}</Heading>
+						<p style={{ textAlign: 'center' }}>{modal.text}</p>
 					</div>
 				</div>
 			)}
@@ -275,20 +289,17 @@ export const App = () => {
 				</div>
 				<a href="https://fs.neo.org/hosting/">
 					<Heading
-						size={7}
 						weight="light"
 						subtitle
-						align="center"
-						style={{ marginBottom: 0 }}
+						style={{ textAlign: 'center', fontSize: '.75rem', marginBottom: 0 }}
 					>
 						🪄 <span style={{ textDecoration: 'underline' }}>Hosted on NeoFS</span> 🚀
 					</Heading>
 				</a>
 				<Heading
-					size={7}
 					weight="light"
 					subtitle
-					align="center"
+					style={{ textAlign: 'center', fontSize: '.75rem' }}
 				>
 					{environment.version}
 				</Heading>

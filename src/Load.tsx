@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -9,7 +9,7 @@ import {
 	Tile,
 	Notification,
 } from 'react-bulma-components';
-import api from './api';
+import api, { ObjectData } from './api.ts';
 
 const Load = ({
 	onModal,
@@ -18,15 +18,15 @@ const Load = ({
 	environment,
 	location,
 }) => {
-	const [objectData, setObjectData] = useState({
+	const [objectData, setObjectData] = useState<ObjectData>({
 		objectId: null,
 	});
-	const [isCopied, setCopied] = useState(false);
+	const [isCopied, setCopied] = useState<boolean>(false);
 
   useEffect(() => {
-		const objectIDTemp = location.pathname.replace('/load/', '');
+		const objectIDTemp: string = location.pathname.replace('/load/', '');
 		if (objectIDTemp.length > 0) {
-			api('HEAD', `/gate/get/${objectIDTemp}`).then((res) => {
+			api('HEAD', `/gate/get/${objectIDTemp}`).then((res: any) => {
 				setObjectData({
 					...res,
 					objectId: objectIDTemp,
@@ -50,7 +50,7 @@ const Load = ({
 								renderAs={Notification}
 								color={"gray"}
 							>
-								<Heading weight="semibold" subtitle align="center">Download your files via HTTP gate</Heading>
+								<Heading weight="semibold" subtitle style={{ textAlign: 'center' }}>Download your files via HTTP gate</Heading>
 								<Button.Group style={{ justifyContent: 'center' }}>
 									<Button
 										style={{ marginRight: 20 }}
@@ -96,13 +96,13 @@ const Load = ({
 								renderAs={Notification}
 								color={"gray"}
 							>
-								<Heading weight="semibold" subtitle align="center">File data</Heading>
-								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Filename: ${objectData.filename ? objectData.filename : '-'}`}</Heading>
-								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Size: ${objectData.size ? objectData.size : '-'}`}</Heading>
-								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Expiration epoch: ${objectData.expirationEpoch ? objectData.expirationEpoch : '-'}`}</Heading>
-								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Owner ID: ${objectData.ownerId ? objectData.ownerId : '-'}`}</Heading>
-								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Container ID: ${objectData.containerId ? objectData.containerId : '-'}`}</Heading>
-								<Heading weight="light" size="6" subtitle style={{ margin: '10px 0' }}>{`Object ID: ${objectData.objectId ? objectData.objectId : '-'}`}</Heading>
+								<Heading weight="semibold" subtitle style={{ textAlign: 'center' }}>File data</Heading>
+								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Filename: ${objectData.filename ? objectData.filename : '-'}`}</Heading>
+								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Size: ${objectData.size ? objectData.size : '-'}`}</Heading>
+								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Expiration epoch: ${objectData.expirationEpoch ? objectData.expirationEpoch : '-'}`}</Heading>
+								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Owner ID: ${objectData.ownerId ? objectData.ownerId : '-'}`}</Heading>
+								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Container ID: ${objectData.containerId ? objectData.containerId : '-'}`}</Heading>
+								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Object ID: ${objectData.objectId ? objectData.objectId : '-'}`}</Heading>
 							</Tile>
 						</Tile>
 					</Tile>
