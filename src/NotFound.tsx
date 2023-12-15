@@ -1,3 +1,4 @@
+import React from 'react';
 import {
 	Container,
 	Section,
@@ -18,8 +19,8 @@ const NotFound = () => {
 							renderAs={Notification}
 							color={"gray"}
 						>
-							<Heading weight="semibold" subtitle align="center">404 Not Found</Heading>
-							<Heading weight="light" subtitle align="center">Page not found</Heading>
+							<Heading weight="semibold" subtitle style={{ textAlign: 'center' }}>404 Not Found</Heading>
+							<Heading weight="light" subtitle style={{ textAlign: 'center' }}>Page not found</Heading>
 							<Button.Group style={{ justifyContent: 'center' }}>
 								<Button renderAs="a" href="/">Home page</Button>
 							</Button.Group>

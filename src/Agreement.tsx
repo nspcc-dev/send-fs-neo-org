@@ -1,3 +1,4 @@
+import React from 'react';
 import {
 	Content,
 	Container,
@@ -18,7 +19,7 @@ const Agreement = () => {
 							renderAs={Notification}
 							color={"gray"}
 						>
-							<Heading weight="semibold" subtitle align="center">Terms of Service</Heading>
+							<Heading weight="semibold" subtitle style={{ textAlign: 'center' }}>Terms of Service</Heading>
 							<Content>
 								<p>Neo Saint Petersburg Competence Center (Neo SPCC) was established to support the Neo core and do research in distributed storage systems field.</p>
 								<p>This is a test service. Neo SPCC is not responsible for losing uploaded data. All the uploaded data is presumed to be public.</p>
