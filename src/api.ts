@@ -7,6 +7,7 @@ export interface ObjectData {
 	containerId?: string | null
 	ownerId?: string | null
 	filename?: string | null
+	contentType?: string | null
 	size?: string | null
 	expirationEpoch?: string | null
 }
@@ -17,9 +18,8 @@ async function serverRequest(method: Methods, url: string, params: object, heade
 		headers,
 	}
 
-	if (json['headers']['Content-Type'] === 'multipart/form-data') {
+	if (json['headers']['Content-Type']) {
 		json['body'] = params;
-		delete json['headers']['Content-Type'];
 	} else if (Object.keys(params).length > 0) {
 		json['body'] = JSON.stringify(params);
 		json['headers']['Content-Type'] = 'application/json';
@@ -45,12 +45,14 @@ export default function api(method: Methods, url: string, params: object = {}, h
 				if (method === 'HEAD' && response.status !== 200) {
 					reject(res);
 				} else if (method === 'HEAD' && response.headers) {
+					const attributes: any = response.headers.get('X-Attributes') ? JSON.parse(response.headers.get('X-Attributes')) : {};
 					const res: ObjectData = {
-						'filename': response.headers.get('X-Attribute-Filename'),
+						'filename': attributes['FileName'],
+						'contentType': response.headers.get('Content-Type'),
 						'containerId': response.headers.get('X-Container-Id'),
 						'ownerId': response.headers.get('X-Owner-Id'),
 						'size': response.headers.get('Content-Length') ? response.headers.get('Content-Length') : response.headers.get('x-neofs-payload-length'),
-						'expirationEpoch': response.headers.get('X-Attribute-Neofs-Expiration-Epoch'),
+						'expirationEpoch': attributes['__NEOFS__EXPIRATION_EPOCH'],
 					}
 					resolve(res);
 				} else if (method === 'GET' && url.indexOf(`/gate/get/`) !== -1) {
