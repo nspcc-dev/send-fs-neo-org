@@ -69,9 +69,9 @@ password: <secret>
 proxy_cache_path /srv/neofs_cache/ levels=1:2 keys_zone=neofs_cache:50m max_size=16g inactive=60m use_temp_path=off;
 
 server {
-	set $cid HPUKdZBBtD75jDN8iVb3zoaNACWinuf1vF5kkYpMMbap;
-	set $data_cid 41tVWBvQVTLGQPHBmXySHsJkcc6X17i39bMuJe9wYhAJ;
-	set $neofs_http_gateway http.fs.neo.org;
+	set $cid 7CpJVtBdNvPjjdYwV7q9CghGVPagVLTs71BPQuGQLKSQ;
+	set $data_cid 754iyTDY8xUtZJZfheSYLUn7jvCkxr79RcbjMt81QykC;
+	set $neofs_rest_gateway https://rest.fs.neo.org;
 	set $rpc rpc.morph.fs.neo.org:40341;
 	client_max_body_size 100m;
 	proxy_connect_timeout 5m;
@@ -79,68 +79,83 @@ server {
 	proxy_read_timeout    5m;
 	send_timeout          5m;
 	default_type application/octet-stream;
-	
+
 	location ~ "^\/chain" {
 		rewrite ^/chain/(.*) /$1 break;
 		proxy_pass https://rpc;
+		proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504 http_403 http_429 non_idempotent;
 	}
-	
+
+	location /gate/objects/ {
+		rewrite ^/gate/(.*) /v1/objects/$data_cid break;
+		proxy_pass $neofs_rest_gateway;
+		proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504 http_403 http_429;
+		proxy_pass_request_headers on;
+	}
+
 	location /gate/upload/ {
-		rewrite ^/gate/(.*) /upload/$data_cid break;
-		proxy_pass https://$neofs_http_gateway;
+		rewrite ^/gate/(.*) /v1/upload/$data_cid break;
+		proxy_pass $neofs_rest_gateway;
+		proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504 http_403 http_429;
+		proxy_pass_request_headers on;
 		proxy_set_header X-Attribute-email $http_x_attribute_email;
 		proxy_set_header X-Attribute-NEOFS-Expiration-Epoch $http_x_attribute_neofs_expiration_epoch;
 	}
-	
+
 	location ~ "^\/gate\/get(/.*)?\/?$" {
-		rewrite ^/gate/get/(.*) /$data_cid/$1 break;
-		proxy_pass https://$neofs_http_gateway;
+		rewrite ^/gate/get/(.*) /v1/get/$data_cid/$1 break;
+		proxy_pass $neofs_rest_gateway;
+		proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504 http_403 http_429;
+
 		proxy_intercept_errors on;
 		proxy_cache_valid 404 0;
 		proxy_cache_valid 200 15m;
+		proxy_buffering on;
 		proxy_cache neofs_cache;
 		proxy_cache_methods GET;
 	}
-	
+
 	location /signup_google/ {
 		proxy_pass http://localhost:8084/login?service=google;
 		proxy_intercept_errors on;
+		proxy_buffering on;
 		proxy_set_header Host              $http_host;
 		proxy_set_header X-Real-IP         $remote_addr;
 		proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
 		proxy_set_header X-Forwarded-Proto $scheme;
 	}
-	
+
 	location /signup_github/ {
 		proxy_pass http://localhost:8084/login?service=github;
 		proxy_intercept_errors on;
+		proxy_buffering on;
 		proxy_set_header Host              $http_host;
 		proxy_set_header X-Real-IP         $remote_addr;
 		proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
 		proxy_set_header X-Forwarded-Proto $scheme;
 	}
-	
+
 	location ~ "^\/callback" {
 		rewrite ^/callback\?(.*) /$1 break;
 		proxy_pass http://localhost:8084;
 	}
-	
+
 	location /load {
-		rewrite '^(/.*)$' /get_by_attribute/$cid/FileName/index.html break;
-		proxy_pass https://$neofs_http_gateway;
+		rewrite '^(/.*)$' /v1/objects/$cid/by_attribute/FileName/index.html break;
+		proxy_pass $neofs_rest_gateway;
+		proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504 http_403 http_429;
+		include /etc/nginx/mime.types;
 	}
-	
+
 	location /toc {
-		rewrite '^(/.*)$' /get_by_attribute/$cid/FileName/index.html break;
-		proxy_pass https://$neofs_http_gateway;
+		rewrite '^(/.*)$' /v1/objects/$cid/by_attribute/FileName/index.html break;
+		proxy_pass $neofs_rest_gateway;
+		proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504 http_403 http_429;
+		include /etc/nginx/mime.types;
 	}
-	
+
 	location / {
-		rewrite '^(/[0-9a-zA-Z\-]{43,44})$' /get/$cid/$1 break;
-		rewrite '^/$'                       /get_by_attribute/$cid/FileName/index.html break;
-		rewrite '^/([^/]*)$'                /get_by_attribute/$cid/FileName/$1 break;
-		rewrite '^(/.*)$'                   /get_by_attribute/$cid/FilePath/$1 break;
-		proxy_pass https://$neofs_http_gateway;
+		proxy_pass https://$neofs_rest_gateway;
 	}
 }
 ```
