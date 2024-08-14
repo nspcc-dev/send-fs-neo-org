@@ -98,6 +98,7 @@ const Load = ({
 							>
 								<Heading weight="semibold" subtitle style={{ textAlign: 'center' }}>File data</Heading>
 								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Filename: ${objectData.filename ? objectData.filename : '-'}`}</Heading>
+								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Content-Type: ${objectData.contentType ? objectData.contentType : '-'}`}</Heading>
 								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Size: ${objectData.size ? objectData.size : '-'}`}</Heading>
 								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Expiration epoch: ${objectData.expirationEpoch ? objectData.expirationEpoch : '-'}`}</Heading>
 								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Owner ID: ${objectData.ownerId ? objectData.ownerId : '-'}`}</Heading>

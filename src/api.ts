@@ -7,6 +7,7 @@ export interface ObjectData {
 	containerId?: string | null
 	ownerId?: string | null
 	filename?: string | null
+	contentType?: string | null
 	size?: string | null
 	expirationEpoch?: string | null
 }
@@ -46,7 +47,7 @@ export default function api(method: Methods, url: string, params: object = {}, h
 					reject(res);
 				} else if (method === 'HEAD' && response.headers) {
 					const res: ObjectData = {
-						'filename': response.headers.get('X-Attribute-Filename'),
+						'contentType': response.headers.get('Content-Type'),
 						'containerId': response.headers.get('X-Container-Id'),
 						'ownerId': response.headers.get('X-Owner-Id'),
 						'size': response.headers.get('Content-Length') ? response.headers.get('Content-Length') : response.headers.get('x-neofs-payload-length'),
