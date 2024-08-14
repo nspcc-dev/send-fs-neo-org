@@ -43,8 +43,6 @@ library.add(
 interface Environment {
 	version: string | undefined
 	server: string | undefined
-	netmapContract: string | undefined
-	epochLine: string | undefined
 }
 
 interface User {
@@ -76,8 +74,6 @@ export const App = () => {
 	const [environment] = useState<Environment>({
 		version: process.env.REACT_APP_VERSION,
 		server: process.env.REACT_APP_NEOFS,
-		netmapContract: process.env.REACT_APP_NETMAP_CONTRACT,
-		epochLine: "c25hcHNob3RFcG9jaA==",
 	});
 	const [user] = useState<User | null>(getCookie('X-Bearer') && getCookie('X-Attribute-Email') ? {
 		XBearer: getCookie('X-Bearer'),

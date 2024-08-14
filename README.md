@@ -30,8 +30,6 @@ Send.NeoFS is a simple example of integration with NeoFS network via HTTP protoc
 
 Set variables in the `.env` file before executing the commands:
 - `REACT_APP_NEOFS` - Path to SendFS
-- `REACT_APP_CONTAINER_ID` - NeoFS container ID where the objects would be stored
-- `REACT_APP_NETMAP_CONTRACT` - NeoFS netmap contract
 
 # Send.NeoFS local up
 

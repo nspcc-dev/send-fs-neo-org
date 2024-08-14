@@ -15,16 +15,6 @@ import {
 	Button,
 } from 'react-bulma-components';
 
-function base64ToArrayBuffer(base64: string) {
-	const bytes: any = new Uint8Array([0, 0, 0, 0]);
-	const binary_string: string = base64;
-	const len: number = binary_string.length;
-	for (let i: number = 0; i < len; i += 1) {
-			bytes[i] = binary_string.charCodeAt(i);
-	}
-	return bytes;
-}
-
 const Home = ({
 	onModal,
 	onScroll,
@@ -36,7 +26,7 @@ const Home = ({
 }) => {
 	const [files, setFiles] = useState<File[]>([]);
 	const [dragActive, setDragActive] = useState<boolean>(false);
-	const [lifetimeData, setLifetimeData] = useState<number>(12);
+	const [lifetimeData, setLifetimeData] = useState<string>('12h');
 	const [isLoading, setLoading] = useState<boolean>(false);
 	const [isCopied, setCopy] = useState<boolean | string>(false);
 	const fileUploadMbLimit: number = 200 * 1024 * 1024;
@@ -106,48 +96,26 @@ const Home = ({
 		}
 
 		setLoading(true);
-		api('POST', `/chain`, {
-			"id":"1",
-			"jsonrpc":"2.0",
-			"method":"getstorage",
-			"params":[
-				environment.netmapContract,
-				environment.epochLine,
-			],
-		}).then((res: any) => {
-			if (res['result']) {
-				const epoch_b64: any = atob(res['result']);
-				const epoch_bytes: any = base64ToArrayBuffer(epoch_b64);
-				const dv2: any = new DataView(epoch_bytes.buffer);
-				const epoch: string | number = dv2.getUint32(0, true);
-
-				files.forEach((file: File) => {
-					const formData: any = new FormData();
-					formData.append('file', file);
-					onUploadFile(formData, file.name, epoch, lifetimeData);
-				});
-			} else {
-				setLoading(false);
-				onModal('failed', 'Something went wrong, try again');
-			}
-		}).catch(() => {
-			setLoading(false);
-			onModal('failed', 'Something went wrong, try again');
+		files.forEach((file: File) => {
+			onUploadFile(file);
 		});
     e.preventDefault();
 	};
 
-	const onUploadFile = (formData: any, filename: string | null, epoch: string | number, lifetime: string | number) => {
-		document.cookie = `Bearer=${user.XBearer}; path=/gate/upload; expires=${new Date(Date.now() + 10 * 1000).toUTCString()}`;
-		api('POST', '/gate/upload/', formData, {
-			'X-Attribute-NEOFS-Expiration-Epoch': String(Number(epoch) + Number(lifetime)),
-			'X-Attribute-email': user.XAttributeEmail,
-			'Content-Type': 'multipart/form-data',
+	const onUploadFile = (file: any | null) => {
+		document.cookie = `Bearer=${user.XBearer}; path=/gate/objects; expires=${new Date(Date.now() + 10 * 1000).toUTCString()}`;
+		api('POST', "/gate/objects/", file, {
+			'X-Attributes': JSON.stringify({
+				'FileName': file.name,
+				'Email': user.XAttributeEmail,
+			}),
+			'X-Neofs-Expiration-Duration': lifetimeData,
+			'Content-Type': file.type,
 		}).then((res: any) => {
-			res['filename'] = filename;
+			res['filename'] = file.name;
 			setUploadedObjects((uploadedObjectsTemp: UploadedObject[]) => [...uploadedObjectsTemp, res]);
 			setFiles((files: File[]) => {
-				const filesTemp = files.filter((item: File) => item.name !== filename);
+				const filesTemp = files.filter((item: File) => item.name !== file.name);
 				if (filesTemp.length === 0) {
 					setLoading(false);
 				}
@@ -211,10 +179,10 @@ const Home = ({
 												value={lifetimeData}
 												disabled={isLoading}
 											>
-												<option value="12">12 epochs (hours)</option>
-												<option value="24">24 epochs (1 day)</option>
-												<option value="48">48 epochs (2 days)</option>
-												<option value="96">96 epochs (4 days)</option>
+												<option value="12h">12 epochs (hours)</option>
+												<option value="24h">24 epochs (1 day)</option>
+												<option value="48h">48 epochs (2 days)</option>
+												<option value="96h">96 epochs (4 days)</option>
 											</Form.Select>
 										</Form.Control>
 									</Form.Field>
