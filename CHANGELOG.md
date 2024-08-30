@@ -4,6 +4,39 @@ Changelog for SendFS
 
 ## [Unreleased]
 
+## [0.6.0] - 2024-08-30
+
+### Added
+
+- Opengraph image meta tag (#112)
+- Description page (#74)
+
+### Changed
+
+- Moved to Typescript (#110)
+- Use new (0.9.0+) REST gateway APIs (#114)
+
+## [0.5.3] - 2023-10-05
+
+### Fixed
+
+- NPM warnings (#100)
+- Minimal height (#107)
+- Tooltip display (#109)
+
+### Changed
+
+- Allow uploading up to 200M (#97)
+- Updated YouTube link (#101)
+- Add hosting link (#106)
+
+## [0.5.2] - 2023-07-03
+
+### Changed
+
+- Clarified epochs/hours relationship (#93)
+- Improved handling of missing objects (#94)
+
 ## [0.5.1]
 
 ### Fixed
@@ -38,4 +71,7 @@ See git log.
 
 [0.5.0]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.2.6...v0.5.0
 [0.5.1]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.5.0...v0.5.1
-[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.5.1...master
+[0.5.2]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.5.1...v0.5.2
+[0.5.3]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.5.2...v0.5.3
+[0.6.0]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.5.3...v0.6.0
+[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.0...master
