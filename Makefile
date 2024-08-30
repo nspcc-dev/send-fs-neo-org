@@ -30,6 +30,7 @@ start:
 
 release: $(SITE_DIR)
 	cp $(SITE_DIR)/index.html $(SITE_DIR)/agreement
+	cp $(SITE_DIR)/index.html $(SITE_DIR)/about
 	@ln -sf $(SITE_DIR) $(RELEASE_DIR)
 	@tar cfvhz $(RELEASE_PATH) $(RELEASE_DIR)
 
