@@ -12,8 +12,8 @@ a {
     text-decoration: none;
 }
 
-li {
-    list-style-type: none;
+#about a {
+    color: #02af92;
 }
 
 :focus {
@@ -219,6 +219,21 @@ div.navbar-item:hover {
     line-height: 1.5;
 }
 
+code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    white-space: break-spaces;
+    background-color: #eff1f2;
+    color: inherit;
+    border-radius: 6px;
+}
+
+.content pre {
+    color: inherit;
+    border-radius: 4px;
+}
+
 /* modal */
 .modal {
     position: fixed;
@@ -308,6 +323,11 @@ div.navbar-item:hover {
     .navbar-link,
     .label {
         color: #adbac7 !important;
+    }
+
+    .notification code,
+    .notification pre {
+        background: #343942;
     }
 
     .notification.is-primary .subtitle {

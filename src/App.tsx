@@ -9,6 +9,7 @@ import {
 } from 'react-bulma-components';
 import Home from './Home.tsx';
 import Agreement from './Agreement.tsx';
+import About from './About.tsx';
 import Load from './Load.tsx';
 import NotFound from './NotFound.tsx';
 import 'bulma/css/bulma.min.css';
@@ -180,6 +181,13 @@ export const App = () => {
 						>
 							Agreement
 						</Link>
+						<Link
+							to="/about"
+							className="navbar-item"
+							onClick={() => setMenuActive(false)}
+						>
+							About
+						</Link>
 					</Navbar.Container>
 					{user && (
 					<Navbar.Container align="right">
@@ -220,6 +228,10 @@ export const App = () => {
 					<Route
 						path="/agreement"
 						element={<Agreement />}
+					/>
+					<Route
+						path="/about"
+						element={<About />}
 					/>
 					<Route
 						path="*"
