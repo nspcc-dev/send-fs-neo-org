@@ -54,7 +54,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to NeoFS
-        if: ${{ github.event_name == 'release' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy == 'true') }}
+        if: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy == 'true') }}
         uses: nspcc-dev/gh-push-to-neofs@master
         with:
           NEOFS_WALLET: ${{ secrets.NEOFS_WALLET }}
