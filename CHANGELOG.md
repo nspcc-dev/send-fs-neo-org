@@ -4,6 +4,12 @@ Changelog for SendFS
 
 ## [Unreleased]
 
+## [0.6.2] - 2024-09-02
+
+### Fixed
+
+- About page link not working when served from NeoFS (#122)
+
 ## [0.6.1] - 2024-08-30
 
 ### Fixed
@@ -81,4 +87,5 @@ See git log.
 [0.5.3]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.5.2...v0.5.3
 [0.6.0]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.5.3...v0.6.0
 [0.6.1]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.0...v0.6.1
-[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.1...master
+[0.6.2]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.1...v0.6.2
+[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.2...master
