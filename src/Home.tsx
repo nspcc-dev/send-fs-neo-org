@@ -32,8 +32,17 @@ const Home = ({
 	const fileUploadMbLimit: number = 200 * 1024 * 1024;
 
 	const handleAllFiles = (files: any) => {
+		const unsupportedFiles: any[] = [];
 		for (let i = 0; i < files.length; i += 1) {
-			handleFile(files[i], i === (files.length - 1));
+			if (['application/javascript', 'text/javascript', 'application/xhtml+xml', 'text/html', 'text/htmlh'].indexOf(files[i].type) === -1) {
+				handleFile(files[i], i === (files.length - 1));
+			} else {
+				unsupportedFiles.push(files[i].name);
+			}
+		}
+
+		if (unsupportedFiles.length > 0) {
+			onModal('failed', `Selected file${unsupportedFiles.length > 1 ? 's' : ''} (${unsupportedFiles.join(', ')}) can't be uploaded because of type restrictions (HTML and JS are forbidden)`);
 		}
 	};
 
@@ -110,7 +119,7 @@ const Home = ({
 				'Email': user.XAttributeEmail,
 			}),
 			'X-Neofs-Expiration-Duration': lifetimeData,
-			'Content-Type': file.type,
+			'Content-Type': file.type === '' ? 'application/octet-stream' : '',
 		}).then((res: any) => {
 			res['filename'] = file.name;
 			setUploadedObjects((uploadedObjectsTemp: UploadedObject[]) => [...uploadedObjectsTemp, res]);
