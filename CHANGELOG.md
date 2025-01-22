@@ -4,6 +4,13 @@ Changelog for SendFS
 
 ## [Unreleased]
 
+## [0.6.3] - 2025-01-22
+
+### Changed
+
+- UI checks for inappropriate content types now displaying more user-friendly errors (#125)
+- Missing content type is treated as application/octet-stream now which allows to upload some files that were rejected previously (#125)
+
 ## [0.6.2] - 2024-09-02
 
 ### Fixed
@@ -88,4 +95,5 @@ See git log.
 [0.6.0]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.5.3...v0.6.0
 [0.6.1]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.0...v0.6.1
 [0.6.2]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.1...v0.6.2
-[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.2...master
+[0.6.3]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.2...v0.6.3
+[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.3...master
