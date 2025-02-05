@@ -119,7 +119,7 @@ const Home = ({
 				'Email': user.XAttributeEmail,
 			}),
 			'X-Neofs-Expiration-Duration': lifetimeData,
-			'Content-Type': file.type === '' ? 'application/octet-stream' : '',
+			'Content-Type': file.type === '' ? 'application/octet-stream' : file.type,
 		}).then((res: any) => {
 			res['filename'] = file.name;
 			setUploadedObjects((uploadedObjectsTemp: UploadedObject[]) => [...uploadedObjectsTemp, res]);
