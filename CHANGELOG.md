@@ -4,6 +4,12 @@ Changelog for SendFS
 
 ## [Unreleased]
 
+## [0.6.4] - 2025-02-05
+
+### Fixed
+
+- Use Content-Type in web properly (#128)
+
 ## [0.6.3] - 2025-01-22
 
 ### Changed
@@ -96,4 +102,5 @@ See git log.
 [0.6.1]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.0...v0.6.1
 [0.6.2]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.1...v0.6.2
 [0.6.3]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.2...v0.6.3
-[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.3...master
+[0.6.4]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.3...v0.6.4
+[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.4...master
