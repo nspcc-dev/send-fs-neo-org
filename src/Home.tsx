@@ -34,7 +34,7 @@ const Home = ({
 	const handleAllFiles = (files: any) => {
 		const unsupportedFiles: any[] = [];
 		for (let i = 0; i < files.length; i += 1) {
-			if (['application/javascript', 'text/javascript', 'application/xhtml+xml', 'text/html', 'text/htmlh'].indexOf(files[i].type) === -1) {
+			if (['application/javascript', 'text/javascript', 'application/xhtml+xml', 'text/html', 'text/htmlh', 'application/x-javascript'].indexOf(files[i].type) === -1) {
 				handleFile(files[i], i === (files.length - 1));
 			} else {
 				unsupportedFiles.push(files[i].name);
@@ -119,7 +119,7 @@ const Home = ({
 				'Email': user.XAttributeEmail,
 			}),
 			'X-Neofs-Expiration-Duration': lifetimeData,
-			'Content-Type': file.type === '' ? 'application/octet-stream' : '',
+			'Content-Type': file.type === '' ? 'application/octet-stream' : file.type,
 		}).then((res: any) => {
 			res['filename'] = file.name;
 			setUploadedObjects((uploadedObjectsTemp: UploadedObject[]) => [...uploadedObjectsTemp, res]);
