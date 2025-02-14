@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import copy from 'copy-to-clipboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UploadedObject } from './App.tsx';
 import api from './api.ts';
@@ -238,22 +238,20 @@ const Home = ({
 														>
 															{uploadedObject.filename}
 														</a>
-														<CopyToClipboard
-															text={`${environment.server ? environment.server : document.location.origin}/gate/get/${uploadedObject.object_id}`}
-															onCopy={() => {
+														<div
+															onClick={() => {
+																copy(`${environment.server ? environment.server : document.location.origin}/gate/get/${uploadedObject.object_id}`);
 																setCopy(`name${index}`);
 																setTimeout(() => {
 																	setCopy(false);
 																}, 700);
 															}}
 														>
-															<div>
-																<FontAwesomeIcon icon={['fas', 'copy']} />
-																{isCopied === `name${index}` && (
-																	<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
-																)}
-															</div>
-														</CopyToClipboard>
+															<FontAwesomeIcon icon={['fas', 'copy']} />
+															{isCopied === `name${index}` && (
+																<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
+															)}
+														</div>
 														<div
 															onClick={() => onDownload(uploadedObject.object_id, uploadedObject.filename)}
 															style={{ lineHeight: 0 }}
@@ -270,61 +268,55 @@ const Home = ({
 														>
 															Metadata
 														</Link>
-														<CopyToClipboard
-															text={`${document.location.origin}/load/${uploadedObject.object_id}`}
-															onCopy={() => {
+														<div
+															onClick={() => {
+																copy(`${document.location.origin}/load/${uploadedObject.object_id}`);
 																setCopy(`link${index}`);
 																setTimeout(() => {
 																	setCopy(false);
 																}, 700);
 															}}
 														>
-															<div>
-																<FontAwesomeIcon icon={['fas', 'copy']} />
-																{isCopied === `link${index}` && (
-																	<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
-																)}
-															</div>
-														</CopyToClipboard>
+															<FontAwesomeIcon icon={['fas', 'copy']} />
+															{isCopied === `link${index}` && (
+																<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
+															)}
+														</div>
 													</Heading>
 												</div>
 												<Heading size={6} subtitle>
 													{`Container ID: ${uploadedObject.container_id}`}
-													<CopyToClipboard
-														text={uploadedObject.container_id}
-														onCopy={() => {
+													<div
+														onClick={() => {
+															copy(uploadedObject.container_id);
 															setCopy(`container_id${index}`);
 															setTimeout(() => {
 																setCopy(false);
 															}, 700);
 														}}
 													>
-														<div>
-															<FontAwesomeIcon icon={['fas', 'copy']} />
-															{isCopied === `container_id${index}` && (
-																<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
-															)}
-														</div>
-													</CopyToClipboard>
+														<FontAwesomeIcon icon={['fas', 'copy']} />
+														{isCopied === `container_id${index}` && (
+															<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
+														)}
+													</div>
 												</Heading>
 												<Heading size={6} subtitle>
 													{`Object ID: ${uploadedObject.object_id}`}
-													<CopyToClipboard
-														text={uploadedObject.object_id}
-														onCopy={() => {
+													<div
+														onClick={() => {
+															copy(uploadedObject.object_id);
 															setCopy(`object_id${index}`);
 															setTimeout(() => {
 																setCopy(false);
 															}, 700);
 														}}
 													>
-														<div>
-															<FontAwesomeIcon icon={['fas', 'copy']} />
-															{isCopied === `object_id${index}` && (
-																<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
-															)}
-														</div>
-													</CopyToClipboard>
+														<FontAwesomeIcon icon={['fas', 'copy']} />
+														{isCopied === `object_id${index}` && (
+															<div className="tooltip" style={{ top: '-125%', left: '-165%' }}>Copied!</div>
+														)}
+													</div>
 												</Heading>
 											</Notification>
 										))}
