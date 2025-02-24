@@ -301,7 +301,7 @@ export const App = () => {
 						subtitle
 						style={{ textAlign: 'center', fontSize: '.75rem', marginBottom: 0 }}
 					>
-						🪄 <span style={{ textDecoration: 'underline' }}>Hosted on NeoFS</span> 🚀
+						<span style={{ textDecoration: 'underline' }}>Hosted on NeoFS</span>
 					</Heading>
 				</a>
 				<Heading
