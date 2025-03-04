@@ -19,7 +19,7 @@ Send.NeoFS is a simple example of integration with NeoFS network via HTTP protoc
 
 - docker
 - make
-- node (`14+`)
+- node (`18+`)
 
 # Make instructions
 
@@ -29,14 +29,14 @@ Send.NeoFS is a simple example of integration with NeoFS network via HTTP protoc
 * Get release directory with tar.gz using `make release`
 
 Set variables in the `.env` file before executing the commands:
-- `REACT_APP_NEOFS` - Path to SendFS
+- `VITE_NEOFS` - Path to SendFS
 
 # Send.NeoFS local up
 
  - Start [neofs-dev-env](https://github.com/nspcc-dev/neofs-dev-env)
  - Update `.env`
  - Execute `npm install`
- - Run local `npm start`
+ - Run local `npm run build`
 
 # Deployment to production
 

@@ -73,8 +73,8 @@ function getCookie(name: string) {
 export const App = () => {
 	const location: any = useLocation();
 	const [environment] = useState<Environment>({
-		version: process.env.REACT_APP_VERSION,
-		server: process.env.REACT_APP_NEOFS,
+		version: import.meta.env.VITE_VERSION,
+		server: import.meta.env.VITE_NEOFS,
 	});
 	const [user] = useState<User | null>(getCookie('X-Bearer') && getCookie('X-Attribute-Email') ? {
 		XBearer: getCookie('X-Bearer'),
@@ -166,7 +166,7 @@ export const App = () => {
 				<Navbar.Menu
 					className={menuActive ? 'is-active' : ''}
 				>
-					<Navbar.Container>
+					<Navbar.Container className="navbar-start">
 						<Link
 							to="/"
 							className="navbar-item"

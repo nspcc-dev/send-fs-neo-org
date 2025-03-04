@@ -1,4 +1,5 @@
-const server = process.env.REACT_APP_NEOFS;
+/// <reference types="vite/client" />
+const server = import.meta.env.VITE_NEOFS;
 
 type Methods = "GET" | "POST" | "HEAD";
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import copy from 'copy-to-clipboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	Button,
@@ -59,23 +59,21 @@ const Load = ({
 										<span>Download</span>
 										<FontAwesomeIcon icon={['fas', 'download']} style={{ marginLeft: 5, fontSize: 14 }} />
 									</Button>
-									<CopyToClipboard
-										text={`${environment.server ? environment.server : document.location.origin}/gate/get/${objectData.objectId}`}
-										onCopy={() => {
+									<Button
+										onClick={() => {
+											copy(`${environment.server ? environment.server : document.location.origin}/gate/get/${objectData.objectId}`);
 											setCopied(true);
 											setTimeout(() => {
 												setCopied(false);
 											}, 700);
 										}}
 									>
-										<Button>
-											<span>Copy link</span>
-											<FontAwesomeIcon icon={['fas', 'copy']} style={{ marginLeft: 5, fontSize: 14 }} />
-											{isCopied && (
-												<div className='tooltip'>Copied!</div>
-											)}
-										</Button>
-									</CopyToClipboard>
+										<span>Copy link</span>
+										<FontAwesomeIcon icon={['fas', 'copy']} style={{ marginLeft: 5, fontSize: 14 }} />
+										{isCopied && (
+											<div className='tooltip'>Copied!</div>
+										)}
+									</Button>
 								</Button.Group>
 								<Button.Group style={{ justifyContent: 'center' }}>
 									<a
