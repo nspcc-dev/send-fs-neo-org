@@ -101,7 +101,7 @@ server {
 	}
 
 	location ~ "^\/gate\/get(/.*)?\/?$" {
-		rewrite ^/gate/get/(.*) /v1/get/$data_cid/$1 break;
+		rewrite ^/gate/get/(.*) /v1/objects/$data_cid/by_id/$1 break;
 		proxy_pass $neofs_rest_gateway;
 		proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504 http_403 http_429;
 
