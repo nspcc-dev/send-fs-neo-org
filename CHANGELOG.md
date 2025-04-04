@@ -4,6 +4,13 @@ Changelog for SendFS
 
 ## [Unreleased]
 
+## [0.6.5] - 2025-04-04
+
+### Changed
+
+- Emotionless footer (#133)
+- Vite and Node 18 are used now (#132)
+
 ## [0.6.4] - 2025-02-05
 
 ### Fixed
@@ -103,4 +110,5 @@ See git log.
 [0.6.2]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.1...v0.6.2
 [0.6.3]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.2...v0.6.3
 [0.6.4]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.3...v0.6.4
-[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.4...master
+[0.6.5]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.4...v0.6.5
+[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.5...master
