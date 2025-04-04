@@ -184,6 +184,7 @@ const Home = ({
 										<Form.Label>Select file(s) lifetime</Form.Label>
 										<Form.Control>
 											<Form.Select
+												renderAs="select"
 												onChange={(e: any) => setLifetimeData(e.target.value)}
 												value={lifetimeData}
 												disabled={isLoading}
@@ -196,6 +197,7 @@ const Home = ({
 										</Form.Control>
 									</Form.Field>
 									<Button
+										renderAs="button"
 										color="primary"
 										onClick={onUpload}
 										style={{ margin: '0 0 0.75rem 2rem' }}
@@ -212,6 +214,7 @@ const Home = ({
 										{fileItem.name}
 										{!isLoading && (
 											<Button
+												renderAs="button"
 												onClick={(e: any) => handleFile(e, true, index)}
 												remove
 											/>
