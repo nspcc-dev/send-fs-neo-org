@@ -4,6 +4,12 @@ Changelog for SendFS
 
 ## [Unreleased]
 
+## [0.6.6] - 2025-04-04
+
+### Fixed
+
+- Missing renderAs property for bulma components (#136)
+
 ## [0.6.5] - 2025-04-04
 
 ### Changed
@@ -111,4 +117,5 @@ See git log.
 [0.6.3]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.2...v0.6.3
 [0.6.4]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.3...v0.6.4
 [0.6.5]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.4...v0.6.5
-[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.5...master
+[0.6.6]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.5...v0.6.6
+[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.6...master
