@@ -195,7 +195,7 @@ export const App = () => {
 							renderAs="div"
 							onClick={onLogout}
 						>
-							<Button>Logout</Button>
+							<Button renderAs="button">Logout</Button>
 						</Navbar.Item>
 					</Navbar.Container>
 					)}

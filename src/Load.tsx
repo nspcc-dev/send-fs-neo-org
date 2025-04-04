@@ -53,6 +53,7 @@ const Load = ({
 								<Heading weight="semibold" subtitle style={{ textAlign: 'center' }}>Download your files via HTTP gate</Heading>
 								<Button.Group style={{ justifyContent: 'center' }}>
 									<Button
+										renderAs="button"
 										style={{ marginRight: 20 }}
 										onClick={() => onDownload(objectData.objectId, objectData.filename)}
 									>
@@ -60,6 +61,7 @@ const Load = ({
 										<FontAwesomeIcon icon={['fas', 'download']} style={{ marginLeft: 5, fontSize: 14 }} />
 									</Button>
 									<Button
+										renderAs="button"
 										onClick={() => {
 											copy(`${environment.server ? environment.server : document.location.origin}/gate/get/${objectData.objectId}`);
 											setCopied(true);
