@@ -71,7 +71,6 @@ const Home = ({
 				return;
 			}
 			setFiles((files: File[]) => [...files, file]);
-			console.log([...files, file])
 		}
 	};
 
