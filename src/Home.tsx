@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import copy from 'copy-to-clipboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UploadedObject } from './App.tsx';
-import api from './api.ts';
+import api, { attributesToBase64 } from './api.ts';
 import {
 	Content,
 	Container,
@@ -113,7 +113,7 @@ const Home = ({
 	const onUploadFile = (file: any | null) => {
 		document.cookie = `Bearer=${user.XBearer}; path=/gate/objects; expires=${new Date(Date.now() + 10 * 1000).toUTCString()}`;
 		api('POST', "/gate/objects/", file, {
-			'X-Attributes': JSON.stringify({
+			'X-Attributes-Base64': attributesToBase64({
 				'FileName': file.name,
 				'Email': user.XAttributeEmail,
 			}),
