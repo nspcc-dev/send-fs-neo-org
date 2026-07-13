@@ -13,6 +13,27 @@ export interface ObjectData {
 	expirationEpoch?: string | null
 }
 
+export function attributesToBase64(attributes: object): string {
+	const bytes: Uint8Array = new TextEncoder().encode(JSON.stringify(attributes));
+	let binary: string = '';
+	bytes.forEach((byte: number) => {
+		binary += String.fromCharCode(byte);
+	});
+	return btoa(binary);
+}
+
+export function base64ToAttributes(value: string): any {
+	const bytes: Uint8Array = Uint8Array.from(atob(value), (char: string) => char.charCodeAt(0));
+	return JSON.parse(new TextDecoder().decode(bytes));
+}
+
+function readAttributes(headers: any): any {
+	if (headers.get('X-Attributes-Base64')) {
+		return base64ToAttributes(headers.get('X-Attributes-Base64'));
+	}
+	return headers.get('X-Attributes') ? JSON.parse(headers.get('X-Attributes')) : {};
+}
+
 async function serverRequest(method: Methods, url: string, params: object, headers: any) {
 	const json: any = {
 		method,
@@ -46,7 +67,7 @@ export default function api(method: Methods, url: string, params: object = {}, h
 				if (method === 'HEAD' && response.status !== 200) {
 					reject(res);
 				} else if (method === 'HEAD' && response.headers) {
-					const attributes: any = response.headers.get('X-Attributes') ? JSON.parse(response.headers.get('X-Attributes')) : {};
+					const attributes: any = readAttributes(response.headers);
 					const res: ObjectData = {
 						'filename': attributes['FileName'],
 						'contentType': response.headers.get('Content-Type'),
