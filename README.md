@@ -61,6 +61,8 @@ password: <secret>
  - Set EACL for data container: `neofs-cli container set-eacl -r st1.storage.fs.neo.org:8080 --cid DATA_CID --table eacl.json --config CONFIG_PATH --await`
  - Update nginx.config to use new container in the production server
 
+Objects uploaded with a `Receiver` attribute (privately sent files, see #17) are only readable with bearer token issued by [neofs-oauthz](https://github.com/nspcc-dev/neofs-oauthz) for the same e-mail, but without this attribute, everything stays publicly available as before.
+
 # Nginx config example on the production server
 
 ```Nginx
@@ -111,6 +113,9 @@ server {
 		proxy_buffering on;
 		proxy_cache neofs_cache;
 		proxy_cache_methods GET;
+
+		proxy_cache_bypass $cookie_Bearer;
+		proxy_no_cache $cookie_Bearer;
 	}
 
 	location /signup_google/ {

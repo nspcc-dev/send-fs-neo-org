@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -7,6 +7,7 @@ import {
 	Footer,
 	Button,
 } from 'react-bulma-components';
+import { setBearerCookie } from './api.ts';
 import Home from './Home.tsx';
 import Agreement from './Agreement.tsx';
 import About from './About.tsx';
@@ -55,6 +56,7 @@ export interface UploadedObject {
 	filename: string
 	container_id: string
 	object_id: string
+	isPrivate: boolean
 }
 
 interface Modal {
@@ -96,6 +98,14 @@ export const App = () => {
 		document.location.pathname = path;
 	};
 
+	useEffect(() => {
+		const returnTo: string | null = localStorage.getItem('returnTo');
+		if (user && returnTo && location.pathname === '/') {
+			localStorage.removeItem('returnTo');
+			onRedirect(returnTo);
+		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 	const onLogout = () => {
 		setMenuActive(false);
 		const date: string = new Date(Date.now() - 1).toUTCString();
@@ -112,7 +122,10 @@ export const App = () => {
 		}
   }
 
-	const onDownload = (objectId: string, filename: string) => {
+	const onDownload = (objectId: string, filename: string, isPrivate: boolean = false) => {
+		if (isPrivate && user && user.XBearer) {
+			setBearerCookie(user.XBearer, '/gate/get');
+		}
 		const a: HTMLAnchorElement = document.createElement('a');
 		document.body.appendChild(a);
 		const url: string = `${environment.server ? environment.server : ''}/gate/get/${objectId}?download=1`;
@@ -223,6 +236,7 @@ export const App = () => {
 							onRedirect={onRedirect}
 							environment={environment}
 							location={location}
+							user={user}
 						/>}
 					/>
 					<Route

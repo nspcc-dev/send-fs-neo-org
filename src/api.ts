@@ -11,6 +11,7 @@ export interface ObjectData {
 	contentType?: string | null
 	size?: string | null
 	expirationEpoch?: string | null
+	receiver?: string | null
 }
 
 export function attributesToBase64(attributes: object): string {
@@ -25,6 +26,16 @@ export function attributesToBase64(attributes: object): string {
 export function base64ToAttributes(value: string): any {
 	const bytes: Uint8Array = Uint8Array.from(atob(value), (char: string) => char.charCodeAt(0));
 	return JSON.parse(new TextDecoder().decode(bytes));
+}
+
+export async function sha256Hex(email: string): Promise<string> {
+	const bytes: Uint8Array = new TextEncoder().encode(email.trim().toLowerCase());
+	const hash: ArrayBuffer = await crypto.subtle.digest('SHA-256', bytes);
+	return Array.from(new Uint8Array(hash)).map((byte: number) => byte.toString(16).padStart(2, '0')).join('');
+}
+
+export function setBearerCookie(bearer: string, path: string) {
+	document.cookie = `Bearer=${bearer}; path=${path}; expires=${new Date(Date.now() + 10 * 1000).toUTCString()}`;
 }
 
 function readAttributes(headers: any): any {
@@ -75,6 +86,7 @@ export default function api(method: Methods, url: string, params: object = {}, h
 						'ownerId': response.headers.get('X-Owner-Id'),
 						'size': response.headers.get('Content-Length') ? response.headers.get('Content-Length') : response.headers.get('x-neofs-payload-length'),
 						'expirationEpoch': attributes['__NEOFS__EXPIRATION_EPOCH'],
+						'receiver': attributes['Receiver'],
 					}
 					resolve(res);
 				} else if (method === 'GET' && url.indexOf(`/gate/get/`) !== -1) {
