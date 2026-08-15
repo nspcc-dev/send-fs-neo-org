@@ -4,6 +4,14 @@ Changelog for SendFS
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-08-15
+
+### Added
+- Option to send files privately to some e-mail owner (#144)
+
+### Fixed
+- Incorrect handling of non-ASCII file names (#142)
+
 ## [0.6.6] - 2025-04-04
 
 ### Fixed
@@ -118,4 +126,5 @@ See git log.
 [0.6.4]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.3...v0.6.4
 [0.6.5]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.4...v0.6.5
 [0.6.6]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.5...v0.6.6
-[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.6...master
+[0.7.0]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.6...v0.7.0
+[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.7.0...master
