@@ -9,7 +9,7 @@ import {
 	Tile,
 	Notification,
 } from 'react-bulma-components';
-import api, { ObjectData } from './api.ts';
+import api, { ObjectData, setBearerCookie } from './api.ts';
 
 const Load = ({
 	onModal,
@@ -17,22 +17,31 @@ const Load = ({
 	onRedirect,
 	environment,
 	location,
+	user,
 }) => {
 	const [objectData, setObjectData] = useState<ObjectData>({
 		objectId: null,
 	});
+	const [isForbidden, setForbidden] = useState<boolean>(false);
 	const [isCopied, setCopied] = useState<boolean>(false);
 
   useEffect(() => {
 		const objectIDTemp: string = location.pathname.replace('/load/', '');
 		if (objectIDTemp.length > 0) {
+			if (user && user.XBearer) {
+				setBearerCookie(user.XBearer, '/gate/get');
+			}
 			api('HEAD', `/gate/get/${objectIDTemp}`).then((res: any) => {
 				setObjectData({
 					...res,
 					objectId: objectIDTemp,
 				});
-			}).catch(() => {
-				onModal('failed', 'Object not found: missing or expired');
+			}).catch((err: any) => {
+				if (err && err.status === 403) {
+					setForbidden(true);
+				} else {
+					onModal('failed', 'Object not found: missing or expired');
+				}
 			});
 		} else {
 			onRedirect('/');
@@ -41,6 +50,36 @@ const Load = ({
 
   return (
 		<Container>
+			{isForbidden && (
+				<Section>
+					<Tile kind="ancestor">
+						<Tile kind="parent">
+							<Tile
+								kind="child"
+								renderAs={Notification}
+								color={"gray"}
+							>
+								<Heading weight="semibold" subtitle style={{ textAlign: 'center' }}>This file was sent privately</Heading>
+								<Heading weight="light" size={6} subtitle style={{ textAlign: 'center' }}>
+									{user ? 'This file is only available to the recipient. Please sign out and sign in with the email address it was sent to.' : 'Please sign in with the email address this file was sent to.'}
+								</Heading>
+								{!user && (
+									<Button.Group style={{ justifyContent: 'center' }}>
+										<Button
+											renderAs="a"
+											href="/"
+											onClick={() => localStorage.setItem('returnTo', location.pathname)}
+											color="primary"
+										>
+											Sign in
+										</Button>
+									</Button.Group>
+								)}
+							</Tile>
+						</Tile>
+					</Tile>
+				</Section>
+			)}
 			{objectData.objectId && (
 				<Section>
 					<Tile kind="ancestor">
@@ -55,7 +94,7 @@ const Load = ({
 									<Button
 										renderAs="button"
 										style={{ marginRight: 20 }}
-										onClick={() => onDownload(objectData.objectId, objectData.filename)}
+										onClick={() => onDownload(objectData.objectId, objectData.filename, Boolean(objectData.receiver))}
 									>
 										<span>Download</span>
 										<FontAwesomeIcon icon={['fas', 'download']} style={{ marginLeft: 5, fontSize: 14 }} />
@@ -63,7 +102,9 @@ const Load = ({
 									<Button
 										renderAs="button"
 										onClick={() => {
-											copy(`${environment.server ? environment.server : document.location.origin}/gate/get/${objectData.objectId}`);
+											copy(objectData.receiver
+												? `${document.location.origin}/load/${objectData.objectId}`
+												: `${environment.server ? environment.server : document.location.origin}/gate/get/${objectData.objectId}`);
 											setCopied(true);
 											setTimeout(() => {
 												setCopied(false);
@@ -77,15 +118,17 @@ const Load = ({
 										)}
 									</Button>
 								</Button.Group>
-								<Button.Group style={{ justifyContent: 'center' }}>
-									<a
-										href={`${environment.server ? environment.server : ''}/gate/get/${objectData.objectId}`}
-										rel="noopener noreferrer"
-										style={{ textDecoration: 'underline' }}
-									>
-										<span>Open file by link</span>
-									</a>
-								</Button.Group>
+								{!objectData.receiver && (
+									<Button.Group style={{ justifyContent: 'center' }}>
+										<a
+											href={`${environment.server ? environment.server : ''}/gate/get/${objectData.objectId}`}
+											rel="noopener noreferrer"
+											style={{ textDecoration: 'underline' }}
+										>
+											<span>Open file by link</span>
+										</a>
+									</Button.Group>
+								)}
 							</Tile>
 						</Tile>
 					</Tile>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import copy from 'copy-to-clipboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UploadedObject } from './App.tsx';
-import api, { attributesToBase64 } from './api.ts';
+import api, { attributesToBase64, setBearerCookie, sha256Hex } from './api.ts';
 import {
 	Content,
 	Container,
@@ -27,6 +27,8 @@ const Home = ({
 	const [files, setFiles] = useState<File[]>([]);
 	const [dragActive, setDragActive] = useState<boolean>(false);
 	const [lifetimeData, setLifetimeData] = useState<string>('12h');
+	const [isPrivate, setPrivate] = useState<boolean>(false);
+	const [receiver, setReceiver] = useState<string>('');
 	const [isLoading, setLoading] = useState<boolean>(false);
 	const [isCopied, setCopy] = useState<boolean | string>(false);
 	const fileUploadMbLimit: number = 200 * 1024 * 1024;
@@ -97,30 +99,41 @@ const Home = ({
 		}
 	};
 
-	const onUpload = (e: any) => {
+	const onUpload = async (e: any) => {
+    e.preventDefault();
 		if (files.length === 0) {
 			onModal('failed', 'Select file to upload to NeoFS');
 			return;
 		}
 
+		let receiverHash: string = '';
+		if (isPrivate) {
+			if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(receiver.trim())) {
+				onModal('failed', 'Enter a valid e-mail address of the receiver');
+				return;
+			}
+			receiverHash = await sha256Hex(receiver);
+		}
+
 		setLoading(true);
 		files.forEach((file: File) => {
-			onUploadFile(file);
+			onUploadFile(file, receiverHash);
 		});
-    e.preventDefault();
 	};
 
-	const onUploadFile = (file: any | null) => {
-		document.cookie = `Bearer=${user.XBearer}; path=/gate/objects; expires=${new Date(Date.now() + 10 * 1000).toUTCString()}`;
+	const onUploadFile = (file: any | null, receiverHash: string = '') => {
+		setBearerCookie(user.XBearer, '/gate/objects');
 		api('POST', "/gate/objects/", file, {
 			'X-Attributes-Base64': attributesToBase64({
 				'FileName': file.name,
 				'Email': user.XAttributeEmail,
+				...(receiverHash ? { 'Receiver': receiverHash } : {}),
 			}),
 			'X-Neofs-Expiration-Duration': lifetimeData,
 			'Content-Type': file.type === '' ? 'application/octet-stream' : file.type,
 		}).then((res: any) => {
 			res['filename'] = file.name;
+			res['isPrivate'] = Boolean(receiverHash);
 			setUploadedObjects((uploadedObjectsTemp: UploadedObject[]) => [...uploadedObjectsTemp, res]);
 			setFiles((files: File[]) => {
 				const filesTemp = files.filter((item: File) => item.name !== file.name);
@@ -178,6 +191,31 @@ const Home = ({
 										boxed
 									/>
 								</Form.Field>
+								<Form.Field style={{ textAlign: 'center' }}>
+									<Form.Control>
+										<Form.Checkbox
+											renderAs="input"
+											checked={isPrivate}
+											onChange={() => setPrivate(!isPrivate)}
+											disabled={isLoading}
+										>
+											&nbsp;Send privately
+										</Form.Checkbox>
+									</Form.Control>
+									{isPrivate && (
+										<Form.Control style={{ margin: '0.75rem auto 0', maxWidth: 320 }}>
+											<Form.Input
+												renderAs="input"
+												type="email"
+												placeholder="Receiver e-mail"
+												value={receiver}
+												onChange={(e: any) => setReceiver(e.target.value)}
+												disabled={isLoading}
+											/>
+											<Form.Help renderAs="p">Only a user signed in with this e-mail will be able to download the file(s).</Form.Help>
+										</Form.Control>
+									)}
+								</Form.Field>
 								<Button.Group style={{ justifyContent: 'center', alignItems: 'end' }}>
 									<Form.Field>
 										<Form.Label>Select file(s) lifetime</Form.Label>
@@ -233,16 +271,29 @@ const Home = ({
 											>
 												<div className="uploaded_object_group">
 													<Heading size={6} subtitle>
-														<a
-															href={`${environment.server ? environment.server : ''}/gate/get/${uploadedObject.object_id}`}
-															style={{ textDecoration: 'underline' }}
-															rel="noopener noreferrer"
-														>
-															{uploadedObject.filename}
-														</a>
+														{uploadedObject.isPrivate ? (
+															<Link
+																to={`/load/${uploadedObject.object_id}`}
+																onClick={onScroll}
+																style={{ textDecoration: 'underline' }}
+																rel="noopener noreferrer"
+															>
+																{uploadedObject.filename}
+															</Link>
+														) : (
+															<a
+																href={`${environment.server ? environment.server : ''}/gate/get/${uploadedObject.object_id}`}
+																style={{ textDecoration: 'underline' }}
+																rel="noopener noreferrer"
+															>
+																{uploadedObject.filename}
+															</a>
+														)}
 														<div
 															onClick={() => {
-																copy(`${environment.server ? environment.server : document.location.origin}/gate/get/${uploadedObject.object_id}`);
+																copy(uploadedObject.isPrivate
+																	? `${document.location.origin}/load/${uploadedObject.object_id}`
+																	: `${environment.server ? environment.server : document.location.origin}/gate/get/${uploadedObject.object_id}`);
 																setCopy(`name${index}`);
 																setTimeout(() => {
 																	setCopy(false);
@@ -255,7 +306,7 @@ const Home = ({
 															)}
 														</div>
 														<div
-															onClick={() => onDownload(uploadedObject.object_id, uploadedObject.filename)}
+															onClick={() => onDownload(uploadedObject.object_id, uploadedObject.filename, uploadedObject.isPrivate)}
 															style={{ lineHeight: 0 }}
 														>
 															<FontAwesomeIcon icon={['fas', 'download']} />
