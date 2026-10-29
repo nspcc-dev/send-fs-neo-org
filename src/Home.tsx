@@ -226,10 +226,10 @@ const Home = ({
 												value={lifetimeData}
 												disabled={isLoading}
 											>
-												<option value="12h">12 epochs (hours)</option>
-												<option value="24h">24 epochs (1 day)</option>
-												<option value="48h">48 epochs (2 days)</option>
-												<option value="96h">96 epochs (4 days)</option>
+												<option value="12h">12 hours</option>
+												<option value="24h">1 day</option>
+												<option value="48h">2 days</option>
+												<option value="96h">4 days</option>
 											</Form.Select>
 										</Form.Control>
 									</Form.Field>

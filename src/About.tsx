@@ -101,7 +101,7 @@ const About = () => {
 									<li>it has a hash of user's e-mail in the "Email" attribute</li>
 									<li>it has "Content-Type" attribute and this attribute doesn't contain "text/html", "application/javascript" and other similar types</li>
 									<li>its payload is smaller than configured number (which is 200 MB now)</li>
-									<li>it has an expiration attribute that is lower than token lifetime plus the maximum expected normal expiration time (96 epochs)</li>
+									<li>it has an expiration time within the limit allowed by the token</li>
 								</ul>
 								<p>The very same token also carries a pair of records that allow "GET" and "HEAD" for objects whose "Receiver" attribute equals the SHA-256 hash of the logged in user's e-mail, followed by a deny for any other non-empty "Receiver". A bearer token's EACL table replaces the container one completely, so this is exactly what turns a "no one can read it" object into a "only this account can read it" object.</p>
 								<p>This token itself expires in 30 epochs by default (~30 hours). "Email" attribute is one of the key things, Send.NeoFS marks objects this way which allows to trace it back to logged in account in case some inappropriate content is uploaded. Other rules ensure the security of Send, we can't allow very big files, we can't store them forever and we can't allow content that can be used for XSS and HTML injection attacks. Most importantly these restrictions are enforced by NeoFS itself, there is no other application-specific backend that filters content or does some specific requests to NeoFS.</p>
@@ -113,7 +113,7 @@ const About = () => {
 									<li>the sender gets a <code>/load/OBJECT_ID</code> link instead of a direct <code>/gate/get/OBJECT_ID</code> one. A direct gateway link would be useless here, an anonymous request for such an object is rejected by the storage nodes</li>
 									<li>when the receiver opens the link, the request is made with the bearer token of the currently logged in user. If the "Receiver" hash matches, the file is shown and downloaded as usual, otherwise NeoFS answers with 403 and the page offers to sign in with the address the file was sent to</li>
 								</ul>
-								<p>The receiver has to sign in with exactly the address the file was sent to, using any of the supported OAuth providers, the hash doesn't depend on the provider. And, of course, the file still disappears when its expiration epoch comes, private or not.</p>
+								<p>The receiver has to sign in with exactly the address the file was sent to, using any of the supported OAuth providers, the hash doesn't depend on the provider. And, of course, the file still disappears when its expiration time comes, private or not.</p>
 							</Content>
 						</Tile>
 					</Tile>
