@@ -24,6 +24,9 @@ const Load = ({
 	});
 	const [isForbidden, setForbidden] = useState<boolean>(false);
 	const [isCopied, setCopied] = useState<boolean>(false);
+	const expirationTime: Date | null = objectData.expirationTimestamp
+		? new Date(Number(objectData.expirationTimestamp) * 1000)
+		: null;
 
   useEffect(() => {
 		const objectIDTemp: string = location.pathname.replace('/load/', '');
@@ -143,7 +146,10 @@ const Load = ({
 								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Filename: ${objectData.filename ? objectData.filename : '-'}`}</Heading>
 								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Content-Type: ${objectData.contentType ? objectData.contentType : '-'}`}</Heading>
 								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Size: ${objectData.size ? objectData.size : '-'}`}</Heading>
-								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Expiration epoch: ${objectData.expirationEpoch ? objectData.expirationEpoch : '-'}`}</Heading>
+								{objectData.expirationEpoch && (
+									<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Expiration epoch: ${objectData.expirationEpoch}`}</Heading>
+								)}
+								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Expiration time: ${expirationTime && !Number.isNaN(expirationTime.getTime()) ? expirationTime.toLocaleString(undefined, { timeZoneName: 'short' }) : '-'}`}</Heading>
 								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Owner ID: ${objectData.ownerId ? objectData.ownerId : '-'}`}</Heading>
 								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Container ID: ${objectData.containerId ? objectData.containerId : '-'}`}</Heading>
 								<Heading weight="light" size={6} subtitle style={{ margin: '10px 0' }}>{`Object ID: ${objectData.objectId ? objectData.objectId : '-'}`}</Heading>

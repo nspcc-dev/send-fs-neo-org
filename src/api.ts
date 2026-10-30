@@ -11,6 +11,7 @@ export interface ObjectData {
 	contentType?: string | null
 	size?: string | null
 	expirationEpoch?: string | null
+	expirationTimestamp?: string | null
 	receiver?: string | null
 }
 
@@ -86,6 +87,7 @@ export default function api(method: Methods, url: string, params: object = {}, h
 						'ownerId': response.headers.get('X-Owner-Id'),
 						'size': response.headers.get('Content-Length') ? response.headers.get('Content-Length') : response.headers.get('x-neofs-payload-length'),
 						'expirationEpoch': attributes['__NEOFS__EXPIRATION_EPOCH'],
+						'expirationTimestamp': response.headers.get('X-Expiration-Timestamp'),
 						'receiver': attributes['Receiver'],
 					}
 					resolve(res);
