@@ -359,6 +359,12 @@ code {
         outline: none !important;
     }
 
+    .input::placeholder,
+    .textarea::placeholder {
+        color: #adbac7;
+        opacity: 1;
+    }
+
     .select:not(.is-multiple):not(.is-loading)::after {
         border-color: #adbac7;
     }
