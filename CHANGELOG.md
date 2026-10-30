@@ -4,6 +4,14 @@ Changelog for SendFS
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-10-30
+
+### Changed
+- Adapted to time-based object expirations (#149)
+
+### Fixed
+- Low constrast in dark mode (#150)
+
 ## [0.7.0] - 2026-08-15
 
 ### Added
@@ -127,4 +135,5 @@ See git log.
 [0.6.5]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.4...v0.6.5
 [0.6.6]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.5...v0.6.6
 [0.7.0]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.6.6...v0.7.0
-[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.7.0...master
+[0.7.1]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.7.0...v0.7.1
+[Unreleased]: https://github.com/nspcc-dev/send-fs-neo-org/compare/v0.7.1...master
