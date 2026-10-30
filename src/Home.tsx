@@ -222,6 +222,7 @@ const Home = ({
 										<Form.Control>
 											<Form.Select
 												renderAs="select"
+												fullwidth
 												onChange={(e: any) => setLifetimeData(e.target.value)}
 												value={lifetimeData}
 												disabled={isLoading}
